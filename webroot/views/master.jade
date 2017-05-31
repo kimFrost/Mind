@@ -1,0 +1,74 @@
+- var bodyStyle = "margin:0; height: 100%; width: 100%; background-color: #e9e9e2; color:#3e3e3d; font-size: 14px;";
+- var tableBase ='width="100%", cellspacing="0", cellpadding="0", border="0';
+- var fontStyle = 'font-family: Helvetica, Arial, sans-serif;';
+- var footerTextStyle = 'color: #737a80; font-size: 12px;';
+- var linkStyle = 'color: #d4793a; text-decoration: none; font-size: 12px;';
+- var contentWidth = 600;
+
+doctype transitional
+html
+    head
+        meta(http-equiv="Content-Type", content="text/html; charset=UTF-8")
+        title
+            | nemlig.com
+        block head
+        style.
+            html, body {
+                #{bodyStyle}
+                #{fontStyle}
+            }
+
+            img {
+                display: block;
+                margin: 0;
+                border: none;
+            }
+
+            a {
+                border: none;
+                #{linkStyle}
+            }
+    body(style="#{bodyStyle}")
+        table(width="100%", cellspacing="0", cellpadding="0", border="0", style="#{bodyStyle} #{fontStyle}")
+            tbody
+                tr
+                    td(height="100")
+                tr
+                    td(valign="top", align="center")
+                        table(width="#{contentWidth + 40}", cellspacing="0", cellpadding="0", border="0")
+                            tbody
+                                tr
+                                    td(width="20", height="100%")
+                                    td
+                                        table(width="#{contentWidth}", cellspacing="0", cellpadding="0", border="0")
+                                            tbody
+                                                tr
+                                                    td
+                                                        table(width="100%", cellspacing="0", cellpadding="20", border="0", bgcolor="#ffffff")
+                                                            tbody
+                                                                tr
+                                                                    td
+                                                                        img(src="logo.png")
+                                                tr
+                                                    td
+                                                        table(width="100%", cellspacing="0", cellpadding="0", border="0", bgcolor="#fcfcfc")
+                                                            tbody
+                                                                tr
+                                                                    td(style="#{fontStyle}") Content
+                                                tr
+                                                    td
+                                                        table(width="100%", cellspacing="0", cellpadding="0", border="0")
+                                                            tbody
+                                                                tr
+                                                                    td(height="10")
+                                                                tr
+                                                                    td(align="center", style="#{footerTextStyle} #{fontStyle}") nemlig.com - Banemarksvej 58, 2605 Brøndby - CVR: 33070861
+                                                                tr
+                                                                    td(height="10")
+                                                                tr
+                                                                    td(align="center")
+                                                                        a(href="#", style="#{linkStyle} #{fontStyle}")
+                                                                            span(style="#{linkStyle}") Handelsbetingelser
+                                    td(width="20", height="100%")
+                tr
+                    td(height="50")

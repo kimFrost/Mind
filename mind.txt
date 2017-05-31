@@ -1,9 +1,15 @@
-Needs:
+Needs: (Value based from hierarchy) (Motivations) 
 - To Eat
 - To sleep
 - To socialize
 - To feel safe
-- Hirachy of needs
+- Hierarchy of needs ()
+	- Self-actualization 	= 1 points * NeedLevel
+	- Esteem				= 2 points * NeedLevel
+	- Love/Belonging		= 3 points * NeedLevel
+	- Safety				= 4 points * NeedLevel
+	- Physiological			= 5 points * NeedLevel
+
 
 Feelings:
 
@@ -14,14 +20,21 @@ Tendencies:
 - Inclined to do
 
 
-Sense/Logic:
+Stress:
+
+Desires:
+
+Complexes:
+
+
+Sense/Logic: (Subtract value based on risk)
 - Risk/reward est.
 - Pick most valuables choice
 
 
 Wants:
-- Action towards target
-
+- Action towards target with value from feelings and needs
+- Eat cake(value="ToEat:4, Sad:1")
 
 Action:
 

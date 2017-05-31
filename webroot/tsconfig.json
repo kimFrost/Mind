@@ -1,0 +1,11 @@
+{
+    "files": [
+        "scripts/**/*.ts"
+    ],
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "target": "es5",
+        "outDir": "dist/scripts",
+        "outFile": "main.js"
+    }
+}
