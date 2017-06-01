@@ -1,0 +1,26 @@
+<div class="card-line card-line_stripped"
+     ng-if="$ctrl.cards.length === 1"
+     ng-repeat="c in $ctrl.cards">
+	<div class="card-line__text">
+		<payment-card card-type="c.CardType"></payment-card>
+		<div ng-bind="c.CardMask"></div>
+	</div>
+</div>
+<div class="card-line"
+	 ng-if="$ctrl.cards.length >= 2"
+	 ng-repeat="c in $ctrl.cards | orderBy: '!IsDefault'"
+	 ng-class="{'card-line_selected': c.CardId === $ctrl.selectedCard.CardId}"
+	 ng-click="$ctrl.setSelectCard(c)">
+	<div class="form__radio form__radio_center card-line__radio">
+		<input type="radio" id="{{c.CardId}}" name="selected-card" ng-checked="c.CardId === $ctrl.selectedCard.CardId"/>
+		<label for="{{c.CardId}}">
+			<div class="card-line__text">
+				<payment-card card-type="c.CardType"></payment-card>
+				<div ng-bind="c.CardMask"></div>
+			</div>
+		</label>
+		<div class="form__ui"></div>
+	</div>
+</div>
+
+

@@ -1,0 +1,41 @@
+<div class="timeslot-device-flow"
+	 ng-class="{'disabled-hidden': !$ctrl.deviceFlowActive}"
+	 ng-show="$ctrl.deviceFlowActive"
+	 ng-style="$ctrl.backgroundImageUrl && {'background-image': 'url(&quot;' + $ctrl.backgroundImageUrl + '&width=1025&mode=max&quality=70&quot;)'}">
+
+	<div class="timeslot-device-flow__header">
+		<div ng-show="$ctrl.deviceFlowStep == 0">{{::$ctrl.translations.Timeslot.DeviceFlowHeaders.CheckDelivery}}</div>
+		<div ng-show="$ctrl.deviceFlowStep == 2">{{::$ctrl.translations.Timeslot.DeviceFlowHeaders.TimeslotSelector}}</div>
+		<div ng-show="$ctrl.deviceFlowStep == 4">{{::$ctrl.translations.Timeslot.DeviceFlowHeaders.NoDelivery}}</div>
+		<div ng-show="$ctrl.deviceFlowStep == 5">{{::$ctrl.translations.Timeslot.DeviceFlowHeaders.BasketChanges}}</div>
+
+		<div class="timeslot-device-flow__header-button icon_back" ng-show="$ctrl.backToAddPostCode" ng-click="$ctrl.gotoAddPostCodeStep()"></div>
+		<div class="timeslot-device-flow__header-button icon_back" ng-show="$ctrl.backToTimeslotSelector" ng-click="$ctrl.gotoTimeslotSelectorStep()"></div>
+		<div class="timeslot-device-flow__header-button icon_cross" ng-show="$ctrl.showCloseButton" ng-click="$ctrl.setDeviceFlowState('inactive')"></div>
+	</div>
+
+	<!-- Add Postcode / Partial delivery -->
+	<div class="device-flow__step small" ng-if="$ctrl.deviceFlowStep == 0">
+		<h2>{{::$ctrl.translations.Checkout.ChangeAddress.ChangeAddressDialogHeading}}</h2>
+		<change-address></change-address>
+	</div>
+
+	<!-- Timeslot selector -->
+	<div ng-show="$ctrl.deviceFlowStep == 2">
+		<timeslot-selector class="inside-device-flow"></timeslot-selector>
+	</div>
+
+	<!-- No Delivery -->
+	<div class="device-flow__step small" ng-show="$ctrl.deviceFlowStep == 4">
+		<timeslot-nodelivery class="inside-device-flow"></timeslot-nodelivery>
+	</div>
+
+	<!-- Basket changes -->
+	<div class="device-flow__step small" ng-if="$ctrl.deviceFlowStep == 5">
+		<timeslot-basketchanges class="inside-device-flow"></timeslot-basketchanges>
+	</div>
+
+	<div class="timeslot-device-flow__loader" ng-show="$ctrl.showLoader">
+		<nemlig-loader class="nemlig-loader nemlig-loader_large" inverted="false"></nemlig-loader>
+	</div>
+</div>

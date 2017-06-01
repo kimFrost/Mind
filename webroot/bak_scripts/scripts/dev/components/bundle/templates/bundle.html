@@ -1,0 +1,42 @@
+<div class="bundles-list__header">
+	<div class="bundles-list__header-item"></div>
+	<div class="bundles-list__header-item category-header">{{::$ctrl.translationsService.translations.ProductDetail.Bundle.HeadTitle}}</div>
+	<div class="bundles-list__header-item">{{::$ctrl.translationsService.translations.ProductDetail.Bundle.HeadAmount}}</div>
+	<div class="bundles-list__header-item">{{::$ctrl.translationsService.translations.ProductDetail.Bundle.HeadUnit}}</div>
+	<div class="bundles-list__header-item">{{::$ctrl.translationsService.translations.ProductDetail.Bundle.HeadDiscount}}</div>
+	<div class="bundles-list__header-item">{{::$ctrl.translationsService.translations.ProductDetail.Bundle.HeadTotal}}</div>
+</div>
+<bundle-item class="bundle-item" ng-repeat="product in $ctrl.data.Products" data="product"></bundle-item>
+
+<div class="product-detail__bundles-footer">
+	<div>
+		<div class="bundles__discount">
+			<span class="bundles__discount-text">{{::$ctrl.translationsService.translations.ProductDetail.Bundle.FooterDiscount}} </span>
+			<span class="bundles__discount-amount">{{::$ctrl.data.DiscountSavings | price: true}}</span>
+		</div>
+		<div class="bundles__price">
+			<span class="bundles__price-text">{{::$ctrl.translationsService.translations.ProductDetail.Bundle.FooterPackage}}</span>
+			<span class="bundles__price-amount">{{::$ctrl.data.Price | price:true}}</span>
+		</div>
+	</div>
+
+	<div class="product-detail__bundles-footer__actions">
+		<addtobasket product-id="$ctrl.data.Id"
+					auto-fold="true" with-text="true"
+					class="addtobasket addtobasket_static"
+					ng-if="$ctrl.data.Availability.IsAvailableInStock && $ctrl.data.Availability.IsDeliveryAvailable"></addtobasket>
+
+		<div class="product-detail__soldout-btn btn"
+			disabled="disabled"
+			ng-if="!$ctrl.data.Availability.IsAvailableInStock">
+			{{::$ctrl.translations.ProductDetail.Availability.SoldOut}}
+		</div>
+
+		<div class="product-detail__availability-btn btn btn_notification"
+			ng-click="$ctrl.showDeliveryInfoDialog($event)"
+			ng-if="!$ctrl.data.Availability.IsDeliveryAvailable">
+			{{::$ctrl.translations.ProductDetail.Availability.DeliveryInfoShort}}
+		</div>
+
+	</div>
+</div>

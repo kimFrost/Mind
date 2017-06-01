@@ -1,0 +1,36 @@
+<div class="bundle-list__item-block">
+	<a ng-href="{{::$ctrl.data.Url}}">
+		<img ng-src="{{::$ctrl.data.PrimaryImage}}" class="bundle-item__image" ng-attr-alt="{{::$ctrl.data.Name}}"/>
+	</a>
+</div>
+<div class="bundle-list__item-block">
+	<div class="bundle-item__title">{{::$ctrl.data.Name}}</div>
+	<div class="bundle-item__desc">{{::$ctrl.data.Description}}</div>
+</div>
+<div class="bundle-list__item-block">
+	{{::$ctrl.data.Amount}} <span>{{::$ctrl.translationsService.translations.ProductDetail.Bundle.ItemUnit | lowercase}}</span>
+</div>
+<div class="bundle-list__item-block">
+	<div>
+		<div>
+			<b>{{::$ctrl.data.Price | price}}</b>
+		</div>
+		<div>{{::$ctrl.data.UnitPrice}}</div>
+	</div>
+</div>
+<div class="bundle-list__item-block">
+	<span ng-show="$ctrl.data.DiscountSavings > 0" class="color_primary">-{{::$ctrl.data.DiscountSavings | price}}</span>
+	<span ng-show="$ctrl.data.DiscountSavings == 0">&mdash;</span>
+</div>
+<div class="bundle-list__item-block">
+	<b>{{::$ctrl.data.TotalPrice | price}}</b>
+</div>
+<div class="bundle-item__subline">
+	<div>{{::$ctrl.data.Price | price}}</div>
+	<div ng-show="$ctrl.data.DiscountSavings > 0">
+		{{::$ctrl.translationsService.translations.ProductDetail.Bundle.HeadDiscount}} 
+		<span class="color_primary">-{{::$ctrl.data.DiscountSavings | price}}</span>
+	</div>
+	<div>{{::$ctrl.data.TotalPrice | price}}</div>
+</div>
+

@@ -1,0 +1,141 @@
+<section>
+	<nemlig-loader ng-show="$ctrl.states.clearingBasket" inverted="false" class="nemlig-loader nemlig-loader_overlay"></nemlig-loader>
+
+	<div class="basket__head">
+		<h1 class="basket__head-headline">{{::$ctrl.translations.Basket.Head.Headline}}</h1>
+
+		<div class="basket__head-items">
+			<div class="basket__timeslot basket__head-item">
+				<timeslot-basketbutton></timeslot-basketbutton>
+			</div>
+			<div class="basket__head-total basket__head-item">
+				<strong>{{::$ctrl.translations.Basket.Summary.LabelTotal}}</strong> {{$ctrl.basketService.basket.TotalPrice | price:false}}
+			</div>
+		</div>
+	</div>
+
+	<div class="basket__nav basket__nav_head">
+		<div class="basket__nav-tabs">
+			<div class="basket__tab" ng-class="{'basket__tab_active': $ctrl.listType == 0}" ng-click="$ctrl.listType = 0">
+				{{::$ctrl.translations.Basket.Nav.GroupProducts}} ({{$ctrl.basketService.basket.NumberOfProducts}})
+			</div>
+			<div class="basket__tab" ng-class="{'basket__tab_active': $ctrl.listType == 1}" ng-click="$ctrl.listType = 1">
+				{{::$ctrl.translations.Basket.Nav.GroupRecipes}} ({{$ctrl.basketService.basket.Recipes.length}})
+			</div>
+		</div>
+
+		<div ng-if="!$ctrl.checkoutService.state.ShowDeliverySection" class="basket__nav-actions">
+			<basket-minimum class="basket__minimum"></basket-minimum>
+
+			<button class="basket__cta btn" 
+					ng-click="$ctrl.proceedToPayment()" 
+					ng-disabled="!$ctrl.basketService.basket.IsMinTotalValid || !$ctrl.basketService.basket.IsMaxTotalValid">
+				<span class="btn__text">{{::$ctrl.translations.Basket.Nav.Next}}</span>
+				<span class="btn__icon"><span class="icon_forward"></span></span>
+			</button>
+		</div>
+	</div>
+
+	<div class="basket__row" ng-show="$ctrl.listType == 0" ng-switch="$ctrl.states.isBasketEmpty">
+
+		<div class="basket__empty" ng-switch-when="true">
+			{{$ctrl.translations.Basket.Summary.NoProductsInBasketText}}
+		</div>
+
+		<div class="basket__not-empty" ng-switch-when="false">
+
+			<div class="basket-item basket-item_head">
+				<div class="basket-item__row">
+				<div>{{::$ctrl.translations.Basket.ItemHead.Category}}</div>
+				<div>{{::$ctrl.translations.Basket.ItemHead.Name}}</div>
+				<div>{{::$ctrl.translations.Basket.ItemHead.Info}}</div>
+				<div>{{::$ctrl.translations.Basket.ItemHead.Unit}}</div>
+				<div>{{::$ctrl.translations.Basket.ItemHead.Discount}}</div>
+				<div>{{::$ctrl.translations.Basket.ItemHead.Price}}</div>
+				<div>{{::$ctrl.translations.Basket.ItemHead.Quantity}}</div>
+				<div>{{::$ctrl.translations.Basket.ItemHead.Remove}}</div>
+				</div>
+			</div>
+			<div ng-repeat="group in $ctrl.basketService.basketGroups | orderBy : 'Title' track by group.Title">
+				<div class="basket__category">
+					<span>{{group.Title}}</span>
+				</div>
+				<basket-item ng-repeat="line in group.Lines track by line.Id" data="line"></basket-item>
+			</div>
+		</div>
+	</div>
+	<div class="basket__row" ng-show="$ctrl.listType == 1">
+
+		<div class="basket__empty" ng-show="$ctrl.basketService.basketRecipes.length == 0">
+			{{$ctrl.translations.Basket.Summary.NoRecipesInBasketText}}
+		</div>
+
+		<div class="basket__recipes" ng-show="$ctrl.basketService.basketRecipes.length !== 0">
+			<div class="basket-item basket-item_head">
+				<div class="basket-item__row">
+				<div>{{::$ctrl.translations.Basket.ItemHead.Recipe}}</div>
+				<div>{{::$ctrl.translations.Basket.ItemHead.Name}}</div>
+				<div>{{::$ctrl.translations.Basket.ItemHead.Info}}</div>
+				<div>{{::$ctrl.translations.Basket.ItemHead.Unit}}</div>
+				<div>{{::$ctrl.translations.Basket.ItemHead.Discount}}</div>
+				<div>{{::$ctrl.translations.Basket.ItemHead.Price}}</div>
+				<div>{{::$ctrl.translations.Basket.ItemHead.Quantity}}</div>
+				<div>{{::$ctrl.translations.Basket.ItemHead.Remove}}</div>
+				</div>
+			</div>
+			<div ng-repeat="group in $ctrl.basketService.basketRecipes | orderBy : 'Title' track by group.Id">
+				<div class="basket__category">
+					<span>{{group.Title}}</span>
+					<remove-product recipe-id="group.Id"></remove-product>
+				</div>
+				<basket-item ng-repeat="line in group.Lines track by line.Id" data="line"></basket-item>
+			</div>
+		</div>
+	</div>
+
+	<div class="basket__row basket__bottom">
+		<div class="basket__bottom-column column-group">
+			<div class="basket__coupon">
+				<coupon></coupon>
+			</div>
+
+			<div class="basket__credit-card">
+				<span ng-if="$ctrl.displayCreditCardFeeSelector()">
+					<h3>{{::$ctrl.translations.CreditCardFee.CreditCardFeeGeneral.CreditCardFeeTitle}}</h3>
+					<credit-card-fee></credit-card-fee>
+				</span>
+			</div>
+		</div>
+
+		<div class="basket__bottom-column">
+			<basket-summary></basket-summary>
+		</div>
+	</div>
+
+	<div class="basket__footer">
+		<div class="basket__footer-column basket__footer-column_basket-actions">
+			<button class="basket__cancel btn btn_grey" ng-click="$ctrl.continueShopping()">
+				{{::$ctrl.translations.Basket.Nav.Cancel}}
+			</button>
+			<div class="basket__empty-btn" ng-click="$ctrl.showClearBasketModal()" ng-show="!$ctrl.states.isBasketEmpty">{{::$ctrl.translations.Basket.Nav.ClearBasket}}</div>
+		</div>
+
+		<div ng-show="!$ctrl.checkoutService.state.ShowDeliverySection" class="basket__footer-column basket__footer-column_checkout-actions basket__nav-actions basket__actions_bottom">
+			<basket-minimum class="basket__minimum"></basket-minimum>
+
+			<button class="basket__cta basket__cta-sticky_position btn"
+					ng-click="$ctrl.proceedToPayment()"
+					ng-disabled="!$ctrl.basketService.basket.IsMinTotalValid || !$ctrl.basketService.basket.IsMaxTotalValid">
+
+				<span class="btn__text">{{::$ctrl.translations.Basket.Nav.Next}}</span>
+				<span class="btn__icon"><span class="icon_forward"></span></span>
+			</button>
+		</div>
+	</div>
+</section>
+
+<div class="basket__cta basket__cta-sticky btn"
+	 ng-click="$ctrl.proceedToPayment()"
+		ng-class="{	'basket__cta-sticky_show' : !$ctrl.ctaInView && $ctrl.basketService.basket.IsMinTotalValid && $ctrl.basketService.basket.IsMaxTotalValid && $ctrl.cookieWarningService.cookieSet }">
+	{{::$ctrl.translations.Basket.Nav.Next}}
+</div>

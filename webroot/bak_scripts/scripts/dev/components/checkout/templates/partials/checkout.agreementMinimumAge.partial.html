@@ -1,0 +1,26 @@
+<div class="form__checkbox form__checkbox_icon-after">
+	<input
+		ng-model="$ctrl.acceptMinimumAge"
+		type="checkbox"
+		id="acceptMinimumAgeCheckbox"
+		name="acceptMinimumAgeCheckbox"
+		required
+	/>
+	<label for="acceptMinimumAgeCheckbox">
+		{{ ::$ctrl.translations.Checkout.Agreements.MinimumAge.IConfirmThatImOver }}
+		{{ $ctrl.minimumAge }}
+		{{ ::$ctrl.translations.Checkout.Agreements.MinimumAge.Old }}
+		<a class="icon_info" ng-click="$ctrl.showMinimumAgeInformation($event)"></a>
+	</label>
+
+	<div class="form__ui">
+		<span class="icon_check"></span>
+	</div>
+
+</div>
+
+<div class="form__error-msg">
+	<div class="validation-message" ng-show="checkoutForm.acceptMinimumAgeCheckbox.$touched || checkoutForm.$submitted" ng-messages="checkoutForm.acceptMinimumAgeCheckbox.$error" role="alert">
+		<div ng-messages-include="validation-messages"></div>
+	</div>
+</div>

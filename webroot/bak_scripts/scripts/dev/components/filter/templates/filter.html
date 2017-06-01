@@ -1,0 +1,58 @@
+<div class="filter-list" ng-if="$ctrl.showFilters == true">
+	<div class="filter__main-header">{{::$ctrl.translations.Filter.FilterMenu.Title}}</div>
+
+	<div class="filter__group" ng-repeat="category in $ctrl.facets" ng-class="{'filter__group_collapse': category.bCollapse}">
+
+		<!-- Switch to determine if accordion content or not -->
+		<div ng-switch="$index">
+
+			<!-- Not accordion: Important filters -->
+			<div ng-switch-when="0">
+				<div class="form__checkbox filter__item filter__item_important" ng-repeat="item in $ctrl.facets[$index].Items">
+					<input type="checkbox"
+						class="filter__item-checkbox"
+						ng-change="$ctrl.updateFilter()"
+						value="{{::item.UrlName}}"
+						ng-model="item.IsSelected"
+					    ng-disabled="item.Amount < 1"
+						name="filter-{{$parent.$index}}{{$index}}-{{item.UrlName}}-{{::$ctrl.affix}}"
+						id="filter-{{$parent.$index}}{{$index}}-{{item.UrlName}}-{{::$ctrl.affix}}" />
+					<label for="filter-{{$parent.$index}}{{$index}}-{{item.UrlName}}-{{::$ctrl.affix}}" class="filter__item-label label_{{::item.UrlName}}">{{::item.Text}} ({{::item.Amount}})</label>
+					<div class="form__ui filter__item-faux-checkbox">
+						<span class="icon_check"></span>
+					</div>
+				</div>
+			</div>
+
+			<!-- Accordion: Grouped filter items -->
+			<div ng-switch-default>
+
+				<div class="filter__group-header" ng-click="category.bCollapse = !category.bCollapse">
+					<span class="icon_down" ng-if="!category.bCollapse"></span> 
+					<span class="icon_forward" ng-if="category.bCollapse"></span> 
+					{{::category.Text}}
+				</div>
+
+				<div class="filter__group-content">
+					<div class="form__checkbox filter__item" ng-repeat="item in $ctrl.facets[$index].Items">
+						<input type="checkbox"
+							class="filter__item-checkbox"
+							ng-change="$ctrl.updateFilter()"
+							value="{{::item.UrlName}}"
+							ng-model="item.IsSelected"
+						    ng-disabled="item.Amount < 1"
+							name="filter-{{$parent.$index}}{{$index}}-{{item.UrlName}}-{{::$ctrl.affix}}"
+							id="filter-{{$parent.$index}}{{$index}}-{{item.UrlName}}-{{::$ctrl.affix}}" />
+						<label for="filter-{{$parent.$index}}{{$index}}-{{item.UrlName}}-{{::$ctrl.affix}}" class="filter__item-label">{{::item.Text}} ({{::item.Amount}})</label>
+						<div class="form__ui filter__item-faux-checkbox">
+							<span class="icon_check"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="filter__loading" ng-show="$ctrl.filterService.fetchingFilters"></div>
+</div>

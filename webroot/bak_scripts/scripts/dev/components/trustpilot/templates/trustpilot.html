@@ -1,0 +1,19 @@
+﻿<div class="trustpilot">
+    <a ng-href="{{::$ctrl.link}}" target="_blank">
+        <div class="trustpilot__icon icon_trust"></div>
+
+        <div class="trustpilot__stars" stars="{{$ctrl.trustpilotService.data.stars}}">
+            <span class="trustpilot__star icon_star"></span>
+            <span class="trustpilot__star icon_star"></span>
+            <span class="trustpilot__star icon_star"></span>
+            <span class="trustpilot__star icon_star"></span>
+            <span class="trustpilot__star icon_star"></span>
+        </div>
+
+        <div class="trustpilot__review">
+            {{$ctrl.trustpilotService.data.label}} {{$ctrl.trustpilotService.data.trustscore}} - {{$ctrl.trustpilotService.data.reviews}} <span class="trustpilot__review-text">Reviews</span>
+        </div>
+
+        {{::$ctrl.text}}
+    </a>
+</div>

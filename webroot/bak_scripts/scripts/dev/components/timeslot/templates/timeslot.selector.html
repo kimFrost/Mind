@@ -1,0 +1,153 @@
+
+<section class="timeslot-selector"
+		 ng-show="$ctrl.timeslotIsReadyToInit"
+		 ng-class="{'active': $ctrl.isActive}">
+
+
+	<div class="timeslot-selector__container" ng-show="$ctrl.showSelectorContent">
+
+		<div class="timeslot-selector__column-wrapper">
+
+			<div class="timeslot-selector__column">
+
+				<div class="column-block dateselector-block">
+
+					<div class="dateselector-state">
+
+						<div class="column-block__header">
+							<div class="column-header">
+								{{::$ctrl.translations.Timeslot.Selector.ChooseDateHeader}}
+							</div>
+						</div>
+
+						<div class="dateselector-address icon_pencil" ng-click="$ctrl.editAddress()">
+							<span ng-if="$ctrl.deliveryZone.StreetName">{{$ctrl.deliveryZone.StreetName}} <span ng-if="$ctrl.deliveryZone.HouseNumber != null">{{$ctrl.deliveryZone.HouseNumber}}</span><span ng-if="$ctrl.deliveryZone.HouseNumberLetter">{{$ctrl.deliveryZone.HouseNumberLetter}}</span>, </span>{{$ctrl.deliveryZone.PostalCode}} {{$ctrl.deliveryZone.City}}
+						</div>
+						
+						<div class="date-navigation__container">
+							<div class="date-navigation__button previous" ng-show="!$ctrl.showingFirstDates" ng-click="$ctrl.navigateDateSpans('previous')"></div>
+							<div class="date-navigation__active-date-range">
+								{{$ctrl.timeslotDaysDates[$ctrl.activeDateSpanIndex][0].Date | date : 'd/M'}} - {{$ctrl.timeslotDaysDates[$ctrl.activeDateSpanIndex][$ctrl.timeslotDaysDates[$ctrl.activeDateSpanIndex].length - 1].Date | date : 'd/M'}}
+							</div>
+							<div class="date-navigation__button next" ng-hide="$ctrl.showingLastDates" ng-click="$ctrl.getNextDeliveryDays()"></div>
+						</div>
+
+						<div class="date-blocks-container">
+
+							<div class="date-blocks-slider-wrap">
+
+								<div class="date-block"
+									 ng-repeat="day in $ctrl.timeslotDays track by $index"
+									 ng-click="$ctrl.setActiveDate($index)"
+									 ng-class="{'disabled': !day.IsAvailable, 'selected': $ctrl.selectedDateIndex == $index}">
+
+									<div class="content">
+										<div class="date-block__day">{{day.Date | date : 'EEE' }}</div>
+										<div class="date-block__date">{{day.Date | date : 'd/M' }}</div>
+										<div class="date-block__banner eco-delivery" ng-if="day.EcoDelivery">{{::$ctrl.translations.Timeslot.Labels.EcologicalDeliveryDayLabel}}</div>
+										<div class="date-block__banner cheapest" ng-if="day.IsCheapDay">{{::$ctrl.translations.Timeslot.Labels.CheapestDayLabel}}</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="column-block message-block top">
+					<div class="message-item" ng-repeat="message in $ctrl.messages">{{message}}</div>
+				</div>
+			</div>
+
+			<div class="timeslot-selector__column">
+				<div class="column-block time-block">
+					<div class="column-block__header">
+						<div class="column-header">
+							{{::$ctrl.translations.Timeslot.Selector.PickTimeForText}} <em>{{$ctrl.timeslotDays[$ctrl.selectedDateIndex].Date | date : 'EEEE'}} {{::$ctrl.translations.Timeslot.Selector.DateSeparator}} {{$ctrl.timeslotDays[$ctrl.selectedDateIndex].Date | date : 'd'}}/{{$ctrl.timeslotDays[$ctrl.selectedDateIndex].Date | date : 'M'}}</em>
+						</div>
+					</div>
+
+					<div class="time-block__row-container">
+
+						<div class="time-block__row">
+							<div class="time-block__row-header">{{::$ctrl.translations.Timeslot.Selector.EarlyHoursHeaderText}}</div>
+
+							<div class="no-timeslots" ng-show="$ctrl.timeslotDays[$ctrl.selectedDateIndex].morningHours.length == 0">
+								{{::$ctrl.translations.Timeslot.Selector.NoAvailableTimeslotForDeliveryText}}
+							</div>
+
+							<div class="time-block__item"
+								 ng-repeat="item in $ctrl.timeslotDays[$ctrl.selectedDateIndex].DayHours track by $index"
+								 ng-if="item.EndHour < 13"
+								 ng-click="$ctrl.setActiveTimeslot(item, $index)"
+								 ng-class="{'cheapest': item.IsCheapHour, 'event': item.IsEventSlot, 'selected': $ctrl.selectedTimeId == item.Id || $ctrl.selectedTimeIndex == $index, 'disabled': item.CssClass == 'unavailable' || item.CssClass == 'soldout'}">
+
+								<div class="time">{{::$ctrl.translations.Timeslot.Selector.TimeUnit}} {{item.StartHour}}-{{item.EndHour}}</div>
+								<div class="cost">{{item.DeliveryPrice | currency:undefined: 0}}</div>
+								<div class="time-block__banner cheapest" ng-show="item.IsCheapHour">{{::$ctrl.translations.Timeslot.Labels.CheapestHourLabel}}</div>
+							</div>
+						</div>
+
+						<div class="time-block__row">
+							<div class="time-block__row-header">{{::$ctrl.translations.Timeslot.Selector.MidHoursHeaderText}}</div>
+
+							<div class="no-timeslots" ng-show="$ctrl.timeslotDays[$ctrl.selectedDateIndex].middayHours.length == 0">
+								{{::$ctrl.translations.Timeslot.Selector.NoAvailableTimeslotForDeliveryText}}
+							</div>
+
+							<div class="time-block__item"
+								 ng-repeat="item in $ctrl.timeslotDays[$ctrl.selectedDateIndex].DayHours track by $index"
+								 ng-if="item.StartHour > 11 && item.EndHour < 19"
+								 ng-click="$ctrl.setActiveTimeslot(item, $index)"
+								 ng-class="{'cheapest': item.IsCheapHour, 'event': item.IsEventSlot, 'selected': $ctrl.selectedTimeId == item.Id || $ctrl.selectedTimeIndex == $index, 'disabled': item.CssClass == 'unavailable' || item.CssClass == 'soldout'}">
+
+								<div class="time">{{::$ctrl.translations.Timeslot.Selector.TimeUnit}} {{item.StartHour}}-{{item.EndHour}}</div>
+								<div class="cost">{{item.DeliveryPrice | currency:undefined: 0}}</div>
+								<div class="time-block__banner cheapest" ng-show="item.IsCheapHour">{{::$ctrl.translations.Timeslot.Labels.CheapestHourLabel}}</div>
+							</div>
+						</div>
+
+						<div class="time-block__row">
+							<div class="time-block__row-header">{{::$ctrl.translations.Timeslot.Selector.LateHoursHeaderText}}</div>
+
+							<div class="no-timeslots" ng-show="$ctrl.timeslotDays[$ctrl.selectedDateIndex].eveningHours.length == 0">
+								{{::$ctrl.translations.Timeslot.Selector.NoAvailableTimeslotForDeliveryText}}
+							</div>
+
+							<div class="time-block__item"
+								 ng-repeat="item in $ctrl.timeslotDays[$ctrl.selectedDateIndex].DayHours track by $index"
+								 ng-if="item.StartHour > 17"
+								 ng-click="$ctrl.setActiveTimeslot(item, $index)"
+								 ng-class="{'cheapest': item.IsCheapHour, 'event': item.IsEventSlot, 'selected': $ctrl.selectedTimeId == item.Id || $ctrl.selectedTimeIndex == $index, 'disabled': item.CssClass == 'unavailable' || item.CssClass == 'soldout'}">
+
+								<div class="time">{{::$ctrl.translations.Timeslot.Selector.TimeUnit}} {{item.StartHour}}-{{item.EndHour}}</div>
+								<div class="cost">{{item.DeliveryPrice | currency:undefined: 0}}</div>
+								<div class="time-block__banner cheapest" ng-show="item.IsCheapHour">{{::$ctrl.translations.Timeslot.Labels.CheapestHourLabel}}</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="column-block message-block bottom">
+					<div class="message-item" ng-repeat="message in $ctrl.messages">{{message}}</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div ng-click="$ctrl.closeTimeslotSelector()" class="timeslot-selector__close"
+			 ng-class="{'animate-in': $ctrl.isActive}">{{::$ctrl.translations.Timeslot.Selector.CloseButtonText}}</div>
+
+		<div ng-click="$ctrl.closeTimeslotSelector()" class="timeslot-selector__dismiss"
+			 ng-class="{'animate-in': $ctrl.isActive}"
+			 ng-hide="$ctrl.timeslotIsSelected">
+			{{::$ctrl.translations.Timeslot.Selector.ChooseDeliveryTimeLaterText}}
+		</div>
+	</div>
+
+	<div class="timeslot-selector__loader" ng-show="$ctrl.disableUi">
+		<nemlig-loader class="nemlig-loader nemlig-loader_large" inverted="false"></nemlig-loader>
+	</div>
+</section>
+
+<div class="main-nav-disabler" ng-show="$ctrl.isActive"></div>

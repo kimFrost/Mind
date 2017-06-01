@@ -1,0 +1,23 @@
+﻿<#@ template debug="true" #>
+<#@ assembly name="TypeLite.dll" #>
+<#@ assembly name="TypeLite.Net4.dll" #>
+<#@ assembly name="SCommerce.Website.dll" #>
+<#@ assembly name="SCommerce.Core.dll" #>
+<#@ assembly name="SCommerce.Website.Code.dll" #>
+
+<#@ import namespace="TypeLite" #> 
+<#@ import namespace="TypeLite.Net4" #> 
+
+<#@ output extension=".d.ts"#>
+
+<#@ include file="Manager.ttinclude" #>
+<# var manager = Manager.Create(GenerationEnvironment); #>
+
+<# var ts = TypeScript.Definitions().WithReference("Enums.ts").AsConstEnums(false).ForLoadedAssemblies(); #>
+
+<#= ts.Generate(TsGeneratorOutput.Properties) #>
+
+<# manager.StartNewFile("Enums.ts"); #>
+<#= ts.Generate(TsGeneratorOutput.Enums) #>
+<# manager.EndBlock(); #>
+<# manager.Process(true); #>

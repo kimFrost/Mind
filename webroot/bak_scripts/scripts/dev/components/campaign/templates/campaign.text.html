@@ -1,0 +1,43 @@
+<div class="campaign__discount-text" ng-if="$ctrl.campaign.Type" ng-switch="$ctrl.campaign.Type">
+	<span ng-switch-when="ProductCampaignBuyXForY">
+		{{::$ctrl.campaign.MinQuantity}} 
+		{{::$ctrl.translations.CampaignSplashes.ProductCampaignBuyXForY.Text}} 
+		{{::$ctrl.campaign.CampaignPrice | number:2 }}
+		<span ng-if="$ctrl.campaign.MaxQuantity" class="campaign__max">
+			{{::$ctrl.translations.CampaignSplashes.ProductCampaignMaxBuy.Text}} 
+			{{::$ctrl.campaign.MaxQuantity}}
+			{{::$ctrl.translations.CampaignSplashes.ProductCampaignMaxBuy.Text2}}
+		</span>
+	</span>
+	<span ng-switch-when="ProductCampaignMixOffer">
+		{{::$ctrl.campaign.MinQuantity}} 
+		{{::$ctrl.translations.CampaignSplashes.ProductCampaignMixOffer.Text}} 
+		{{::$ctrl.campaign.TotalPrice | number:2 }}
+		<span ng-if="$ctrl.campaign.MaxQuantity" class="campaign__max">
+			{{::$ctrl.translations.CampaignSplashes.ProductCampaignMaxBuy.Text}} 
+			{{::$ctrl.campaign.MaxQuantity}}
+			{{::$ctrl.translations.CampaignSplashes.ProductCampaignMaxBuy.Text2}}
+		</span>
+	</span>
+	<span ng-switch-when="ProductCampaignDiscountPercent">
+		{{::$ctrl.translations.CampaignSplashes.ProductCampaignDiscountPercent.Text}} 
+		{{::$ctrl.campaign.CampaignPrice | number:2 }}
+	</span>
+	<span ng-switch-when="ProductCampaignDiscount">
+		{{::$ctrl.translations.CampaignSplashes.ProductCampaignDiscount.Text}} 
+		{{::$ctrl.campaign.DiscountSavings | number:2 }}
+		<span ng-if="$ctrl.campaign.MaxQuantity" class="campaign__max">
+			{{::$ctrl.translations.CampaignSplashes.ProductCampaignMaxBuy.Text}} 
+			{{::$ctrl.campaign.MaxQuantity}}
+			{{::$ctrl.translations.CampaignSplashes.ProductCampaignMaxBuy.Text2}}
+		</span>
+	</span>
+	<span ng-switch-when="ProductCampaignFreeProduct">
+		{{::$ctrl.translations.CampaignSplashes.ProductCampaignFreeProduct.Text}} 
+		<span ng-if="$ctrl.campaign.MaxQuantity" class="campaign__max">
+			{{::$ctrl.translations.CampaignSplashes.ProductCampaignMaxBuy.Text}} 
+			{{::$ctrl.campaign.MaxQuantity}}
+			{{::$ctrl.translations.CampaignSplashes.ProductCampaignMaxBuy.Text2}}
+		</span>
+	</span>
+</div>

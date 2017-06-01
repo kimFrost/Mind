@@ -165,6 +165,7 @@ gulp.task('ts2', function () {
 // Rerun the task when a file changes
 gulp.task('watch', function () {
     //gulp.watch('scripts/**/*.js', ['jshint']);
+    gulp.watch('scripts/**/*.js', ['ts']);
     gulp.watch('images/**/*', ['copyImages']);
     gulp.watch('styles/**/*.scss', ['styles']);
     gulp.watch('templates/**/*', ['templates']);

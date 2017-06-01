@@ -1,0 +1,30 @@
+﻿<h2 class="productlist-tabs__header" ng-if="$ctrl.spotdata.ListHeader != ''">{{$ctrl.spotdata.ListHeader}}</h2>
+<div class="productlist-tabs partial-content"
+	ng-class="{ 'has-theme-background-color' : $ctrl.hasThemeBackground}"
+	ng-style="{'background-color': $ctrl.themeColors.backgroundColor, 'color': $ctrl.themeColors.textColor }">
+
+	<div class="productlist-tabs__container">
+		<div class="productlist-tabs__tab-head" 
+			ng-class="{'active': $ctrl.activeId === $index, 'inactive': $ctrl.activeId !== $index}"
+			ng-click="$ctrl.setActiveId($index)" 
+			ng-repeat="tab in $ctrl.spotdata.ProductTabs"
+			ng-style="{'background-color': $ctrl.themeColors.backgroundColor, 'color': $ctrl.themeColors.textColor }">
+			{{tab.Heading}}
+		</div>
+	</div>
+
+	<accordion-group mobile="true" tablet="true" from-id="$ctrl.activeId">
+		<accordion class="productlist-tabs__tab" ng-repeat="tab in $ctrl.spotdata.ProductTabs">
+			<toggle class="productlist-tabs__tab-head_accordion" ng-class="{'active': $ctrl.activeId === $index}"
+					ng-click="$ctrl.setActiveId($index)">
+				{{tab.Heading}}
+			</toggle>
+
+			<content class="productlist-tabs__tab-content" 
+					ng-class="{'active': $ctrl.activeId === $index}">
+				<productlist-onerow spotdata="tab"
+									active="$ctrl.activeId === $index ? true : false"></productlist-onerow>
+			</content>
+		</accordion>
+	</accordion-group>
+</div>

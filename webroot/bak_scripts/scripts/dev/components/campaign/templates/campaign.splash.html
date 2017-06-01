@@ -1,0 +1,23 @@
+<div class="campaign__splashes" ng-if="$ctrl.translations.CampaignSplashes.DiscountItem.DiscountText || !$ctrl.campaign">
+	<div class="campaign__splash-discount" ng-if="$ctrl.discountItem">
+		{{::$ctrl.translations.CampaignSplashes.DiscountItem.DiscountText}}
+	</div>
+	<div class="campaign__splash-badge" ng-if="!!$ctrl.campaign && $ctrl.campaign.Type != 'ProductCampaignBuyXForY'" ng-switch="$ctrl.campaign.Type">
+		<div ng-switch-when="ProductCampaignMixOffer">
+			<div class="campaign__splash-badge-text"><b ng-bind="$ctrl.translations.CampaignSplashes.ProductCampaignMixOffer.BadgeText"></b></div>
+			<div class="campaign__splash-badge-text"><b ng-bind="$ctrl.translations.CampaignSplashes.ProductCampaignMixOffer.BadgeText2"></b></div>
+		</div>
+		<div ng-switch-when="ProductCampaignDiscountPercent">
+			<div class="campaign__splash-badge-text" ng-bind="$ctrl.translations.CampaignSplashes.ProductCampaignDiscountPercent.BadgeText"></div>
+			<div class="campaign__splash-badge-text"><b>{{$ctrl.campaign.DiscountPercent}}%</b></div>
+		</div>
+		<div ng-switch-when="ProductCampaignDiscount">
+			<div class="campaign__splash-badge-text" ng-bind="$ctrl.translations.CampaignSplashes.ProductCampaignDiscount.BadgeText"></div>
+			<div class="campaign__splash-badge-text"><b>{{$ctrl.campaign.CampaignPrice | number:2}}</b></div>
+		</div>
+		<div ng-switch-when="ProductCampaignFreeProduct">
+			<div class="campaign__splash-badge-text"><b ng-bind="$ctrl.translations.CampaignSplashes.ProductCampaignFreeProduct.BadgeText"></b></div>
+		</div>
+
+	</div>
+</div>

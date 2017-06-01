@@ -1,0 +1,69 @@
+﻿<div ng-show="$ctrl.productData.Declarations.ShowDeclarations || $ctrl.productData.DeclarationLabel">
+	<h5 class="product-detail__declaration-head">
+		{{::$ctrl.translations.ProductDetail.Declaration.DeclarationHead}}
+	</h5>
+	<div class="product-detail__declaration-label" ng-show="$ctrl.productData.DeclarationLabel" ng-bind-html="$ctrl.productData.DeclarationLabel">
+	</div>
+	<table class="table" ng-if="$ctrl.productData.Declarations.ShowDeclarations">
+		<tr class="table__row">
+			<th class="table__head">{{::$ctrl.translations.ProductDetail.Declaration.Nutrition}}:</th>
+		</tr>
+		<tr class="table__row">
+			<td class="table__col">{{::$ctrl.translations.ProductDetail.Declaration.NutritionEnergy}}</td>
+			<td class="table__col">
+				{{$ctrl.productData.Declarations.EnergyKj}}
+				{{::$ctrl.translations.ProductDetail.Declaration.NutritionKiloJoule}}
+				/
+				{{$ctrl.productData.Declarations.EnergyKcal}}
+				{{::$ctrl.translations.ProductDetail.Declaration.NutritionKiloCalories}}
+			</td>
+		</tr>
+		<tr class="table__row">
+			<td class="table__col">{{::$ctrl.translations.ProductDetail.Declaration.NutritionFat}}</td>
+			<td class="table__col">{{$ctrl.productData.Declarations.NutritionalContentFat}} {{::$ctrl.translations.ProductDetail.Declaration.NutritionGram}}</td>
+		</tr>
+		<tr class="table__row">
+			<td class="table__col">{{::$ctrl.translations.ProductDetail.Declaration.NutritionSaturatedFattyAcids}}</td>
+			<td class="table__col">{{$ctrl.productData.Declarations.SaturatedFattyAcid}} {{::$ctrl.translations.ProductDetail.Declaration.NutritionGram}}</td>
+		</tr>
+		<tr class="table__row">
+			<td class="table__col">{{::$ctrl.translations.ProductDetail.Declaration.NutritionCarbohydrate}}</td>
+			<td class="table__col">{{$ctrl.productData.Declarations.NutritionalContentCarbohydrate}} {{::$ctrl.translations.ProductDetail.Declaration.NutritionGram}}</td>
+		</tr>
+		<tr class="table__row">
+			<td class="table__col">{{::$ctrl.translations.ProductDetail.Declaration.NutritionSugars}}</td>
+			<td class="table__col">{{$ctrl.productData.Declarations.Sugar}} {{::$ctrl.translations.ProductDetail.Declaration.NutritionGram}}</td>
+		</tr>
+		<tr class="table__row">
+			<td class="table__col">{{::$ctrl.translations.ProductDetail.Declaration.NutritionDietaryFibers}}</td>
+			<td class="table__col">{{$ctrl.productData.Declarations.DietaryFiber}} {{::$ctrl.translations.ProductDetail.Declaration.NutritionGram}}</td>
+		</tr>
+		<tr class="table__row">
+			<td class="table__col">{{::$ctrl.translations.ProductDetail.Declaration.NutritionProtein}}</td>
+			<td class="table__col">{{$ctrl.productData.Declarations.NutritionalContentProtein}} {{::$ctrl.translations.ProductDetail.Declaration.NutritionGram}}</td>
+		</tr>
+		<tr class="table__row">
+			<td class="table__col">{{::$ctrl.translations.ProductDetail.Declaration.NutritionSalt}}</td>
+			<td class="table__col">{{$ctrl.productData.Declarations.Salt}} {{::$ctrl.translations.ProductDetail.Declaration.NutritionGram}}</td>
+		</tr>
+	</table>
+
+	<div class="product-detail__pdf" ng-if="$ctrl.productData.PDFUrl">
+		<a ng-href="{{$ctrl.productData.PDFUrl}}" target="_blank">
+			<span class="product-detail__pdf-text">{{::$ctrl.translations.ProductDetail.Declaration.PDFText}}</span>
+			<span class="product-detail__pdf-icon icon_pdf"></span>
+		</a>
+	</div>
+</div>
+
+<div class="product-detail__technical-description" ng-show="$ctrl.productData.TechnicalDescription !=''">
+	{{$ctrl.productData.TechnicalDescription}}
+</div>
+
+<div class="product-detail__technical-description" ng-show="$ctrl.productData.VkNumber" ng-switch="$ctrl.productLogos.VarefaktaKontrolleretLogoLink != null">
+	<a ng-href="{{$ctrl.productLogos.VarefaktaKontrolleretLogoLink.Url}}" ng-switch-when="true">
+		<img ng-src="{{$ctrl.productLogos.VarefaktaKontrolleretLogoForJson.Url}}" alt="varefakta kontrolleret" class="vk-logo"/>
+	</a>
+	<img ng-src="{{$ctrl.productLogos.VarefaktaKontrolleretLogoForJson.Url}}" alt="varefakta kontrolleret" class="vk-logo" ng-switch-when="false"/>
+	VK {{$ctrl.productData.VkNumber}}
+</div>

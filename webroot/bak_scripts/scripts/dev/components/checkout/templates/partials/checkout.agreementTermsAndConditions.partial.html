@@ -1,0 +1,18 @@
+<div class="form__checkbox">
+	<input
+		ng-model="$ctrl.acceptTermsAndAgreement"
+		type="checkbox" id="acceptTermsAndAgreementCheckbox"
+		name="acceptTermsAndAgreementCheckbox"
+		required
+	/>
+	<label for="acceptTermsAndAgreementCheckbox">{{::$ctrl.translations.Checkout.Agreements.Terms.TermsOfAgreementPart1}} <span ng-click="$ctrl.showTermsOfAgreement($event)" class="notification color_primary">{{::$ctrl.translations.Checkout.Agreements.Terms.TermsOfAgreementPart2}}</span> {{ ::$ctrl.translations.Checkout.Agreements.Terms.TermsOfAgreementPart3 }}</label>
+	<div class="form__ui">
+		<span class="icon_check"></span>
+	</div>
+</div>
+
+<div class="form__error-msg">
+	<div class="validation-message" ng-show="checkoutForm.acceptTermsAndAgreementCheckbox.$touched || checkoutForm.$submitted" ng-messages="checkoutForm.acceptTermsAndAgreementCheckbox.$error" role="alert">
+		<div ng-messages-include="validation-messages"></div>
+	</div>
+</div>

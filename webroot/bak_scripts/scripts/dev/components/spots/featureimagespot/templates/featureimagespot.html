@@ -1,0 +1,44 @@
+<div class="feature-image-spot 
+			spot_text-{{::$ctrl.spotdata.TextSize.Size}} 
+			content-align_{{::$ctrl.spotdata.TextAnchor.Position}}"
+			ng-style="{'background-color': $ctrl.themeColors.backgroundColor, 'color': $ctrl.themeColors.textColor}">
+
+	<!-- If whole spot is clickable -->
+	<a ng-if="$ctrl.spotdata.Link != null"
+		ng-class="{'spot__content': true, 'has-background-overlay': $ctrl.spotdata.BackgroundImageOverlay}"
+		target="{{$ctrl.spotdata.Link.LinkType === 'external' ? '_blank' : ''}}"
+		href="{{::$ctrl.spotdata.Link.Url}}"
+		ng-style="$ctrl.spotdata.BackgroundImageForJson.Url && {'background-image': 'url(&quot;' + $ctrl.spotdata.BackgroundImageForJson.Url + '&width=800&height=550&mode=max&quality=70&quot;)'}"
+		ng-click="$ctrl.trackClick($event)">
+	
+		<div class="spot__content-flex">
+			<div class="spot__text-box" ng-class="{'spot__box_solid': $ctrl.spotdata.TextBackground == true}">
+				<h1 class="spot__headline" ng-if="$ctrl.spotdata.Header != ''">{{::$ctrl.spotdata.Header}}</h1>
+				<h2 class="spot__subline" ng-if="$ctrl.spotdata.Subheader != ''">{{::$ctrl.spotdata.Subheader}}</h2>
+
+				<div ng-if="$ctrl.spotdata.ShowLinkAsButton" class="spot-button">
+					{{::$ctrl.spotdata.Link.Text}}
+				</div>
+			</div>
+		</div>
+	</a>
+
+	<!-- If spot has button link -->
+	<div ng-if="$ctrl.spotdata.Link == null"
+		ng-class="{'spot__content': true, 'has-background-overlay': $ctrl.spotdata.BackgroundImageOverlay}"
+		ng-style="$ctrl.spotdata.BackgroundImageForJson.Url && {'background-image': 'url(&quot;' + $ctrl.spotdata.BackgroundImageForJson.Url + '&width=800&height=550&mode=max&quality=70&quot;)'}">
+
+		<div class="spot__content-flex">
+			<div class="spot__text-box" ng-class="{'spot__box_solid': $ctrl.spotdata.TextBackground == true}">
+				<h1 class="spot__headline" ng-if="$ctrl.spotdata.Header != ''">{{::$ctrl.spotdata.Header}}</h1>
+				<h2 class="spot__subline" ng-if="$ctrl.spotdata.Subheader != ''">{{::$ctrl.spotdata.Subheader}}</h2>
+
+				<div ng-if="$ctrl.spotdata.ShowLinkAsButton" class="spot-button">
+					{{::$ctrl.spotdata.Link.Text}}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="spot__ribbon" ng-if="$ctrl.spotdata.CornerRibbonText !== ''">{{::$ctrl.spotdata.CornerRibbonText}}</div>
+</div>

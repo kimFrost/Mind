@@ -1,0 +1,30 @@
+﻿<div class="mega-menu__level" level="{{$ctrl.level}}" ng-mouseenter="$ctrl.setActiveLevel()">
+	<div class="mega-menu__reset" ng-mouseleave="$ctrl.mouseResetActive($event)"></div>
+
+	<div class="mega-menu__item"
+		 ng-repeat="child in $ctrl.item"
+		 ng-class="{ active : $ctrl.activeId === child.Id, 'has-children' : child.Children.length > 0 }"
+		 ng-mouseenter="$ctrl.mouseSetActive(child.Id, child.Advertisement)"
+		 ng-mouseleave="$ctrl.mouseOnBlur($event)"
+		 ng-if="child.IsMegaMenuItem"
+		 ng-click="$ctrl.touchSetActive(child.Id, child.Children.length, $event, child.Advertisement)">
+		<a class="mega-menu__link" ng-href="{{::child.Url}}" ng-click="$ctrl.mouseCloseMegaMenu()" ng-class="{'mega-menu__link_bold' : child.IsShowAll}">
+			{{child.Text}}
+		</a>
+	</div>
+
+	<div class="mega-menu__reset" ng-mouseleave="$ctrl.mouseResetActive()"></div>
+</div>
+
+<div class="mega-menu__level-container mega-menu__inline-block_relative" ng-repeat="child in $ctrl.item" ng-if="child.Children.length > 0">
+	<mega-menu-level class="mega-menu__block"
+					 ng-class="{ active : $ctrl.activeId == child.Id && $ctrl.activeLevel >= $ctrl.level }"
+					 item="child.Children"
+					 active-level="$ctrl.activeLevel"
+					 level="$ctrl.level + 1"
+	                 level-depth="$ctrl.levelDepth"
+					 show-all-text="$ctrl.showAllText"
+					 show-all="child.DisplayShowallInMegamenu"
+					 show-all-link="child.Url">
+	</mega-menu-level>
+</div>

@@ -1,0 +1,38 @@
+﻿<div class="dialog" ng-show="$ctrl.active">
+	<div class="dialog__overlay" ng-click="$ctrl.closeOnClick($event)">
+		<div class="dialog__modal" ng-class="[$ctrl.dialogService.dialogObj.appendClass, {'dialog__modal_headless': !$ctrl.dialogService.dialogObj.header, 'dialog__modal_fullscreen-mobile' : $ctrl.dialogService.dialogObj.fullscreenMobile}]">
+			<div class="dialog__close" ng-show="$ctrl.dialogService.dialogObj.close && !$ctrl.dialogService.dialogObj.hideCloseIcon" ng-click="$ctrl.closeOnClick($event)">
+				<div class="dialog__close-icon icon_cross"></div>
+			</div>
+
+			<div class="dialog__header" ng-if="$ctrl.dialogService.dialogObj.header">
+				{{$ctrl.dialogService.dialogObj.header}}
+			</div>
+
+			<div class="dialog__content"></div>
+
+			<div class="dialog__buttons" buttons="{{$ctrl.buttonCount}}" ng-if="$ctrl.buttonCount > 0">
+				<div class="dialog__button btn"
+				     ng-if="$ctrl.dialogService.dialogObj.buttons.button1"
+				     ng-class="{ 'btn_cancel': !$ctrl.dialogService.dialogObj.buttons.button1.confirm }"
+					 ng-click="$ctrl.callBackToService(1)">
+					{{$ctrl.dialogService.dialogObj.buttons.button1.text}}
+				</div>
+
+				<div class="dialog__button btn"
+				     ng-if="$ctrl.dialogService.dialogObj.buttons.button2"
+				     ng-class="{ 'btn_cancel': !$ctrl.dialogService.dialogObj.buttons.button2.confirm }"
+					 ng-click="$ctrl.callBackToService(2)">
+					{{$ctrl.dialogService.dialogObj.buttons.button2.text}}
+				</div>
+
+				<div class="dialog__button btn"
+				     ng-if="$ctrl.dialogService.dialogObj.buttons.button3"
+				     ng-class="{ 'btn_cancel': !$ctrl.dialogService.dialogObj.buttons.button3.confirm }"
+					 ng-click="$ctrl.callBackToService(3)">
+					{{$ctrl.dialogService.dialogObj.buttons.button3.text}}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,28 @@
+﻿<div class="recipe-productitem" ng-class="{'recipe-productitem_active' : $ctrl.recipeService.currentActiveProductIds.indexOf($ctrl.product.Id) !== -1}">
+	<div ng-click="$ctrl.selectProduct()" class="recipe-productitem__container" ng-class="{'recipe-productitem__container_no-delivery': !$ctrl.product.Availability.IsDeliveryAvailable}">
+		<div class="recipe-productitem__media">
+			<campaign-splash class="campaign_recipe-productitem" campaign="$ctrl.product.Campaign" discount-item="$ctrl.product.DiscountItem"></campaign-splash>
+			<img ng-src="{{::$ctrl.product.PrimaryImage}}&w=100&h=100" ng-attr-alt="{{::$ctrl.product.Name}}" />
+		</div>
+		<div class="recipe-productitem__title">
+			{{::$ctrl.product.Name}}
+		</div>
+		<div class="recipe-productitem__desc">
+			{{::$ctrl.product.Description}}
+		</div>
+		<div class="recipe-productitem__lower">
+			<div class="recipe-productitem__text-campaign">
+				<campaign-text campaign="$ctrl.product.Campaign"></campaign-text>
+			</div>
+			<div class="recipe-productitem__price">
+				<span>{{$ctrl.product.Price | priceBase}}</span><sup>{{::$ctrl.product.Price | priceDecimals}}</sup>
+			</div>
+			<div class="recipe-productitem__unit">
+				{{::$ctrl.product.UnitPrice}}
+			</div>
+			<div class="recipe-productitem__count">
+				{{::$ctrl.product.AmountForCurrentRecipe}} {{::$ctrl.translations.Recipe.Aside.UnitTitle}}
+			</div>
+		</div>
+	</div>
+</div>

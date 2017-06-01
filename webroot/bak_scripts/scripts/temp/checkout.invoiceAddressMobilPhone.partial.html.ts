@@ -1,0 +1,4 @@
+/* tslint:disable:max-line-length */
+module HtmlTemplates.checkout.invoiceAddressMobilPhone.partial {
+  export var html = '<label>{{ ::$ctrl.translations.Checkout.CustomerAddressInformation.MobilePhone }}*</label><input	name="InvoiceAddressMobilNumber"	id="InvoiceAddressMobilNumber"	type="tel"	ng-model="$ctrl.formData.InvoiceAddress.MobileNumber"	placeholder="{{ ::$ctrl.translations.Checkout.CustomerAddressInformationPlaceholder.MobilePhonePlaceholder }}"	maxlength="8"	required	ng-pattern="$ctrl.phoneRegexPattern"	ng-minlength="8"	ng-maxlength="8"	class="form__input"/><div class="form__error-msg">	<div ng-show="checkoutForm.$submitted" ng-messages="checkoutForm.InvoiceAddressMobilNumber.$error" role="alert">		<div ng-messages-include="validation-messages"></div>	</div></div>';
+}

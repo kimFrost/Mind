@@ -1,0 +1,4 @@
+/* tslint:disable:max-line-length */
+module HtmlTemplates.checkout.postalDistrict.partial {
+  export var html = '<label>{{ ::$ctrl.translations.Checkout.CustomerAddressInformation.City }}*</label><input	ng-model="$ctrl.formData.InvoiceAddress.PostalDistrict"	required	name="PostalDistrict"	id="PostalDistrict"	type="text"	tabindex="-1"	ng-disabled="$ctrl.formData.InvoiceAddressIsDeliveryAddress"	placeholder="{{ ::$ctrl.translations.Checkout.CustomerAddressInformationPlaceholder.CityPlaceholder }}"	class="form__input" /><div class="form__error-msg">	<div ng-show="checkoutForm.$submitted" ng-messages="checkoutForm.PostalDistrict.$error" role="alert">		<div ng-messages-include="validation-messages"></div>	</div></div>';
+}

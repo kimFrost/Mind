@@ -1,0 +1,4 @@
+/* tslint:disable:max-line-length */
+module HtmlTemplates.videospot {
+  export var html = '<div class="media-spot video-spot"	ng-if="!$ctrl.spotdata.Link.Url"	ng-class="{\'hide-on-mobile\': !$ctrl.VisibleOnMobile}">		<div class="spot__content">		<div class="spot__media-container">			<div class="spot__media-video">				<youtube width="\'100%\'"						height="\'100%\'"						videoid="$ctrl.spotdata.Video.YouTubeId"						thumb-src="$ctrl.spotdata.Video.ThumbnailImageForJson.Url"						class="video-spot__video"></youtube>			</div>		</div>		<div class="spot__text-box">			<h1 class="spot__headline" ng-if="$ctrl.spotdata.Header != \'\'">{{::$ctrl.spotdata.Header}}</h1>			<h2 class="spot__subline" ng-if="$ctrl.spotdata.Subheader != \'\'">{{::$ctrl.spotdata.Subheader}}</h2>		</div>	</div></div>';
+}

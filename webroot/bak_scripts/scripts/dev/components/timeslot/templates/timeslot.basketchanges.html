@@ -1,0 +1,40 @@
+<div class="basket-changes__container">
+	<div class="basket-changes__text">
+		{{::$ctrl.translations.Timeslot.BasketChanges.ConfirmationText}}
+
+		<div ng-if="$ctrl.deliveryChanges.PriceChangeDiff === 0">{{::$ctrl.translations.Timeslot.BasketChanges.PriceDiffNoDiff}}</div>
+		<div ng-if="$ctrl.deliveryChanges.IsPriceDiffChangePositive">{{::$ctrl.translations.Timeslot.BasketChanges.DiffTextCheaper}} <em class="price">{{::$ctrl.deliveryChanges.PriceChangeDiff | price}}</em></div>
+		<div ng-if="!$ctrl.deliveryChanges.IsPriceDiffChangePositive">{{::$ctrl.translations.Timeslot.BasketChanges.DiffTextMoreExpensive}} <em class="price">{{::$ctrl.deliveryChanges.PriceChangeDiff | price}}</em>
+		</div>
+	</div>
+
+	<div ng-if="$ctrl.deliveryChanges.CouponLineDiffs.length > 0">
+		<div class="basket-changes__section-header">{{::$ctrl.translations.Timeslot.BasketChanges.CouponChangesHeader}}</div>
+	</div>
+
+	<div class="basket-changes__section" ng-if="$ctrl.productsCheaper.length != 0">
+		<div class="basket-changes__section-header">{{::$ctrl.translations.Timeslot.BasketChanges.PriceDiffCheaperHeader}}</div>
+		<ul class="diff-list">
+			<li class="diff-list__item" ng-repeat="product in $ctrl.productsCheaper">{{::product.ProductName}} <em class="price">{{::product.AmountDiff | price}}</em></li>
+		</ul>
+	</div>
+
+	<div class="basket-changes__section" ng-if="$ctrl.productsExpensive.length != 0">
+		<div class="basket-changes__section-header">{{::$ctrl.translations.Timeslot.BasketChanges.PriceDiffMoreExpensiveHeader}}</div>
+		<ul class="diff-list">
+			<li class="diff-list__item" ng-repeat="product in $ctrl.productsExpensive">{{::product.ProductName}} <em class="price">{{::product.AmountDiff | price}}</em></li>
+		</ul>
+	</div>
+
+	<div class="basket-changes__section" ng-if="$ctrl.productsNotAvailable.length">
+		<div class="basket-changes__section-header">{{::$ctrl.translations.Timeslot.BasketChanges.ProductsUnavailableHeader}}</div>
+		<ul class="diff-list">
+			<li class="diff-list__item" ng-repeat="product in $ctrl.productsNotAvailable">{{::product.ProductName}}</li>
+		</ul>
+	</div>
+
+	<div class="basket-changes__buttons">
+		<button class="btn btn_cancel" ng-click="$ctrl.rejectBasketChanges()">{{::$ctrl.translations.Timeslot.BasketChanges.Reject}}</button>
+		<button class="btn" ng-click="$ctrl.acceptBasketChanges()">{{::$ctrl.translations.Timeslot.BasketChanges.Accept}}</button>
+	</div>
+</div>

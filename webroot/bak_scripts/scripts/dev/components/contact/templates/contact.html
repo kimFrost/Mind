@@ -1,0 +1,45 @@
+﻿<div class="contact">
+	<h1 class="contact__head">
+		{{$ctrl.head}}
+	</h1>
+
+	<h2 class="contact__subhead">
+		{{$ctrl.subhead}}
+	</h2>
+
+	<div class="contact__box-wrapper">
+		<div class="contact__box">
+			<a ng-href="tel:{{$ctrl.contactService.contactInfo.PhoneNumber}}">
+				<div class="contact__box-icon icon_phone"></div>
+				<div class="contact__box-text">
+					{{$ctrl.contactService.contactInfo.PhoneTitle}}
+				</div>
+				<div class="contact__box-link">
+					{{$ctrl.contactService.contactInfo.PhoneNumber}}
+				</div>
+			</a>
+		</div>
+
+		<div class="contact__box">
+			<a ng-href="{{$ctrl.contactService.contactInfo.EmailUrl}}">
+				<div class="contact__box-icon icon_mail"></div>
+				<div class="contact__box-text">
+					{{$ctrl.contactService.contactInfo.EmailTitle}}
+				</div>
+				<div class="contact__box-link">
+					{{$ctrl.contactService.contactInfo.EmailText}}
+				</div>
+			</a>
+		</div>
+
+		<button class="contact__box contact__box_chat" ng-click="$ctrl.openChat()">
+			<div class="contact__box-icon icon_chat"></div>
+			<div class="contact__box-text">
+				{{$ctrl.contactService.contactInfo.ChatTitle}}
+			</div>
+			<div class="contact__box-link" ng-class="{'contact__box-link_disabled' : !$ctrl.chatIsOnline}">
+				{{$ctrl.chatIsOnline ? $ctrl.translationsService.translations.Customerservice.Home.Chatonline : $ctrl.translationsService.translations.Customerservice.Home.Chatoffline}}
+			</div>
+		</button>
+	</div>
+</div>

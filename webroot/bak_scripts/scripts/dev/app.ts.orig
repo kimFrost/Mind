@@ -1,0 +1,136 @@
+﻿///<reference path="../references/references.ts"/>
+
+
+declare var Rx: any; // RxJS declaration - DO NOT REMOVE
+declare var Mob: XamarinModule.IMob; // Mob declaration - for use on Xamarin APP - DO NOT REMOVE
+declare var Raven: any; //Raven - sentry.io
+
+Raven.config('https://6116da2572e54525a32c724c309d1371@sentry.io/100045').install();
+
+namespace MainApp {
+	angular.module("nemligApp", [
+		"ui.router",
+		"ngSanitize",
+		"ngMessages",
+		"ipCookie",
+		"hmTouchEvents",
+		"LocalStorageModule",
+		"ngRaven",
+
+		AccordionModule.moduleId,
+		BasketModule.moduleId,
+		CouponModule.moduleId,
+		BreadcrumbModule.moduleId,
+		BundleModule.moduleId,
+		CampaignModule.moduleId,
+		ChangeAddressModule.moduleId,
+		CheckoutModule.moduleId,
+		ContactModule.moduleId,
+		CombiSpotModule.moduleId,
+		CookieWarningModule.moduleId,
+		DialogModule.moduleId,
+		FeatureImageSpotModule.moduleId,
+		FilterModule.moduleId,
+		ImageSpotModule.moduleId,
+		LeftMenuModule.moduleId,
+		MyNemligModule.moduleId,
+		MinibasketModule.moduleId,
+		MobileMenuModule.moduleId,
+		MosaicLayoutsModule.moduleId,
+		NavigationModule.moduleId,
+		NotificationbarModule.moduleId,
+		OnerowModule.moduleId,
+		PageModule.moduleId,
+		ProductDetailsModule.moduleId,
+		ProductlistModule.moduleId,
+		RecipelistModule.moduleId,
+		RecipeSpotModule.moduleId,
+		RecipeModule.moduleId,
+		SearchModule.moduleId,
+		SocialModule.moduleId,
+		StickyHeaderModule.moduleId,
+		SubscriptionsModule.moduleId,
+		TextSpotModule.moduleId,
+		TimeslotModule.moduleId,
+		TrackingModule.moduleId,
+		TranslationsModule.moduleId,
+		TrustpilotModule.moduleId,
+		UserModule.moduleId,
+		UtilsModule.moduleId,
+		VideoSpotModule.moduleId,
+		YoutubePlayerModule.moduleId,
+		ContactModule.moduleId,
+		ChangeAddressModule.moduleId,
+		RecipeSpotModule.moduleId,
+		RichtextSpotModule.moduleId,
+		WelcomeSpotModule.moduleId,
+		OrderConfirmationModule.moduleId,
+		PaymentModule.moduleId,
+		AddressLocationModule.moduleId,
+		XamarinModule.moduleId,
+		ContentLayoutModule.moduleId,
+		JobOfferingsModule.moduleId
+	])
+		.controller('AppCtrl', ($scope, statesService: UtilsModule.StatesService, swipeService: UtilsModule.SwipeService) => {
+
+			//
+			// Global Swipe functionality
+			// ======================================================
+			$scope.onHammerSwipeMobilemenu = (event) => {
+				var element: any = event.target;
+				var threshold: number = 20;
+
+				// If attribute: non-swipeable is on element, cancel swipe
+				// If viewport is desktop sized, cancel swipe
+
+				swipeService.swipeEvent("global").then((response) => {
+					if (response === "global") {
+						if (element.getAttribute('non-swipeable') !== null || window.innerWidth > 1024) {
+							return;
+						}
+
+						if (event.direction === 2) {
+							// Swipe left
+							if (event.distance > threshold && event.angle < -150 || event.angle > 150) {
+								statesService.setState("mobileNavigation", false);
+							}
+						} else if (event.direction === 4) {
+							// Swipe right
+							if (event.distance > threshold && event.angle <= 30 && event.angle >= -30) {
+								statesService.setState("mobileNavigation", true);
+							}
+						}
+					}
+				});
+			};
+		})
+		.factory('httpInterceptor', ($q, $location, $timeout, settingsService:PageModule.SettingsService) => {
+
+			function handleResponse(response) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> d71259f8cc4031838e5917ef1f91239008c23b47
+				if(response.status === 200) {
+					return $q.resolve(response);
+				} else {
+					if (response.status === 401) {
+						var redirectUrl = settingsService.settings.LoginPageUrl + "?returnurl=" + $location.path();
+						$timeout( () => {
+							$location.url(redirectUrl);
+						});
+					}
+					return $q.reject(response);
+				}
+
+			}
+
+			return {
+				response: handleResponse,
+				responseError: handleResponse
+			};
+		})
+		.run(MainApp.appRun)
+		.config(MainApp.appConfig);
+
+}

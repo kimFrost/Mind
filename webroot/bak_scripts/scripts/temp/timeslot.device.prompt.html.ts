@@ -1,0 +1,4 @@
+/* tslint:disable:max-line-length */
+module HtmlTemplates.timeslot.device.prompt {
+  export var html = ' <div class="timeslot-device-prompt"	 ng-class="{\'disabled-hidden\': $ctrl.promptHidden}"	 ng-show="$ctrl.showPrompt"	 ng-switch="$ctrl.deliveryZoneAccepted">	<div class="timeslot-device-prompt__content"		ng-switch-when="true"		ng-click="$ctrl.promptClick()">		<div class="timeslot-device-prompt__text">			{{::$ctrl.translations.Timeslot.DevicePrompt.NextDeliveryText}}		</div>	</div>	<div class="timeslot-device-prompt__content delivery-unknown" ng-switch-when="false" ng-click="$ctrl.promptClick()">		<div class="timeslot-device-prompt__text">{{::$ctrl.translations.Timeslot.DevicePrompt.PostCodeCheckText}}</div>	</div>	 <div ng-click="$ctrl.hidePrompt()" class="timeslot-device-prompt__close"></div> </div>';
+}

@@ -1,0 +1,28 @@
+<form>
+	<div class="search-field__wrap">
+		<input class="prompt search-field"
+			   id="site-header-search-field"
+			   tabindex="{{$ctrl.statesService.states.dialogOpen ? -1 : 1}}"
+			   type="search"
+			   ng-model="$ctrl.searchQuery"
+			   ng-keydown="$ctrl.keyDown($event)"
+			   ng-focus="$ctrl.onFocus($event)"
+			   ng-blur="$ctrl.onBlur()"
+			   placeholder="{{$ctrl.responsiveService.responsiveState.device === 'desktop' ? $ctrl.placeholder : $ctrl.placeholderShort}}" />
+	</div>
+</form>
+
+<div class="search-field__clear">
+	<label for="site-header-search-field" class="search-field__clear-icon icon_close" ng-show="$ctrl.searchQuery !== ''" ng-click="$ctrl.clearInput()"></label>
+
+	<span class="search-field__clear-text" 
+		  ng-show="$ctrl.searchurlService.searchActive || $ctrl.responsiveService.responsiveState.device !== 'desktop'" 
+		  ng-click="$ctrl.searchurlService.closeSearch()">
+		{{::$ctrl.translationsService.translations.Search.SiteHeaderSearch.SearchFieldClear}}
+	</span>
+</div>
+
+<label for="site-header-search-field" class="search-field__search"
+	 ng-show="!$ctrl.searchurlService.searchActive && $ctrl.responsiveService.responsiveState.device === 'desktop'">
+	<span class="search-field__search-icon icon_search"></span>
+</label>

@@ -1,0 +1,105 @@
+﻿<#@ template debug="false"  language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="SCommerce.Core.dll" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".d.ts" #>
+
+<#= new CodeGenerator().GenerateTypescript(typeof(SCommerce.Core.Dictionary.Translations)) #>
+
+	<#+
+
+	public class ClassObject
+	{
+		public string Name { get; set; }
+		public List<PropertyObject> Properties { get; set; }
+	}
+
+	public class PropertyObject
+	{
+		public string PropertyName { get; set; }
+		public string Type { get; set; }
+	}
+
+	public class CodeGenerator
+	{
+		public List<ClassObject> GetClasses(Type rootType)
+		{
+			List<ClassObject> classObjects = new List<ClassObject>();
+
+			var classObject = new ClassObject { Name = rootType.Name, Properties = new List<PropertyObject>() };
+			foreach (Type classType in rootType.GetNestedTypes())
+			{
+				var propertyType = classType;
+				if (propertyType.IsClass)
+				{
+					classObjects.AddRange(GetClasses(propertyType));
+					classObject.Properties.Add(new PropertyObject
+					{
+						PropertyName = propertyType.Name,
+						Type = propertyType.Name
+					});
+				}
+				else if (propertyType.IsEnum)
+				{
+					var enumClassObject = new ClassObject
+					{
+						Name = propertyType.Name,
+						Properties = new List<PropertyObject>()
+					};
+
+					foreach (var enumValue in propertyType.GetEnumNames())
+					{
+						enumClassObject.Properties.Add(new PropertyObject
+						{
+							PropertyName = enumValue,
+							Type = "string"
+						});
+					}
+
+					classObjects.Add(enumClassObject);
+
+					classObject.Properties.Add(new PropertyObject
+					{
+						PropertyName = propertyType.Name,
+						Type = propertyType.Name
+					});
+				}
+			}
+
+			classObjects.Insert(0, classObject);
+
+			return classObjects;
+		}
+
+		public string GenerateTypescript(Type type)
+		{
+			return WriteTypescript(type, GetClasses(type));
+		}
+
+		public string WriteTypescript(Type type, List<ClassObject> classObjects)
+		{
+			StringBuilder stringBuilder = new StringBuilder();
+			
+			stringBuilder.AppendLine("declare module " + type.FullName.Replace("." + type.Name, " ") + "{");
+			stringBuilder.AppendLine();
+			foreach (var classObject in classObjects)
+			{
+				stringBuilder.AppendLine("\tinterface " + classObject.Name + " {");
+
+				foreach (var propertyObject in classObject.Properties)
+				{
+					stringBuilder.AppendLine("\t\t" + propertyObject.PropertyName + ": " + propertyObject.Type + ";");
+				}
+
+				stringBuilder.AppendLine("\t}");
+				stringBuilder.AppendLine();
+			}
+
+			stringBuilder.AppendLine("}");
+
+			return stringBuilder.ToString();
+		}
+	}
+	#>

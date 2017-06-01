@@ -1,0 +1,18 @@
+<<<<<<< HEAD
+<aside class="page-content__aside">
+	<div ng-repeat='spot in $ctrl.pagedata.aside'>
+		<render-partial spot="spot"></render-partial>
+	</div>
+</aside>
+<section class="page-content__main">
+	<div ng-repeat='spot in $ctrl.pagedata.content'>
+		<render-partial spot="spot"></render-partial>
+	</div>
+</section>
+=======
+<h1>{{::$ctrl.pagedata.MetaData.Header}}</h1>
+
+<div ng-repeat="spot in $ctrl.pagedata.content">
+	<render-partial spot="spot"></render-partial>
+</div>
+>>>>>>> bfdcf1a414c5590fdecb0515a4eab704069a323a

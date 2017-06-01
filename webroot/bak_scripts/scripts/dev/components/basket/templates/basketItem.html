@@ -1,0 +1,74 @@
+<div class="basket-item__overlay" ng-click="$ctrl.toggleExtend(false)"></div>
+
+<div class="basket-item__row">
+	<a ng-href="{{$ctrl.data.Url}}">
+		<div class="basket-item__image">
+			<img ng-src="{{::$ctrl.data.PrimaryImage}}" ng-attr-alt="{{::$ctrl.data.Name}}"/>
+			<campaign-splash discount-item="$ctrl.data.DiscountItem" ng-if="$ctrl.data.DiscountItem"></campaign-splash>
+		</div>
+	</a>
+	<div>
+		<a ng-href="{{$ctrl.data.Url}}" class="basket-item__text-link">
+			<div class="basket-item__title">{{::$ctrl.data.Name}}</div>
+			<div class="basket-item__desc" ng-if="!$ctrl.data.BundleItems.length">{{::$ctrl.data.Description}}</div>
+		</a>
+		<div class="basket-item__toggle" ng-if="$ctrl.data.BundleItems.length" ng-click="$ctrl.toggleOpen()">{{::$ctrl.translations.Basket.Item.ExpandBundle}}
+			<span class="icon_up" ng-if="$ctrl.states.opened"></span>
+			<span class="icon_down" ng-if="!$ctrl.states.opened"></span>
+		</div>
+	</div>
+	<div>
+		<labels label-data="$ctrl.data.Labels"></labels>
+	</div>
+	<div>
+		<div>
+			<b class="basket-item_desktop">{{$ctrl.data.ItemPrice | price: true}}</b>
+			<b class="basket-item_mobile">{{$ctrl.data.Price | price}}</b>
+		</div>
+		<div class="basket-item__unit-price">
+			<span class="basket-item_desktop">{{$ctrl.data.UnitPrice}}</span>
+			<span class="basket-item_mobile">{{$ctrl.data.ItemPrice | price}} {{::$ctrl.translations.Minibasket.HeaderSection.PerUnit}}</span>
+		</div>
+	</div>
+	<div class="color_primary">
+		<span ng-if="$ctrl.data.DiscountSavings !== 0">-{{$ctrl.data.DiscountSavings | price: true}}</span>
+	</div>
+	<div>
+		<b>{{$ctrl.data.Price | price: true}}</b>
+	</div>
+	<div>
+		<addtobasket class="addtobasket addtobasket_static query_above-medium" auto-fold="false" product-id="$ctrl.data.Id" position="basket"></addtobasket>
+		<div class="addtobasket query_below-large" ng-click="$ctrl.toggleExtend()">
+			<button class="addtobasket__btn">
+				<span class="addtobasket__icon ">{{$ctrl.data.Quantity}}</span>
+			</button>
+		</div>
+	</div>
+	<remove-product product-id="$ctrl.data.Id"></remove-product>
+
+	<div class="basket-item__controls">
+		<remove-product product-id="$ctrl.data.Id"></remove-product>
+		<addtobasket class="addtobasket addtobasket_static" auto-fold="false" product-id="$ctrl.data.Id" on-change="$ctrl.startLeaveTimer()"></addtobasket>
+	</div>
+</div>
+
+
+<div class="basket-item__bundle">
+	<div class="basket-item__row" ng-repeat="item in $ctrl.data.BundleItems">
+		<a ng-href="{{item.Url}}">
+			<div class="basket-item__image">
+				<img ng-src="{{item.ImageUrl}}" ng-attr-alt="{{::item.Title}}"/>
+				<campaign-splash discount-item="item.DiscountItem" ng-if="$ctrl.data.DiscountItem"></campaign-splash>
+			</div>
+		</a>
+		<div>
+			<div class="basket-item__title">{{item.Title}}</div>
+			<div class="basket-item__desc">{{item.Description}}</div>
+		</div>
+		<div>
+			<labels label-data="item.Labels"></labels>
+		</div>
+		<div>{{item.Quantity}} {{::$ctrl.translations.Basket.ItemBundle.Amount}}</div>
+	</div>
+</div>
+

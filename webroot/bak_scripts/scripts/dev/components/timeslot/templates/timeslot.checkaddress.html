@@ -1,0 +1,76 @@
+<div class="timeslot-checkaddress testDialogContentOnProfilePage">
+	<div class="dialog__content-block">
+		<div class="dialog__content-block__header">{{::$ctrl.translations.Timeslot.CheckAddressDialog.DialogContentHeader}}</div>
+	</div>
+
+	<form ng-submit="$ctrl.checkZipcode()">
+
+		<p>{{::$ctrl.translations.Timeslot.CheckAddressDialog.DialogContentText}}</p>
+
+		<div class="modal__input-wrapper">
+			<label>{{::$ctrl.translations.Timeslot.CheckAddressDialog.PostCodeLabel}}*</label>
+			<div class="form__attach">
+				<input type="tel"
+				       ng-disabled="$ctrl.partlyState"
+					   ng-model="$ctrl.zipcode"
+				       placeholder="{{::$ctrl.translations.Timeslot.CheckAddressDialog.PostCodePlaceholder}}" 
+					   min-value="100"
+					   max-value="9990"
+					   maxlength="4"
+					   pattern="[0-9]*"
+					   class="form__input checkaddress-zipcode-input testDialogPostalCodeFieldOnProfilePage"/>
+				<span ng-show="$ctrl.partlyState" class="icon_check"></span>
+			</div>
+		</div>
+
+		<div class="dialog__content-block">
+			<div class="modal__input-wrapper" ng-show="!$ctrl.partlyState">
+				<div class="form__attach">
+					<input type="submit" ng-disabled="$ctrl.zipcode.length < 3 || $ctrl.zipcode == 0000 || $ctrl.zipcode == undefined" class="btn btn_primary testDialogTjekPostalCodeButtonOnProfilePage" value="{{::$ctrl.translations.Timeslot.CheckAddressDialog.PostCodePlaceholder}}"/>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<form ng-submit="$ctrl.checkStreetAddress()" ng-show="$ctrl.partlyState">
+		<div class="dialog__content-block">
+			<div class="dialog__content-block__text">
+				{{::$ctrl.translations.Timeslot.CheckAddressDialog.FullAddressText}}
+			</div>
+
+			<div>
+				<div class="modal__input-wrapper streetname">
+					<label>{{::$ctrl.translations.Timeslot.CheckAddressDialog.StreetnameLabel}}*</label>
+					<div class="form__attach">
+						<street-suggestion 
+							class="street-suggestion"
+							model="$ctrl.streetName"
+							postalcode="$ctrl.zipcode"
+							placeholder="{{::$ctrl.translations.Timeslot.CheckAddressDialog.StreetnamePlaceholder}}">
+						</street-suggestion>
+					</div>
+				</div>
+				<div class="modal__input-wrapper streetnumber">
+					<label>{{::$ctrl.translations.Timeslot.CheckAddressDialog.HousenumberLabel}}*</label>
+					<input type="tel"
+					       placeholder="{{::$ctrl.translations.Timeslot.CheckAddressDialog.HousenumberPlaceholder}}"
+					       ng-model="$ctrl.houseNumber"
+					       ng-disabled="!$ctrl.streetName"
+					       class="form__input checkaddress-streetname-input"/>
+				</div>
+
+				<div ng-show="$ctrl.streetNameInvalid" class="invalid-streetname-message">
+					{{::$ctrl.translations.Timeslot.CheckAddressDialog.InvalidStreetnameMessage}}
+				</div>
+			</div>
+		</div>
+
+		<div class="dialog__content-block">
+			<button class="btn" type="submit" ng-disabled="$ctrl.streetName == '' || $ctrl.houseNumber == 0">{{::$ctrl.translations.Timeslot.CheckAddressDialog.SubmitButtonText}}</button>
+		</div>
+	</form>
+
+	<div class="loader" ng-show="$ctrl.busy">
+		<nemlig-loader class="nemlig-loader nemlig-loader_large" inverted="true"></nemlig-loader>
+	</div>
+</div>

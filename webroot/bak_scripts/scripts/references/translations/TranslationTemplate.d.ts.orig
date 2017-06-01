@@ -1,0 +1,1492 @@
+﻿
+
+
+
+
+
+
+
+declare module SCommerce.Core.Dictionary {
+
+	interface Translations {
+		Payment: Payment;
+		Customerservice: Customerservice;
+		PaymentCards: PaymentCards;
+		CreateUser: CreateUser;
+		Form: Form;
+		Coupon: Coupon;
+		Newsletter: Newsletter;
+		Member: Member;
+		ProductRestriction: ProductRestriction;
+		Spots: Spots;
+		JobOfferings: JobOfferings;
+		MyNemlig: MyNemlig;
+		Checkout: Checkout;
+		Authentication: Authentication;
+		Errors: Errors;
+		Timeslot: Timeslot;
+		Recipe: Recipe;
+		Minibasket: Minibasket;
+		ProductDetail: ProductDetail;
+		Productlist: Productlist;
+		CampaignSplashes: CampaignSplashes;
+		Filter: Filter;
+		Header: Header;
+		General: General;
+		Validation: Validation;
+		Navigation: Navigation;
+		Search: Search;
+		Modals: Modals;
+		Basket: Basket;
+		Footer: Footer;
+	}
+
+	interface Payment {
+		ModalOrderSummary: ModalOrderSummary;
+	}
+
+	interface ModalOrderSummary {
+		Summary: string;
+		OrderNumber: string;
+		Items: string;
+		ItemsUnit: string;
+		Deposit: string;
+		DepositUnit: string;
+		Bags: string;
+		BagsUnit: string;
+		Delivery: string;
+		Savings: string;
+		NemligAccount: string;
+		CreditcardFee: string;
+		Total: string;
+	}
+
+	interface Customerservice {
+		OpenButton: OpenButton;
+		Home: Home;
+		Email: Email;
+		Chat: Chat;
+	}
+
+	interface OpenButton {
+		Title: string;
+	}
+
+	interface Home {
+		HeaderTitle: string;
+		Phone: string;
+		Chatonline: string;
+		Chatoffline: string;
+		Email: string;
+		Openhours: string;
+		Monday: string;
+		Tuesday: string;
+		Wednesday: string;
+		Thursday: string;
+		Friday: string;
+		Saturday: string;
+		Sunday: string;
+	}
+
+	interface Email {
+		HeaderTitle: string;
+		Name: string;
+		Email: string;
+		CommentLabel: string;
+		CommentPlaceholder: string;
+		SendButtonText: string;
+		Reason: string;
+		OrderNum: string;
+		ConfirmationText: string;
+	}
+
+	interface Chat {
+		HeaderTitle: string;
+		ChatMessagePlaceholder: string;
+	}
+
+	interface PaymentCards {
+		TechnicalErrors: TechnicalErrors;
+		General: General;
+		UseAnotherCardDialog: UseAnotherCardDialog;
+	}
+
+	interface TechnicalErrors {
+		TechnicalErrorHeadline: string;
+	}
+
+	interface General {
+		UseAnotherCardButtonText: string;
+	}
+
+	interface UseAnotherCardDialog {
+		UseAnotherCardHeadline: string;
+	}
+
+	interface CreateUser {
+		General: General;
+		MemberType: MemberType;
+		Email: Email;
+		CompanyName: CompanyName;
+		FirstName: FirstName;
+		LastName: LastName;
+		PostalCode: PostalCode;
+		City: City;
+		StreetName: StreetName;
+		HouseNumber: HouseNumber;
+		Floor: Floor;
+		Side: Side;
+		Letter: Letter;
+		Door: Door;
+		Mobile: Mobile;
+		Phone: Phone;
+		EAN: EAN;
+		CVR: CVR;
+		RequisitionNumber: RequisitionNumber;
+		Password: Password;
+		PasswordConfirm: PasswordConfirm;
+		AltCompanyName: AltCompanyName;
+		ContactPerson: ContactPerson;
+		Notes: Notes;
+		HasNewsLetterSubscription: HasNewsLetterSubscription;
+		HasNewsBySMSSubscription: HasNewsBySMSSubscription;
+		AddressesAreEqual: AddressesAreEqual;
+		Submit: Submit;
+	}
+
+	interface General {
+		H1: string;
+		H2: string;
+		Header: string;
+		PostalCheckLabel: string;
+		PostalCheckPlaceholder: string;
+		PostalCheckButton: string;
+	}
+
+	interface MemberType {
+		Label: string;
+		PrivateLabel: string;
+		CompanyLabel: string;
+		PublicLabel: string;
+	}
+
+	interface Email {
+		Label: string;
+		Placeholder: string;
+		ErrorRequired: string;
+		ErrorPattern: string;
+		ErrorShort: string;
+		ErrorLong: string;
+	}
+
+	interface CompanyName {
+		Label: string;
+		Placeholder: string;
+		ErrorRequired: string;
+	}
+
+	interface FirstName {
+		Label: string;
+		Placeholder: string;
+		ErrorRequired: string;
+	}
+
+	interface LastName {
+		Label: string;
+		Placeholder: string;
+		ErrorRequired: string;
+	}
+
+	interface PostalCode {
+		Label: string;
+		Placeholder: string;
+		ErrorRequired: string;
+	}
+
+	interface City {
+		Label: string;
+		Placeholder: string;
+		ErrorRequired: string;
+	}
+
+	interface StreetName {
+		Label: string;
+		Placeholder: string;
+		ErrorRequired: string;
+	}
+
+	interface HouseNumber {
+		Label: string;
+		Placeholder: string;
+		ErrorRequired: string;
+	}
+
+	interface Floor {
+		Label: string;
+		Placeholder: string;
+	}
+
+	interface Side {
+		Label: string;
+		Placeholder: string;
+	}
+
+	interface Letter {
+		Label: string;
+		Placeholder: string;
+	}
+
+	interface Door {
+		Label: string;
+		Placeholder: string;
+	}
+
+	interface Mobile {
+		Label: string;
+		Placeholder: string;
+		ErrorRequired: string;
+	}
+
+	interface Phone {
+		Label: string;
+		Placeholder: string;
+		ErrorRequired: string;
+	}
+
+	interface EAN {
+		Label: string;
+		Placeholder: string;
+		ErrorRequired: string;
+	}
+
+	interface CVR {
+		Label: string;
+		Placeholder: string;
+		ErrorRequired: string;
+	}
+
+	interface RequisitionNumber {
+		Label: string;
+		Placeholder: string;
+		ErrorRequired: string;
+	}
+
+	interface Password {
+		Label: string;
+		Placeholder: string;
+		ErrorRequired: string;
+		ErrorShort: string;
+		ErrorPattern: string;
+	}
+
+	interface PasswordConfirm {
+		Label: string;
+		Placeholder: string;
+		ErrorRequired: string;
+		ErrorMatch: string;
+	}
+
+	interface AltCompanyName {
+		Label: string;
+		Placeholder: string;
+		ErrorRequired: string;
+	}
+
+	interface ContactPerson {
+		Label: string;
+		Placeholder: string;
+	}
+
+	interface Notes {
+		Label: string;
+		Placeholder: string;
+	}
+
+	interface HasNewsLetterSubscription {
+		Label: string;
+		LabelLink: string;
+		ModalHeader: string;
+		ModalBody: string;
+	}
+
+	interface HasNewsBySMSSubscription {
+		Label: string;
+		LabelLink: string;
+		ModalHeader: string;
+		ModalBody: string;
+	}
+
+	interface AddressesAreEqual {
+		Label: string;
+	}
+
+	interface Submit {
+		Valid: string;
+		InValid: string;
+	}
+
+	interface Form {
+		ElementValidationMessage: ElementValidationMessage;
+		Element: Element;
+		ElementPlaceholder: ElementPlaceholder;
+	}
+
+	interface ElementValidationMessage {
+		Required: string;
+		MinLength: string;
+		MaxLength: string;
+		EmailNotValid: string;
+		PasswordNotIdentical: string;
+	}
+
+	interface Element {
+		Email: string;
+		FirstName: string;
+		LastName: string;
+		PostalCode: string;
+		City: string;
+		StreetName: string;
+		HouseNumber: string;
+		Floor: string;
+		Side: string;
+		Door: string;
+		HouseNumberLetter: string;
+		Phone: string;
+		SecondaryPhone: string;
+		CustomerIsPrivate: string;
+		CustomerIsCompany: string;
+		CustomerIsGovernment: string;
+		CustomerTypeText: string;
+		CompanyName: string;
+		CVR: string;
+		EAN: string;
+		RequisitionNumber: string;
+		ContactPerson: string;
+	}
+
+	interface ElementPlaceholder {
+		ContactPerson: string;
+		Email: string;
+	}
+
+	interface Coupon {
+		InputPlaceholder: string;
+		ButtonText: string;
+		ListHeader: string;
+		Headline: string;
+		MissingCoupon: string;
+		MissingInput: string;
+		AlreadyUsed: string;
+		NotFound: string;
+		Error: string;
+		ProductSoldout: string;
+		MaxAllowedReached: string;
+		Invalid: string;
+		Expired: string;
+		CannotBeUsedAgain: string;
+	}
+
+	interface Newsletter {
+		SubscriptionDialog: SubscriptionDialog;
+	}
+
+	interface SubscriptionDialog {
+		Title: string;
+		Description: string;
+		ChoiceLabel: string;
+		CancelLabel: string;
+		SubmitLabel: string;
+		UpdateSuccess: string;
+		UpdateError: string;
+	}
+
+	interface Member {
+		Actication: Actication;
+	}
+
+	interface Actication {
+		OverMaxQuantity: string;
+	}
+
+	interface ProductRestriction {
+		Validation: Validation;
+	}
+
+	interface Validation {
+		MaxQuantity: string;
+		Age: string;
+	}
+
+	interface Spots {
+		Welcome: Welcome;
+	}
+
+	interface Welcome {
+		Greeting: string;
+		YourOrderLatest: string;
+		YourOrderReady: string;
+		DeliveryTotal: string;
+		EditOrder: string;
+		CopyOrder: string;
+		NewOrder: string;
+		ViewOrder: string;
+		GoToMyNemlig: string;
+	}
+
+	interface JobOfferings {
+		AvailablePositions: AvailablePositions;
+		OpenPositions: OpenPositions;
+		User: User;
+	}
+
+	interface AvailablePositions {
+		Title: string;
+		Description: string;
+		PositionName: string;
+		PositionExpirationDate: string;
+	}
+
+	interface OpenPositions {
+		Title: string;
+		Description: string;
+		PositionName: string;
+		PositionDescription: string;
+	}
+
+	interface User {
+		JobagentTitle: string;
+		JobagentDescription: string;
+		JobagentLink: string;
+		LoginTitle: string;
+		LoginDescription: string;
+		LoginLink: string;
+	}
+
+	interface MyNemlig {
+		AccountHistory: AccountHistory;
+		OrderHistory: OrderHistory;
+		OrderModalEdit: OrderModalEdit;
+		OrderModalCopy: OrderModalCopy;
+		OrderModalCancel: OrderModalCancel;
+		CardAdministration: CardAdministration;
+	}
+
+	interface AccountHistory {
+		Headline: string;
+		Subline: string;
+		MyBalance: string;
+		LoadMore: string;
+		Date: string;
+		Id: string;
+		Type: string;
+		Price: string;
+		Status: string;
+	}
+
+	interface OrderHistory {
+		NoOrders: string;
+		OrderNotFound: string;
+		OrderCancellationNotAllowed: string;
+		Headline: string;
+		Subline: string;
+		LoadMore: string;
+		OrdersDate: string;
+		OrdersId: string;
+		OrdersPrice: string;
+		OrdersStatus: string;
+		OrderStatus1: string;
+		OrderStatus2: string;
+		OrderStatus3: string;
+		OrderStatus4: string;
+		OrderTitle: string;
+		OrderTitleSmall: string;
+		OrderUnit: string;
+		OrderUnitSmall: string;
+		OrderQuantity: string;
+		OrderQuantitySmall: string;
+		OrderPrice: string;
+		OrderPriceSmall: string;
+		OrderDiscount: string;
+		OrderDiscountSmall: string;
+		OrderPriceTotal: string;
+		OrderPriceTotalSmall: string;
+		OrderControlEdit: string;
+		OrderControlEditSmall: string;
+		OrderControlCancel: string;
+		OrderControlCancelSmall: string;
+		OrderControlCopy: string;
+		OrderControlCopySmall: string;
+		OrderControlInvoice: string;
+		OrderControlInvoiceSmall: string;
+		OrderControlPrint: string;
+		OrderControlPrintSmall: string;
+		OrderSummaryProducts: string;
+		OrderSummaryDeposits: string;
+		OrderSummaryBags: string;
+		OrderSummaryDelivery: string;
+		OrderSummaryCardFee: string;
+		OrderSummaryDiscount: string;
+		OrderSummaryAccount: string;
+		OrderSummaryTotal: string;
+		OrderSummaryLabelUnits: string;
+		OrderSummaryLabelProducts: string;
+		OrderSummaryVat: string;
+	}
+
+	interface OrderModalEdit {
+		Headline: string;
+		Body: string;
+		Confirm: string;
+		Cancel: string;
+	}
+
+	interface OrderModalCopy {
+		Headline: string;
+		Body: string;
+		Confirm: string;
+		Cancel: string;
+	}
+
+	interface OrderModalCancel {
+		Headline: string;
+		Body: string;
+		Confirm: string;
+		Cancel: string;
+	}
+
+	interface CardAdministration {
+		Header: string;
+		Text: string;
+		AddPaymentCard: string;
+		SavedPaymentCard: string;
+		NoSavedPaymentCards: string;
+		ChooseCardText: string;
+		Fee: string;
+	}
+
+	interface Checkout {
+		TechnicalErrors: TechnicalErrors;
+		OrderPlacement: OrderPlacement;
+		Payment: Payment;
+		Validation: Validation;
+		MessageToDriver: MessageToDriver;
+		Login: Login;
+		ChangeAddress: ChangeAddress;
+		AddProfile: AddProfile;
+		General: General;
+		TermsAndAgreements: TermsAndAgreements;
+		ReturnBottles: ReturnBottles;
+		FastTrack: FastTrack;
+		CustomerAddressInformationPlaceholder: CustomerAddressInformationPlaceholder;
+		CustomerAddressInformation: CustomerAddressInformation;
+		Signup: Signup;
+		AlternativeDeliveryAddress: AlternativeDeliveryAddress;
+		Agreements: Agreements;
+		Dialog: Dialog;
+		OrderConfirmation: OrderConfirmation;
+	}
+
+	interface TechnicalErrors {
+		TechnicalErrorHeadline: string;
+	}
+
+	interface OrderPlacement {
+		EmailMismatch: string;
+		ConfirmationPasswordInvalid: string;
+		OrderInProcessingState: string;
+		RestrictedProducts: string;
+		UndeliverableProducts: string;
+		SoldOutProducts: string;
+		RestrictedZeroPricedProducts: string;
+		AgeConfirmationRequired: string;
+		DeliveryTimeInvalid: string;
+		NoProductsInBasket: string;
+		MinBasketTotalInvalid: string;
+		MaxBasketTotalInvalid: string;
+		PaymentCreditCardNotFound: string;
+		PlaceOrderError: string;
+		PaymentProviderCommunicationError: string;
+		PaymentCardRejectedByAcquirer: string;
+		PaymentCardPeriodExpired: string;
+		PaymentProviderError: string;
+		OrderNumberMismatch: string;
+		BasketTotalMismatch: string;
+	}
+
+	interface Payment {
+		PaymentFailedHeadline: string;
+	}
+
+	interface Validation {
+		Required: string;
+		MinLength: string;
+		MaxLength: string;
+		EmailNotValid: string;
+		PasswordNotIdentical: string;
+	}
+
+	interface MessageToDriver {
+		MessageToTheDriverButtonText: string;
+	}
+
+	interface Login {
+		LoginButtonText: string;
+		AlreadyCustomerSubLine: string;
+	}
+
+	interface ChangeAddress {
+		CantDeliverToZipcodeErrorMesssage: string;
+		CheckZipCodeButtonText: string;
+		CheckZipCodeButtonPlaceholderText: string;
+		CloseChangeAddressDialogButtonText: string;
+		ChangeAddressButtonText: string;
+		ChangeAddressDialogHeading: string;
+		ChangeAddressZipCodeDescription: string;
+		ChangeAddressInputLabel: string;
+		MakeThisDefaultAddressText: string;
+		ChangeAddressNotificationText: string;
+	}
+
+	interface AddProfile {
+		AddProfileHeadline: string;
+		Password: string;
+		RepeatPassword: string;
+		PasswordPlaceHolder: string;
+		RepeatPasswordPlaceholder: string;
+	}
+
+	interface General {
+		DeliveryHeadline: string;
+		CustomerInformationHeadLine: string;
+		PaymentButtonText: string;
+		BackToCartButtonText: string;
+		OrdersNotMerged: string;
+		NoArgumentsSupplied: string;
+		MissingBasket: string;
+		OrderValidationError: string;
+	}
+
+	interface TermsAndAgreements {
+		SeeOur: string;
+		TermsAndConditionAndPrivacyPolitics: string;
+		TermsOfAgreementPart1: string;
+		TermsOfAgreementPart2: string;
+		TermsOfAgreementPart3: string;
+	}
+
+	interface ReturnBottles {
+		ReturnBottlesHeadline: string;
+		ReturnBottlesHeadlineNotification: string;
+		ReturnBottlesCheckboxTextpart1: string;
+		ReturnBottlesCheckboxTextpart2: string;
+		ReturnBottlesDialogHeadLine: string;
+		ReturnBottlesDialogCloseButtonText: string;
+		ReturnBottlesDialogAcceptButtonText: string;
+		MessageToTheDriverHeadlineText: string;
+	}
+
+	interface FastTrack {
+		DeliveryHeadline: string;
+	}
+
+	interface CustomerAddressInformationPlaceholder {
+		EmailPlaceholder: string;
+		FirstNamePlaceholder: string;
+		LastNamePlaceholder: string;
+		PostalCodePlaceholder: string;
+		CityPlaceholder: string;
+		StreetNamePlaceholder: string;
+		HouseNumberPlaceholder: string;
+		FloorPlaceholder: string;
+		SidePlaceholder: string;
+		DoorPlaceholder: string;
+		HouseNumberLetterPlaceholder: string;
+		PhonePlaceholder: string;
+		SecondaryPhonePlaceholder: string;
+		CompanyNamePlaceholder: string;
+		CVRPlaceholder: string;
+		EANPlaceholder: string;
+		RequisitionNumberPlaceholder: string;
+		Password: string;
+	}
+
+	interface CustomerAddressInformation {
+		Email: string;
+		FirstName: string;
+		LastName: string;
+		PostalCode: string;
+		City: string;
+		StreetName: string;
+		HouseNumber: string;
+		Floor: string;
+		Side: string;
+		Door: string;
+		HouseNumberLetter: string;
+		Phone: string;
+		SecondaryPhone: string;
+		CustomerIsPrivate: string;
+		CustomerIsCompany: string;
+		CustomerIsGovernment: string;
+		CustomerTypeText: string;
+		CompanyName: string;
+		CVR: string;
+		EAN: string;
+		RequisitionNumber: string;
+		Password: string;
+	}
+
+	interface Signup {
+		SignupToNewsletterText: string;
+		SignupToNewsletterNotificationText: string;
+		SignupToDiscountSMSText: string;
+		SignupToDiscountSMSNotificationText: string;
+		SignupToRecipesText: string;
+		SignupToDiscountsText: string;
+	}
+
+	interface AlternativeDeliveryAddress {
+		DeliveryAddressHeadLine: string;
+		UseAlternativeDeliveryAddressCheckboxText: string;
+	}
+
+	interface Agreements {
+		General: General;
+		MinimumAge: MinimumAge;
+		Terms: Terms;
+		CorrectInformation: CorrectInformation;
+	}
+
+	interface General {
+		AgreementsHeadline: string;
+	}
+
+	interface MinimumAge {
+		IConfirmThatImOver: string;
+		Old: string;
+<<<<<<< HEAD
+=======
+		MininimumAgeFailedLoadingContent: string;
+>>>>>>> 149a18957a719c7362acd2cab5b767ee4f2730a3
+	}
+
+	interface Terms {
+		TermsOfAgreementPart1: string;
+		TermsOfAgreementPart2: string;
+		TermsOfAgreementPart3: string;
+	}
+
+	interface CorrectInformation {
+		CorrectInformation: string;
+	}
+
+	interface Dialog {
+		AgeRequirement: string;
+		Age: string;
+		AgeRequirementAccept: string;
+		Close: string;
+		Accept: string;
+	}
+
+	interface OrderConfirmation {
+		Header: string;
+		SubHeader: string;
+		OrderNumber: string;
+		OrderDate: string;
+		OrderAmount: string;
+		OrderFee: string;
+		PaymentMethod: string;
+		DeliveryAddress: string;
+		BillingAdrress: string;
+		Contact: string;
+		LastEditDate: string;
+		OrderDetails: string;
+		FrontPageLink: string;
+		Delivery: string;
+		EditOrder: string;
+		ProductName: string;
+		ProductUnit: string;
+		Unit: string;
+		Units: string;
+		ProductQuantity: string;
+		ProductPricePerUnit: string;
+		ProductDiscountPerUnit: string;
+		ProductPrice: string;
+		OrderCount: string;
+		OrderDeposit: string;
+		OrderBags: string;
+		OrderFreight: string;
+		OrderCardFee: string;
+		OrderDiscount: string;
+		NemligAccount: string;
+		OrderTotal: string;
+		ReturnDeposit: string;
+		ReturnDepositText: string;
+		GoToFrontPage: string;
+		OfWhichVAT: string;
+		CalendarDeliverySubject: string;
+		CalendarFileName: string;
+		CalendarDeliveryDescription: string;
+	}
+
+	interface Authentication {
+		Login: Login;
+		Logout: Logout;
+		CurrentUser: CurrentUser;
+		ResetPassword: ResetPassword;
+		RequestChangePassword: RequestChangePassword;
+		ChangePassword: ChangePassword;
+	}
+
+	interface Login {
+		Success: string;
+		RememberMe: string;
+		MissingPassword: string;
+		UsernameOrPasswordInvalid: string;
+		MissingUsername: string;
+		UserIsNotValid: string;
+		InvalidEmail: string;
+		EmailRequired: string;
+		PasswordRequired: string;
+		TooShortEmail: string;
+		TooLongEmail: string;
+		UserDoesNotExist: string;
+		Login: string;
+		UnspecifiedError: string;
+		ErrorUserNotAuthorized: string;
+		MissingActiovationId: string;
+		UserIsNotAuthenticated: string;
+		Welcome: string;
+		WelcomeLoggedIn: string;
+		UsernameLabel: string;
+		PasswordLabel: string;
+		UsernamePlaceholder: string;
+		PasswordPlaceholder: string;
+		ForgotPassword: string;
+		SubmitButton: string;
+		LogOutButton: string;
+		CreateUser: string;
+	}
+
+	interface Logout {
+		LogOut: string;
+	}
+
+	interface CurrentUser {
+		LoggedInAs: string;
+		NotLoggedIn: string;
+	}
+
+	interface ResetPassword {
+		Success: string;
+		Error: string;
+		MailHasBeenSent: string;
+		ForgotPassword: string;
+		Reset: string;
+		ResetPasswordInformation: string;
+		GetANewPassword: string;
+		InvalidEmail: string;
+		EmailRequired: string;
+		TooShortEmail: string;
+		TooLongEmail: string;
+		TypeYourEmail: string;
+		MailNotSentError: string;
+		MailNotSentNoEmailError: string;
+		UserNameDoesNotExist: string;
+		Title: string;
+		Description: string;
+		UsernameLabel: string;
+		SubmitButton: string;
+		ForgotEmail: string;
+		GoToLogin: string;
+		ContactCustomerService: string;
+	}
+
+	interface RequestChangePassword {
+		Headline: string;
+		LabelPasswordNew: string;
+		LabelPasswordNewRepeat: string;
+		PlaceholderNewPassword: string;
+		PlaceholderRepeatNewPassword: string;
+		SubmitButton: string;
+		UnspecifiedError: string;
+		ErrorTokenInvalid: string;
+		ErrorNotMatching: string;
+		ErrorTooShort: string;
+		ErrorPatternNotMatch: string;
+		ErrorNewRequired: string;
+		ErrorRepeatRequired: string;
+		Success: string;
+	}
+
+	interface ChangePassword {
+		Headline: string;
+		SubmitButton: string;
+		LabelNewPasswordOld: string;
+		LabelPasswordNew: string;
+		LabelPasswordNewRepeat: string;
+		PlaceholderOldPassword: string;
+		PlaceholderNewPassword: string;
+		PlaceholderRepeatNewPassword: string;
+		UnspecifiedError: string;
+		ErrorNotMatching: string;
+		ErrorOldRequired: string;
+		ErrorTooShort: string;
+		ErrorPatternNotMatch: string;
+		ErrorNewRequired: string;
+		ErrorRepeatRequired: string;
+		Success: string;
+	}
+
+	interface Errors {
+		MissingArguement: string;
+		BasketNotFound: string;
+		ProductNotFound: string;
+		RecipeNotFound: string;
+		NotFound: string;
+		InvalidFormat: string;
+		MissingContextItem: string;
+		UnkownError: string;
+	}
+
+	interface Timeslot {
+		StatusButton: StatusButton;
+		StatusDisplay: StatusDisplay;
+		Prompt: Prompt;
+		DevicePrompt: DevicePrompt;
+		DeviceFlowHeaders: DeviceFlowHeaders;
+		Selector: Selector;
+		Labels: Labels;
+		BasketChanges: BasketChanges;
+		CheckAddressDialog: CheckAddressDialog;
+		NoDeliveryDialog: NoDeliveryDialog;
+	}
+
+	interface StatusButton {
+		ButtonTextState1: string;
+		ButtonTextState2: string;
+		ButtonTextState3: string;
+		ButtonTextState4: string;
+	}
+
+	interface StatusDisplay {
+		ButtonTextState1: string;
+		ButtonTextState2: string;
+		ButtonTextState3: string;
+	}
+
+	interface Prompt {
+		NextDeliveryText: string;
+		ChooseDeliveryTimeLinkText: string;
+		PostCodeCheckText: string;
+		PostCodeCheckPlaceholderText: string;
+		PostCodeCheckButtonText: string;
+	}
+
+	interface DevicePrompt {
+		PostCodeCheckText: string;
+		ChooseDeliveryTimeslot: string;
+		NextPossibleDelivery: string;
+		ChooseTimeslotButtonText: string;
+	}
+
+	interface DeviceFlowHeaders {
+		CheckDelivery: string;
+		TimeslotSelector: string;
+		NoDelivery: string;
+	}
+
+	interface Selector {
+		ChooseDateHeader: string;
+		CloseButtonText: string;
+		ChooseDeliveryTimeLaterText: string;
+		EarlyHoursHeaderText: string;
+		MidHoursHeaderText: string;
+		LateHoursHeaderText: string;
+		PickTimeForText: string;
+		TimeslotChosen: string;
+	}
+
+	interface Labels {
+		CheapestDayLabel: string;
+		EcologicalDeliveryDayLabel: string;
+		CheapestHourLabel: string;
+	}
+
+	interface BasketChanges {
+		DialogHeader: string;
+		DialogContentHeader: string;
+		ConfirmationText: string;
+		DiffTextNoDiff: string;
+		DiffTextCheaper: string;
+		DiffTextMoreExpensive: string;
+		PriceDiffCheaperHeader: string;
+		PriceDiffMoreExpensiveHeader: string;
+		ProductsUnavailableHeader: string;
+	}
+
+	interface CheckAddressDialog {
+		DialogHeader: string;
+		DialogContentHeader: string;
+		DialogContentText: string;
+		FullAddressText: string;
+		PostCodeLabel: string;
+		PostCodePlaceholder: string;
+		StreetnameLabel: string;
+		StreetnamePlaceholder: string;
+		HousenumberLabel: string;
+		HousenumberPlaceholder: string;
+		SubmitButtonText: string;
+		ChangesToBasket: string;
+	}
+
+	interface NoDeliveryDialog {
+		DialogHeader: string;
+		GetNotifiedText1: string;
+		NoDeliveryInPostCode: string;
+		GetNotifiedText2: string;
+		EmailFieldLabel: string;
+		EmailFieldPlaceholder: string;
+		GetNotifiedCheckboxLabel: string;
+		NewsletterCheckboxLabel: string;
+		NewsletterWeeklyOffersCheckboxLabel: string;
+		NewsletterCookingInspirationCheckboxLabel: string;
+		SubmitButtonText: string;
+		GetNotifiedSuccessHeader: string;
+		GetNotifiedSuccessText: string;
+	}
+
+	interface Recipe {
+		Common: Common;
+		Tags: Tags;
+		Aside: Aside;
+		Messages: Messages;
+		Product: Product;
+		List: List;
+	}
+
+	interface Common {
+		Servings: string;
+		Preparation: string;
+	}
+
+	interface Tags {
+		WorkTime: string;
+		TotalTime: string;
+		RecipeBy: string;
+	}
+
+	interface Aside {
+		Headline: string;
+		SupplementsHeadline: string;
+		UnitTitle: string;
+	}
+
+	interface Messages {
+		AddedToBasket: string;
+		UpdatedInBasket: string;
+		ConfirmChangeServingsHeader: string;
+		ConfirmChangeServingsBody: string;
+		ConfirmChangeSortingHeader: string;
+		ConfirmChangeSortingBody: string;
+		ConfirmText: string;
+		NotConfirmText: string;
+	}
+
+	interface Product {
+		Add: string;
+		ShowAlternative: string;
+		SoldOut1: string;
+		SoldOut2: string;
+	}
+
+	interface List {
+		ExpectedText: string;
+		SoldoutText: string;
+		SoldoutLinkText: string;
+	}
+
+	interface Minibasket {
+		HeaderSection: HeaderSection;
+		ProductSection: ProductSection;
+	}
+
+	interface HeaderSection {
+		Close: string;
+		Savings: string;
+		PerUnit: string;
+		ProductCount: string;
+		Total: string;
+		GoToBasket: string;
+		Minimum1: string;
+		Minimum2: string;
+		Minimum3: string;
+		MinimumNotMet: string;
+	}
+
+	interface ProductSection {
+		ProductsHead: string;
+		EmptyBasketText: string;
+		RemoveRecipeText: string;
+		SeeAllInBasket: string;
+	}
+
+	interface ProductDetail {
+		Declaration: Declaration;
+		Description: Description;
+		Bundle: Bundle;
+		Availability: Availability;
+	}
+
+	interface Declaration {
+		DeclarationHead: string;
+		Nutrition: string;
+		NutritionEnergy: string;
+		NutritionFat: string;
+		NutritionSaturatedFattyAcids: string;
+		NutritionCarbohydrate: string;
+		NutritionSugars: string;
+		NutritionDietaryFibers: string;
+		NutritionProtein: string;
+		NutritionSalt: string;
+		NutritionKiloJoule: string;
+		NutritionKiloCalories: string;
+		NutritionGram: string;
+		PDFText: string;
+	}
+
+	interface Description {
+		DescriptionHead: string;
+		AttributesHead: string;
+	}
+
+	interface Bundle {
+		Currency: string;
+		HeadTitle: string;
+		HeadAmount: string;
+		HeadUnit: string;
+		HeadDiscount: string;
+		HeadTotal: string;
+		FooterDiscount: string;
+		FooterPackage: string;
+		ItemUnit: string;
+	}
+
+	interface Availability {
+		SoldOut: string;
+		DeliveryInfo: string;
+		DeliveryInfoShort: string;
+	}
+
+	interface Productlist {
+		OneRow: OneRow;
+	}
+
+	interface OneRow {
+		SeeAll: string;
+		LoadMore: string;
+		NoResult: string;
+	}
+
+	interface CampaignSplashes {
+		ProductCampaignBuyXForY: ProductCampaignBuyXForY;
+		ProductCampaignDiscount: ProductCampaignDiscount;
+		ProductCampaignDiscountPercent: ProductCampaignDiscountPercent;
+		ProductCampaignFreeProduct: ProductCampaignFreeProduct;
+		ProductCampaignMixOffer: ProductCampaignMixOffer;
+		ProductCampaignMaxBuy: ProductCampaignMaxBuy;
+		DiscountItem: DiscountItem;
+	}
+
+	interface ProductCampaignBuyXForY {
+		Text: string;
+	}
+
+	interface ProductCampaignDiscount {
+		BadgeText: string;
+		Text: string;
+	}
+
+	interface ProductCampaignDiscountPercent {
+		BadgeText: string;
+		Text: string;
+	}
+
+	interface ProductCampaignFreeProduct {
+		BadgeText: string;
+		Text: string;
+	}
+
+	interface ProductCampaignMixOffer {
+		BadgeText: string;
+		BadgeText2: string;
+		Text: string;
+	}
+
+	interface ProductCampaignMaxBuy {
+		Text: string;
+		Text2: string;
+	}
+
+	interface DiscountItem {
+		DiscountText: string;
+	}
+
+	interface Filter {
+		FilterMenu: FilterMenu;
+		ChosenFilters: ChosenFilters;
+		Sorting: Sorting;
+		MobileFilters: MobileFilters;
+	}
+
+	interface FilterMenu {
+		Title: string;
+	}
+
+	interface ChosenFilters {
+		ChosenFilters: string;
+		RemoveAllFilters: string;
+	}
+
+	interface Sorting {
+		Title: string;
+		OptionPopularity: string;
+		OptionPrice: string;
+	}
+
+	interface MobileFilters {
+		FilterHandleText: string;
+		FilterHeaderText: string;
+		ApplyFilters: string;
+		ClearFilters: string;
+	}
+
+	interface Header {
+		TranslationService: TranslationService;
+	}
+
+	interface TranslationService {
+		MainNavigationTriggerText: string;
+		LoginCreateUser: string;
+		Logout: string;
+		MyNemligAccount: string;
+		CustomerService: string;
+		DeliveryText: string;
+	}
+
+	interface General {
+		Responses: Responses;
+		Time: Time;
+		TranslationService: TranslationService;
+		CallToAction: CallToAction;
+	}
+
+	interface Responses {
+		Yes: string;
+		No: string;
+		Okay: string;
+		OkayShort: string;
+	}
+
+	interface Time {
+		DayAbbreviation: string;
+		TimeUnit: string;
+	}
+
+	interface TranslationService {
+		NoMarket: string;
+	}
+
+	interface CallToAction {
+		AddToBasket: string;
+		RemoveBasket: string;
+	}
+
+	interface Validation {
+		Error: Error;
+	}
+
+	interface Error {
+		NameRequired: string;
+		EmailRequired: string;
+		EmailInvalid: string;
+	}
+
+	interface Navigation {
+		MainMenu: MainMenu;
+		MobileMenu: MobileMenu;
+	}
+
+	interface MainMenu {
+		BtnCloseMainMenu: string;
+	}
+
+	interface MobileMenu {
+		Title: string;
+		OpenLinkPrefix: string;
+	}
+
+	interface Search {
+		FrontPageSearchField: FrontPageSearchField;
+		SiteHeaderSearch: SiteHeaderSearch;
+		SearchResultPage: SearchResultPage;
+		TypeAhead: TypeAhead;
+		Contact: Contact;
+	}
+
+	interface FrontPageSearchField {
+		SearchField: string;
+	}
+
+	interface SiteHeaderSearch {
+		SearchFieldPlaceholderText: string;
+		SearchFieldPlaceholderTextShort: string;
+		SearchTriggerButtonText: string;
+	}
+
+	interface SearchResultPage {
+		TabProducts: string;
+		TabRecipes: string;
+		NoResult: string;
+		ResultSummary1: string;
+		ResultSummary2: string;
+		ResultSummary3: string;
+		LoadMore: string;
+		LoadMoreRecipes: string;
+		CloseSearch: string;
+		Inspiration: string;
+		RecipeTeaserHead: string;
+		RecipeTeaserLinkText: string;
+	}
+
+	interface TypeAhead {
+		GoToCategory: string;
+		LatestSearches: string;
+		PopularSearches: string;
+		Suggestions: string;
+	}
+
+	interface Contact {
+		Head: string;
+		SubHead: string;
+	}
+
+	interface Modals {
+		DefaultErrorModal: DefaultErrorModal;
+	}
+
+	interface DefaultErrorModal {
+		Heading: string;
+		Description: string;
+		BtnClose: string;
+	}
+
+	interface Basket {
+		MiniBasket: MiniBasket;
+		Head: Head;
+		Summary: Summary;
+		MergeDialog: MergeDialog;
+		ErrorDialog: ErrorDialog;
+		Nav: Nav;
+		ItemHead: ItemHead;
+		Item: Item;
+		ItemBundle: ItemBundle;
+	}
+
+	interface MiniBasket {
+		Headline: string;
+	}
+
+	interface Head {
+		Headline: string;
+		EmptyBasket: string;
+	}
+
+	interface Summary {
+		Products: string;
+		LabelProducts: string;
+		LabelDeposits: string;
+		LabelBags: string;
+		LabelDelivery: string;
+		LabelDiscount: string;
+		LabelTotal: string;
+		LabelUnit: string;
+		LabelUnits: string;
+	}
+
+	interface MergeDialog {
+		Title: string;
+		Description: string;
+	}
+
+	interface ErrorDialog {
+		Title: string;
+		Description: string;
+	}
+
+	interface Nav {
+		Cancel: string;
+		Next: string;
+		ClearBasket: string;
+		GroupProducts: string;
+		GroupRecipes: string;
+	}
+
+	interface ItemHead {
+		Category: string;
+		Recipe: string;
+		Name: string;
+		Info: string;
+		Unit: string;
+		Discount: string;
+		Price: string;
+		Quantity: string;
+		Remove: string;
+	}
+
+	interface Item {
+		ExpandBundle: string;
+	}
+
+	interface ItemBundle {
+		Amount: string;
+		Unit: string;
+		Discount: string;
+	}
+
+	interface Footer {
+		Discount: Discount;
+		Contact: Contact;
+		Subscribe: Subscribe;
+	}
+
+	interface Discount {
+		DiscountBtn: string;
+		DiscountHead1: string;
+		DiscountHead2: string;
+		DiscountSubHead: string;
+	}
+
+	interface Contact {
+		ContactPhone: string;
+		ContactMail: string;
+		ContactHead: string;
+		ContactSubHead: string;
+		ContactBox1Text: string;
+		ContactBox2Text: string;
+		ContactBox3Text: string;
+		ContactBox3LinkText: string;
+		SocialHead: string;
+		AccordionHead1: string;
+		AccordionHead2: string;
+	}
+
+	interface Subscribe {
+		SubscribeHead: string;
+		SubscribePlaceholder: string;
+		SubscribeBtnText: string;
+	}
+
+}
+
+
+	

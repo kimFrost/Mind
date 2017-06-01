@@ -1,0 +1,69 @@
+<div class="recipe-product__row" ng-if="$ctrl.productData.Product" ng-class="{'recipe-product__row_no-delivery': !$ctrl.productData.Product.Availability.IsDeliveryAvailable}">
+	<a ng-href="{{$ctrl.productData.Product.Url}}">
+		<campaign-splash class="recipe-product__campaign" campaign="$ctrl.productData.Product.Campaign" discount-item="$ctrl.productData.Product.DiscountItem"></campaign-splash>
+		<img ng-src="{{$ctrl.productData.Product.PrimaryImage}}&w=60&h=60" ng-attr-alt="{{::$ctrl.productData.Product.Name}}"/>
+	</a>
+	<div>
+		<div>{{$ctrl.productData.Product.Name}}</div>
+		<div>{{$ctrl.productData.Product.Description}}</div>
+		<div></div>
+	</div>
+	<div>
+		<campaign-text campaign="$ctrl.productData.Product.Campaign" ng-if="!($ctrl.productData.IsSupplementProduct && !$ctrl.recipeInBasket && !$ctrl.productData.checked)"></campaign-text>
+	</div>
+	<div>
+		<campaign-discount-price campaign="$ctrl.productData.Product.Campaign"></campaign-discount-price>
+
+		<span ng-class="{ 'campaign__line-through-prices' : $ctrl.productData.Product.Campaign.Type === 'ProductCampaignDiscount' || $ctrl.productData.Product.Campaign.Type === 'ProductCampaignDiscountPercent' }" ng-if="!($ctrl.productData.IsSupplementProduct && !$ctrl.recipeInBasket && !$ctrl.productData.checked)">
+			{{$ctrl.productData.Product.Price | price}}
+		</span>
+	</div>
+	<div ng-if="$ctrl.productData.Product.Availability.IsDeliveryAvailable">
+		<span ng-if="!$ctrl.recipeInBasket && $ctrl.productData.checked">
+			{{$ctrl.productData.Product.AmountForCurrentRecipe}} {{::$ctrl.translations.Recipe.Aside.UnitTitle}}
+		</span>
+
+		<span class="color_primary" ng-if="$ctrl.productData.IsSupplementProduct && !$ctrl.recipeInBasket && !$ctrl.productData.checked" ng-click="$ctrl.productData.checked = true">
+			{{::$ctrl.translations.Recipe.Product.Add}}
+		</span>
+
+		<div ng-if="!$ctrl.recipeInBasket">
+			<div class="form__checkbox">
+				<input type="checkbox" ng-model="$ctrl.productData.checked" />
+
+				<div class="form__ui">
+					<span class="icon_check"></span>
+				</div>
+			</div>
+		</div>
+		<div ng-if="$ctrl.recipeInBasket">
+			<addtobasket product-id="$ctrl.productData.Product.Id" auto-fold="true" class="addtobasket addtobasket_small recipe-product__addtobasket"></addtobasket>
+		</div>
+	</div>
+	<div ng-if="!$ctrl.productData.Product.Availability.IsDeliveryAvailable">
+		<div class="recipe-product__delivery-info color_primary" ng-click="$ctrl.showDeliveryInfo()">{{::$ctrl.translations.Recipe.List.NoDeliveryText}}</div>
+	</div>
+	<div class="recipe-product__toggle" ng-click="$ctrl.toggleOpen()" ng-show="!$ctrl.recipeInBasket && $ctrl.productData.NumberOfProductsFound > 1">
+		{{::$ctrl.translations.Recipe.Product.ShowAlternative}} <span class="recipe-product__toggle-icon icon_up" ng-if="$ctrl.states.opened"></span><span class="recipe-product__toggle-icon icon_forward" ng-if="!$ctrl.states.opened"></span>
+	</div>
+</div>
+
+
+<div class="recipe-product__soldout" ng-if="!$ctrl.productData.Product">
+	<div class="recipe-product__soldout-image">
+		<img ng-src="{{$ctrl.productData.NotFoundImage.Url}}&w=60&h=60" ng-attr-alt="Not found"/>
+	</div>
+
+	<div class="recipe-product__soldout-text">
+		<div>
+			{{::$ctrl.translations.Recipe.Product.SoldOut1}}<span class="recipe-product__soldout-bold"> {{$ctrl.productData.Title}}</span>
+		</div>
+		<div>
+			<span class="recipe-product__soldout-bold">{{$ctrl.productData.Title}} </span>{{::$ctrl.translations.Recipe.Product.SoldOut2}}
+		</div>
+	</div>
+</div>
+
+<div class="recipe-product__payload">
+	<onerow ng-if="$ctrl.states.productsLoaded" template-name="'recipeproductitem'" min-item-width="130" load-size="6" items="$ctrl.products" total-items="$ctrl.totalProducts" load-more="$ctrl.loadMore()"></onerow>
+</div>

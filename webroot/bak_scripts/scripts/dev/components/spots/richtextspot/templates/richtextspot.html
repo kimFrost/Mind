@@ -1,0 +1,21 @@
+﻿<div class="spot-basic richtext-spot" ng-class="{'image-only': $ctrl.imageOnly}">
+
+	<div ng-if="$ctrl.spotdata.ImageForJson.Url">
+		<img ng-src="{{$ctrl.spotdata.ImageForJson.Url}}&width=1560&mode=max&quality=70" ng-attr-alt="{{::$ctrl.spotdata.Header}}" class="spot__image" ng-if="!$ctrl.spotdata.Link.Url" />
+		<a ng-href="{{$ctrl.spotdata.Link.Url}}" ng-if="$ctrl.spotdata.Link.Url">
+			<img ng-src="{{$ctrl.spotdata.ImageForJson.Url}}&width=1560&mode=max&quality=70" ng-attr-alt="{{::$ctrl.spotdata.Header}}" class="spot__image" />
+		</a>
+	</div>
+
+	<div class="spot__content" ng-if="!$ctrl.imageOnly">
+		<h1 class="spot__header" ng-if="$ctrl.spotdata.Header != ''">
+			{{::$ctrl.spotdata.Header}}
+		</h1>
+
+		<div class="spot__text rich-text" ng-if="$ctrl.spotdata.Text != ''" ng-bind-html="$ctrl.spotdata.Text"></div>
+
+		<a ng-href="{{$ctrl.spotdata.Link.Url}}" class="btn spot__button" ng-if="$ctrl.spotdata.Link.Url">
+			{{::$ctrl.spotdata.Link.Text}}
+		</a>
+	</div>
+</div>

@@ -1,0 +1,52 @@
+<button ng-click="$ctrl.open()" class="open-btn" ng-if="$ctrl.translations.Customerservice">
+	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 16.22" style="width:17px;height:17px;display:inline-block;">
+	  <g>
+	    <path d="M12.37,8.67h0a5.54,5.54,0,0,1-1.06.13C8.12,8.6,6,6.62,5.9,4.25a4,4,0,0,1,.28-1.59C2.61,3.29,0,5.62,0,8.4A5.4,5.4,0,0,0,3,13c.42.25.46,2.09-1.88,3.2A6.13,6.13,0,0,0,6.5,14a11.3,11.3,0,0,0,1.61.23c3.86,0,6.43-1.9,7.11-4.48a4,4,0,0,1-2.76-1.14Z" transform="translate(0 0)" fill="#ffffff"></path>
+	    <path d="M15.07,6.87a3.54,3.54,0,0,0,1.93-3C17,1.73,14.65,0,11.68,0S6.91,1.73,6.91,3.87s1.81,3.85,4.78,3.85a7.42,7.42,0,0,0,1.06-.15A4,4,0,0,0,16.3,9C14.76,8.24,14.79,7,15.07,6.87Z" transform="translate(0 0)" fill="#ffffff"></path>
+	  </g>
+	</svg>
+	<span ng-bind="::$ctrl.translations.Customerservice.OpenButton.Title"></span>
+</button>
+
+
+<div class="container" ng-if="$ctrl.isOpen">
+	<div class="page home" ng-if="$ctrl.page === 'home'">
+		
+		<customerservice-header
+			header="::$ctrl.translations.Customerservice.Home.HeaderTitle"
+			on-close="$ctrl.exit($event)"
+			on-minimize="$ctrl.close($event)"
+			></customerservice-header>
+		<main>
+			<customerservice-home
+				on-go-to-email="$ctrl.goToEmail($event)"
+				on-go-to-chat="$ctrl.goToChat($event)"
+			></customerservice-home>
+		</main>
+	</div>
+
+	<div class="page email" ng-if="$ctrl.page === 'email'">
+		<customerservice-header
+			header="::$ctrl.translations.Customerservice.Email.HeaderTitle"
+			on-close="$ctrl.exit($event)"
+			on-minimize="$ctrl.close($event)"
+			on-back="$ctrl.goHome($event)"
+			></customerservice-header>
+		<main>
+			<customerservice-email></customerservice-email>
+		</main>
+	</div>
+
+	<div class="page chat" ng-if="$ctrl.page === 'chat'">
+		<customerservice-header
+			header="::$ctrl.translations.Customerservice.Chat.HeaderTitle"
+			on-close="$ctrl.exit($event)"
+			on-minimize="$ctrl.close($event)"
+			on-back="$ctrl.goHome($event)"
+			></customerservice-header>
+		<main>
+			<customerservice-chat></customerservice-chat>
+		</main>
+	</div>
+</div>
+

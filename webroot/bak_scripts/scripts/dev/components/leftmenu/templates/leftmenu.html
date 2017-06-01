@@ -1,0 +1,21 @@
+<div class="left-menu" ng-show="$ctrl.show">
+	<ul>
+		<li class="left-menu__item" ng-repeat="page in $ctrl.parentLevels">
+			<a class="left-menu__link left-menu__link_parent" ng-class="{'left-menu__link_active' : page.Active }" ng-href="{{::page.Url}}">{{::page.Text}}</a>
+		</li>
+	</ul>
+
+	<ul>
+		<li class="left-menu__item" ng-repeat="page in $ctrl.currentLevel">
+			<a class="left-menu__link"
+				ng-class="{'left-menu__link_active' : page.Active, 'left-menu__link_has-children':page.Children.length>0}" 
+				ng-href="{{::page.Url}}">{{::page.Text}}</a>
+		</li>
+	</ul>
+
+	<filter class="filter" affix="leftmenu"></filter>
+
+	<div class="left-menu__ad" ng-if="$ctrl.menuService.pageMetaData.LeftAdvertisement">
+		<ad ad-data="$ctrl.menuService.pageMetaData.LeftAdvertisement"></ad>
+	</div>
+</div>

@@ -1,0 +1,4 @@
+/* tslint:disable:max-line-length */
+module HtmlTemplates.content.imagetext {
+  export var html = '<div class="content-imagetext" ng-class="{\'content-imagetext_has-btn\' : true}">	<div class="content-imagetext__image-container" ng-if="$ctrl.data.ImageForJson != null">		<img class="content-imagetext__image" ng-src="{{$ctrl.data.ImageForJson.Url}}&w=1600" ng-attr-alt="{{::$ctrl.data.Header}}"/>	</div>	<div class="content-imagetext__content">		<h2 class="content-imagetext__header">			{{::$ctrl.data.Header}}		</h2>		<h4 ng-if="$ctrl.data.Subheader != \'\'">			{{::$ctrl.data.Subheader}}		</h4>		<div ng-bind-html="$ctrl.data.Text"></div>		<div class="content-imagetext__content-btn-container" ng-if="$ctrl.data.LinkText != \'\'">			<div class="content-imagetext__content-btn btn">{{::$ctrl.data.LinkText}}</div>		</div>	</div></div>';
+}

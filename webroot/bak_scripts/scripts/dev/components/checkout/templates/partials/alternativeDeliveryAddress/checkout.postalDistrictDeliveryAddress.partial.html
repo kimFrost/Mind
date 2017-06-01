@@ -1,0 +1,25 @@
+<label>{{ ::$ctrl.translations.Checkout.CustomerAddressInformation.City }}*</label>
+
+<div class="form__attach">
+	<input
+		ng-model="$ctrl.formData.DeliveryAddress.PostalDistrict"
+		required
+		name="PostalDistrictDeliveryAddress"
+		id="PostalDistrictDeliveryAddress"
+		type="text"
+		ng-disabled="$ctrl.states.InvoiceAddressIsDeliveryAddress"
+		placeholder="{{ ::$ctrl.translations.Checkout.CustomerAddressInformationPlaceholder.CityPlaceholder }}"
+		class="form__input" />
+
+		<span
+			ng-show="!$ctrl.formData.InvoiceAddressIsDeliveryAddress"
+			ng-click="$ctrl.changeDeliveryZone()"
+			class="icon icon_pencil checkout__pencil">
+		</span>
+</div>
+
+<div class="form__error-msg">
+	<div ng-show="checkoutForm.$submitted" ng-messages="checkoutForm.PostalDistrictDeliveryAddress.$error" role="alert">
+		<div ng-messages-include="validation-messages"></div>
+	</div>
+</div>

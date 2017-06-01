@@ -1,0 +1,19 @@
+<div class="timeslot-basketbutton"
+	 ng-class="{
+	 'timeslot-basketbutton_reminder': $ctrl.buttonState == 1,
+	 'timeslot-basketbutton_selection': $ctrl.buttonState == 3}"
+	 ng-show="$ctrl.timeslotIsReadyToInit"
+	 ng-click="$ctrl.basketButtonClick()"
+	 ng-switch="$ctrl.buttonState">
+
+	<span class="timeslot-basketbutton__text" ng-switch-when="0">{{::$ctrl.translations.Timeslot.StatusButton.ButtonTextState1}}</span>
+	<span class="timeslot-basketbutton__text" ng-switch-when="1">{{::$ctrl.translations.Timeslot.StatusButton.ButtonTextState2}}</span>
+	<span class="timeslot-basketbutton__text" ng-switch-when="2">{{::$ctrl.translations.Timeslot.StatusButton.ButtonTextState3}}</span>
+	<span class="timeslot-basketbutton__text" ng-switch-when="3">{{$ctrl.formattedDeliveryTime }}</span>
+
+	<span class="timeslot-basketbutton__icon" ng-switch-when="0"><span class="icon_delivery-time"></span></span>
+	<span class="timeslot-basketbutton__icon" ng-switch-when="1"><span class="icon_delivery"></span></span>
+	<span class="timeslot-basketbutton__icon" ng-switch-when="2"><span class="icon_delivery"></span></span>
+	<span class="timeslot-basketbutton__icon" ng-switch-when="3"><span class="icon_delivery-time"></span></span>
+
+</div>

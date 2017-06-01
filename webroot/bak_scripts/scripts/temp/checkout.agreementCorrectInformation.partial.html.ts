@@ -1,0 +1,4 @@
+/* tslint:disable:max-line-length */
+module HtmlTemplates.checkout.agreementCorrectInformation.partial {
+  export var html = '<div class="form__checkbox">	<input		ng-model="$ctrl.formData.correctInformation"		type="checkbox"		id="acceptCorrectInformationCheckbox"		name="acceptCorrectInformationCheckbox"		required	/>	<label for="acceptCorrectInformationCheckbox">{{ ::$ctrl.translations.Checkout.Agreements.CorrectInformation.CorrectInformation }}	</label>	<div class="form__ui">		<span class="icon_check"></span>	</div></div><div class="form__error-msg">	<div class="validation-message" ng-show="checkoutForm.acceptCorrectInformationCheckbox.$touched || checkoutForm.$submitted" ng-messages="checkoutForm.acceptCorrectInformationCheckbox.$error" role="alert">		<div ng-messages-include="validation-messages"></div>	</div></div>';
+}

@@ -1,0 +1,18 @@
+﻿<div class="ribbons-layout" ng-class="['ribbons-layout-' + $ctrl.spotdata.Type, {'ribbons-layout_visible':$ctrl.fadeIn}]">
+	<div class="ribbons-layout__column"
+		ng-repeat="spot in $ctrl.createRange($ctrl.spotdata.Type)" 
+		ng-class="[{'hide-on-mobile': !$ctrl.spotdata.SubElements[spot].VisibleOnMobile}, 'column-with-{{$ctrl.spotdata.SubElements[spot].TemplateName}}']"
+		ng-switch="$ctrl.spotdata.SubElements[spot].TemplateName">
+
+		<richtextspot spotdata="$ctrl.spotdata.SubElements[spot]" ng-switch-when="richtextspot"></richtextspot>
+		<themelinkspot spotdata="$ctrl.spotdata.SubElements[spot]" ng-switch-when="background"></themelinkspot>
+		<combispot spotdata="$ctrl.spotdata.SubElements[spot]" ng-switch-when="combispot"></combispot>
+		<welcomespot spotdata="$ctrl.spotdata.SubElements[spot]" ng-switch-when="welcomespot"></welcomespot>
+		<recipespot spotdata="$ctrl.spotdata.SubElements[spot]" ng-switch-when="recipespot"></recipespot>
+		<videospot spotdata="$ctrl.spotdata.SubElements[spot]" ng-switch-when="videospot"></videospot>
+		<featureimagespot spotdata="$ctrl.spotdata.SubElements[spot]" ng-switch-when="featureimagespot"></featureimagespot>
+		<textspot spotdata="$ctrl.spotdata.SubElements[spot]" ng-switch-when="textspot"></textspot>
+		<imagespot spotdata="$ctrl.spotdata.SubElements[spot]" ng-switch-when="imagespot"></imagespot>
+
+	</div>
+</div>

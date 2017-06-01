@@ -1,0 +1,22 @@
+﻿<div class="productlist-show-all partial-content" ng-show="$ctrl.products.length !== 0">
+	<h2 class="productlist-show-all__heading">
+		{{$ctrl.spotdata.Heading}}
+	</h2>
+	<div class="productlist-show-all__item-container">
+		<productlist-item class="productlist-show-all__item"
+						  ng-class="{'productlist-item' : item.TemplateName !== 'advertisement', 'productlist-show-all__ad' : item.TemplateName === 'advertisement'}"
+						  ng-repeat="item in $ctrl.products"
+						  product="item"
+						  delay="($index<40 ? $index * 50:50*40)"
+						  ng-click="$ctrl.trackClick(item, $index)">
+		</productlist-item>
+
+		<div class="productlist-show-all__item productlist-show-all__item_dummy"></div>
+		<div class="productlist-show-all__item productlist-show-all__item_dummy"></div>
+		<div class="productlist-show-all__item productlist-show-all__item_dummy"></div>
+		<div class="productlist-show-all__item productlist-show-all__item_dummy"></div>
+		<div class="productlist-show-all__item productlist-show-all__item_dummy"></div>
+		<div class="productlist-show-all__item productlist-show-all__item_dummy"></div>
+		<div class="productlist-show-all__item productlist-show-all__item_dummy"></div>
+	</div>
+</div>

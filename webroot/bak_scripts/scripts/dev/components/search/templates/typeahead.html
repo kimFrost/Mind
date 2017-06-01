@@ -1,0 +1,56 @@
+<div class="typeahead__content" ng-show="$ctrl.searchurlService.isSearching">
+	<div class="typeahead__items" ng-if="$ctrl.typeaheadService.items.length > 0 && $ctrl.searchurlService.searchQuery !== ''">
+		<div class="typeahead__item"
+		     ng-class="{'typeahead__item_selected':$ctrl.typeaheadService.selectedItem==$index, 'typeahead__item_first-category': item.Type === 'category' && item.Index === 0}"
+		     ng-repeat="item in $ctrl.typeaheadService.items track by $index">
+
+			<div class="typeahead__header_mobile" ng-if="item.Type === 'suggestion' && item.Index === 0">
+				{{::$ctrl.translationsService.translations.Search.TypeAhead.Suggestions}}
+			</div>
+
+			<div class="typeahead__suggestion"
+			     ng-if="item.Type === 'suggestion'"
+			     ng-mouseenter="$ctrl.typeaheadService.selectedItem = $index;"
+			     ng-mouseleave="$ctrl.typeaheadService.selectedItem = -1"
+			     ng-click="$ctrl.setSearchQuery(item)">
+
+				<span ng-bind-html="item.Name | typeahead: $ctrl.typeaheadService.query"></span>
+				<span class="typeahead__icon_mobile icon_search"></span>
+			</div>
+
+			<a class="typeahead__category"
+			     ng-if="item.Type === 'category'"
+			     ng-mouseenter="$ctrl.typeaheadService.selectedItem = $index;"
+				 ng-mouseleave="$ctrl.typeaheadService.selectedItem = -1"
+				 ng-click="$ctrl.closeSearch()"
+				 ng-href="{{item.Url}}">
+					{{::$ctrl.translationsService.translations.Search.TypeAhead.GoToCategory}} <span class="typeahead__category-name">{{item.Name}}</span>
+
+					<span class="typeahead__icon_mobile icon_forward"></span>
+			</a>
+		</div>
+	</div>
+
+	<div class="typeahead__items" ng-if="$ctrl.searchurlService.searchQuery === '' && $ctrl.responsiveService.responsiveState.device === 'mobile'">
+		<div class="typeahead__item" ng-if="$ctrl.typeaheadService.latestSearches.length !== 0" ng-repeat="query in $ctrl.typeaheadService.latestSearches | orderBy: '[]' : true">
+			<div class="typeahead__header_mobile" ng-if="$ctrl.typeaheadService.latestSearches.length !== 0 && $index === 0">
+				{{::$ctrl.translationsService.translations.Search.TypeAhead.LatestSearches}}
+			</div>
+
+			<div class="typeahead__latest" ng-click="$ctrl.setSearchFromQuery(query)">
+				{{query}} <span class="typeahead__icon_mobile icon_search"></span>
+			</div>
+		</div>
+
+
+		<div class="typeahead__item" ng-if="$ctrl.typeaheadService.popularSearches.length !== 0" ng-repeat="query in $ctrl.typeaheadService.popularSearches | orderBy: '[]' : true">
+			<div class="typeahead__header_mobile" ng-if="$ctrl.typeaheadService.popularSearches.length !== 0 && $index === 0">
+				{{::$ctrl.translationsService.translations.Search.TypeAhead.PopularSearches}}
+			</div>
+
+			<div class="typeahead__latest" ng-click="$ctrl.setSearchFromQuery(query)">
+				{{query}} <span class="typeahead__icon_mobile icon_search"></span>
+			</div>
+		</div>
+	</div>
+</div>

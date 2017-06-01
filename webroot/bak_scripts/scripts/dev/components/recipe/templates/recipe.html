@@ -1,0 +1,233 @@
+<section class="recipe__main">
+	<div class="recipe__media">
+		<product-slideshow class="slideshow" alt-thumbnails="true" media="$ctrl.spotdata.Media" image-params="'&w=1105&h=621&mode=crop'" share-title="$ctrl.spotdata.Header" share-desc=""></product-slideshow>
+	</div>
+	<div class="recipe__well">
+		<h1 class="recipe__title">{{::$ctrl.spotdata.Header}}</h1>
+		<div class="recipe__bullets">
+			<div ng-if="$ctrl.spotdata.TotalTime">
+				<span class="recipe__bullets-icon icon_clock"></span> <span class="recipe__bullets-bold">{{::$ctrl.translations.Recipe.Tags.TotalTime}}:</span> {{::$ctrl.spotdata.TotalTime}}.
+			</div>
+			<div ng-if="$ctrl.spotdata.WorkTime">
+				<span class="recipe__bullets-bold">{{::$ctrl.translations.Recipe.Tags.WorkTime}}:</span> {{::$ctrl.spotdata.WorkTime}}.
+			</div>
+			<div ng-if="$ctrl.spotdata.Author.Name">
+				<span class="recipe__bullets-bold">{{::$ctrl.translations.Recipe.Tags.RecipeBy}}:</span> {{::$ctrl.spotdata.Author.Name}}
+			</div>
+		</div>
+
+		<div class="row row_align-stretch row_align-end-below-large query_below-xxx-large">
+			<div class="row__col-8 row__col-12_below-x-small recipe__select-row">
+				<div class="row">
+					<div class="row__col-6 row__col-6_below-x-small">
+						<div class="form__modern-select form__modern-select_fill form__no-margin">
+							<select ng-change="$ctrl.changeServings()" ng-model="$ctrl.servingsPending" ng-options="Persons + ' ' + $ctrl.translations.Recipe.Common.Servings for Persons in $ctrl.spotdata.AllowedForNumberOfPersons"></select>
+						</div>
+					</div>
+					<div class="row__col-6 row__col-6_below-x-small">
+						<div class="form__modern-select form__modern-select_fill form__no-margin">
+							<select ng-change="$ctrl.updateProductBySorting()" ng-model="$ctrl.sortingPending" ng-options="item.Title for item in $ctrl.spotdata.SortingList"></select>
+						</div>
+					</div>
+					<div class="recipe__msg">
+						<div class="recipe__msg-icon">
+							<span class="icon_check"></span>
+						</div>
+						<div ng-if="$ctrl.msgObj.type == 0">
+							<div><b>{{$ctrl.msgObj.productsCount}} {{::$ctrl.translations.Recipe.Messages.AddedToBasket}}</b></div>
+							<div>{{$ctrl.servings}} {{::$ctrl.translations.Recipe.Common.Servings}} / {{$ctrl.sorting.Title}}</div>
+						</div>
+						<div ng-if="$ctrl.msgObj.type == 1">
+							<div><b>{{::$ctrl.translations.Recipe.Messages.UpdatedInBasket}}</b></div>
+							<div>{{$ctrl.servings}} {{::$ctrl.translations.Recipe.Common.Servings}} / {{$ctrl.sorting.Title}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row__col-4 row__col-12_below-x-small">
+				<button class="recipe__addtobasket addtobasket__btn"
+						ng-click="$ctrl.addToBasket()"
+						ng-if="!$ctrl.states.inBasket"
+						ng-class="{'btn_fit' : $ctrl.responsiveService.responsiveState.device === 'mobile'}">
+					<span class="addtobasket__text query_below-x-small">{{::$ctrl.translations.Recipe.Common.AddToBasket}}</span>
+					<span class="recipe__addtobasket-icon addtobasket__icon icon_basket"></span>
+				</button>
+				<button class="recipe__addtobasket addtobasket__btn btn_cancel"
+						ng-click="$ctrl.removeFromBasket()"
+						ng-if="$ctrl.states.inBasket"
+						ng-class="{'btn_fit' : $ctrl.responsiveService.responsiveState.device === 'mobile'}">
+					<span class="addtobasket__text query_below-x-small">{{::$ctrl.translations.Recipe.Common.RemoveFromBasket}}</span>
+					<span class="recipe__addtobasket-icon addtobasket__icon icon_trash"></span>
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="recipe__well query_above-xx-small query_below-xxx-large">
+		<div class="divider divider_light"></div>
+	</div>
+
+	<accordion-group mobile="true" class="recipe__well recipe__accordion-group">
+
+		<h2 class="h3 query_above-xx-small">{{::$ctrl.translations.Recipe.Common.Ingredients}} ({{$ctrl.servings}} {{::$ctrl.translations.Recipe.Common.Servings}})</h2>
+
+		<accordion class="recipe__accordion">
+			<toggle>
+				<h2 class="recipe__instructions-headline recipe__accordion-toggle">{{::$ctrl.translations.Recipe.Common.Ingredients}} ({{$ctrl.servings}} {{::$ctrl.translations.Recipe.Common.Servings}})</h2>
+			</toggle>
+			<content class="recipe__ingredient recipe__accordion-content">
+				<div class="recipe__ingredients-wrapper">
+					<div class="recipe__ingredients" ng-repeat="group in $ctrl.spotdata.IngredientGroups">
+						<h2 class="recipe__ingredients-headline">
+							{{group.Name}}
+						</h2>
+						<table class="table">
+							<tr class="table__row" ng-repeat="ingredient in group.Ingredients">
+								<td class="table__col table__col_one-line"><strong>{{$ctrl.roundAndFix(ingredient.Amount * ($ctrl.servings / $ctrl.spotdata.NumberOfPersons))}} {{ingredient.Unit}}</strong></td>
+								<td class="table__col table__col_grow">{{ingredient.Text}}</td>
+								<td class="table__col"></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</content>
+		</accordion>
+
+		<h2 class="h3 query_above-xx-small">{{::$ctrl.translations.Recipe.Common.Preparation}}</h2>
+
+		<accordion class="recipe__accordion">
+			<toggle>
+				<h2 class="recipe__instructions-headline recipe__accordion-toggle recipe__accordion-toggle_last">{{::$ctrl.translations.Recipe.Common.Preparation}}</h2>
+			</toggle>
+			<content class="recipe__accordion-content">
+				<div class="recipe__instructions">
+					<div class="rich-text" ng-bind-html="$ctrl.spotdata.Instructions"></div>
+				</div>
+				<div class="recipe__logo" ng-show="$ctrl.spotdata.Author.ShowLogo">
+					<a ng-href="{{$ctrl.spotdata.Author.Link.Url}}" target="_blank" ng-if="$ctrl.spotdata.Author.Link">
+						<img ng-src="{{$ctrl.spotdata.Author.LogoForJson.Url}}" ng-attr-alt="{{::$ctrl.spotdata.Author.Name}}" />
+					</a>
+					<img ng-src="{{$ctrl.spotdata.Author.LogoForJson.Url}}" ng-attr-alt="{{::$ctrl.spotdata.Author.Name}}" ng-if="!$ctrl.spotdata.Author.Link" />
+				</div>
+			</content>
+		</accordion>
+	</accordion-group>
+
+</section>
+<aside class="recipe__aside">
+
+	<nemlig-loader ng-show="$ctrl.states.pending" inverted="true"
+				   class="nemlig-loader nemlig-loader_overlay"></nemlig-loader>
+
+	<div class="recipe__well">
+
+		<h1 class="recipe__aside-headline">{{::$ctrl.translations.Recipe.Aside.Headline}}</h1>
+		<div class="row row_align-stretch row_align-end-below-medium recipe__desktop">
+			<div class="row__col-8 row__col-12_below-small row__col-auto_below-medium recipe__select-row">
+				<div class="row">
+					<div class="row__col-6 row__col-6_below-small row__col-auto_below-medium">
+						<div class="form__modern-select form__modern-select_fill form__no-margin">
+							<select ng-change="$ctrl.changeServings()" ng-model="$ctrl.servingsPending" ng-options="Persons + ' ' + $ctrl.translations.Recipe.Common.Servings for Persons in $ctrl.spotdata.AllowedForNumberOfPersons"></select>
+						</div>
+					</div>
+					<div class="row__col-6 row__col-6_below-small row__col-auto_below-medium">
+						<div class="form__modern-select form__modern-select_fill form__no-margin">
+							<select ng-change="$ctrl.updateProductBySorting()" ng-model="$ctrl.sortingPending" ng-options="item.Title for item in $ctrl.spotdata.SortingList"></select>
+						</div>
+					</div>
+					<div class="recipe__msg">
+						<div class="recipe__msg-icon">
+							<span class="icon_check"></span>
+						</div>
+						<div ng-if="$ctrl.msgObj.type == 0">
+							<div><b>{{$ctrl.msgObj.productsCount}} {{::$ctrl.translations.Recipe.Messages.AddedToBasket}}</b></div>
+							<div>{{$ctrl.servings}} {{::$ctrl.translations.Recipe.Common.Servings}} / {{$ctrl.sorting.Title}}</div>
+						</div>
+						<div ng-if="$ctrl.msgObj.type == 1">
+							<div><b>{{::$ctrl.translations.Recipe.Messages.UpdatedInBasket}}</b></div>
+							<div>{{$ctrl.servings}} {{::$ctrl.translations.Recipe.Common.Servings}} / {{$ctrl.sorting.Title}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row__col-4 row__col-12_below-small row__col-auto_below-medium">
+				<button class="recipe__addtobasket addtobasket__btn"
+						ng-click="$ctrl.addToBasket()"
+						ng-if="!$ctrl.states.inBasket">
+					<span class="addtobasket__text query_below-x-small">{{::$ctrl.translations.Recipe.Common.AddToBasket}}</span>
+					<span class="recipe__addtobasket-icon addtobasket__icon icon_basket"></span>
+				</button>
+				<button class="recipe__addtobasket addtobasket__btn btn_cancel"
+						ng-click="$ctrl.removeFromBasket()"
+						ng-if="$ctrl.states.inBasket">
+					<span class="addtobasket__text query_below-x-small">{{::$ctrl.translations.Recipe.Common.RemoveFromBasket}}</span>
+					<span class="recipe__addtobasket-icon addtobasket__icon icon_trash"></span>
+				</button>
+			</div>
+		</div>
+	</div>
+	<div>
+
+		<recipe-product ng-repeat="product in $ctrl.products track by $index" created-for-servings="$ctrl.spotdata.NumberOfPersons" sorting-filter="$ctrl.sorting.UrlName" servings="$ctrl.servings" product-data="product" recipe-in-basket="$ctrl.states.inBasket" ng-if="!product.IsSupplementProduct"></recipe-product>
+	</div>
+	<div class="recipe__well recipe__well_small" ng-if="$ctrl.anySupplementProducts">
+		<strong class="color_primary">{{::$ctrl.translations.Recipe.Aside.SupplementsHeadline}}</strong>
+	</div>
+	<div>
+		<recipe-product ng-repeat="product in $ctrl.products track by $index" created-for-servings="$ctrl.spotdata.NumberOfPersons" sorting-filter="$ctrl.sorting.UrlName" servings="$ctrl.servings" product-data="product" recipe-in-basket="$ctrl.states.inBasket" ng-if="product.IsSupplementProduct"></recipe-product>
+	</div>
+	<div class="recipe__well">
+		<div class="row row_align-stretch row_align-end-below-large">
+			<div class="row__col-8 row__col-12_below-x-small recipe__select-row">
+				<div class="row">
+					<div class="row__col-6 row__col-6_below-x-small">
+						<div class="form__modern-select form__modern-select_fill form__no-margin">
+							<select ng-change="$ctrl.changeServings()" ng-model="$ctrl.servingsPending" ng-options="Persons + ' ' + $ctrl.translations.Recipe.Common.Servings for Persons in $ctrl.spotdata.AllowedForNumberOfPersons"></select>
+						</div>
+					</div>
+					<div class="row__col-6 row__col-6_below-x-small">
+						<div class="form__modern-select form__modern-select_fill form__no-margin">
+							<select ng-change="$ctrl.updateProductBySorting()" ng-model="$ctrl.sortingPending" ng-options="item.Title for item in $ctrl.spotdata.SortingList"></select>
+						</div>
+					</div>
+					<div class="recipe__msg">
+						<div class="recipe__msg-icon">
+							<span class="icon_check"></span>
+						</div>
+						<div ng-if="$ctrl.msgObj.type == 0">
+							<div><b>{{$ctrl.msgObj.productsCount}} {{::$ctrl.translations.Recipe.Messages.AddedToBasket}}</b></div>
+							<div>{{$ctrl.servings}} {{::$ctrl.translations.Recipe.Common.Servings}} / {{$ctrl.sorting.Title}}</div>
+						</div>
+						<div ng-if="$ctrl.msgObj.type == 1">
+							<div><b>{{::$ctrl.translations.Recipe.Messages.UpdatedInBasket}}</b></div>
+							<div>{{$ctrl.servings}} {{::$ctrl.translations.Recipe.Common.Servings}} / {{$ctrl.sorting.Title}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row__col-4 row__col-12_below-x-small">
+				<button class="recipe__addtobasket addtobasket__btn"
+						ng-click="$ctrl.addToBasket()"
+						ng-if="!$ctrl.states.inBasket"
+						ng-class="{'btn_fit' : $ctrl.responsiveService.responsiveState.device === 'mobile'}">
+					<span class="addtobasket__text query_below-x-small">{{::$ctrl.translations.Recipe.Common.AddToBasket}}</span>
+					<span class="recipe__addtobasket-icon addtobasket__icon icon_basket"></span>
+				</button>
+				<button class="recipe__addtobasket addtobasket__btn btn_cancel"
+						ng-click="$ctrl.removeFromBasket()"
+						ng-if="$ctrl.states.inBasket"
+						ng-class="{'btn_fit' : $ctrl.responsiveService.responsiveState.device === 'mobile'}">
+					<span class="addtobasket__text query_below-x-small">{{::$ctrl.translations.Recipe.Common.RemoveFromBasket}}</span>
+					<span class="recipe__addtobasket-icon addtobasket__icon icon_trash"></span>
+				</button>
+			</div>
+		</div>
+	</div>
+</aside>
+
+<section class="recipe__recommendations" ng-repeat="recommendation in $ctrl.spotdata.Recommendations.ProductsRecommendations">
+	<productlist-onerow spotdata="recommendation"></productlist-onerow>
+</section>
+<section class="recipe__recommendations" ng-repeat="recommendations in $ctrl.spotdata.Recommendations.RecipeRecommendations">
+	<recipelist-onerow spotdata="recommendations"></recipelist-onerow>
+</section>

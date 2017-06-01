@@ -1,0 +1,298 @@
+///<reference path="../../../../references/references.ts"/>
+
+/**
+ * Created by mikkel on 15/06/16.
+ */
+
+
+namespace BasketModule {
+
+	type BasketViewModel = SCommerce.Website.Code.WebAPI.Models.Basket.BasketViewModel;
+	type BasketLineViewModel = SCommerce.Website.Code.WebAPI.Models.Basket.BasketLineViewModel;
+	type BundleItemViewModel = SCommerce.Website.Code.WebAPI.Models.Basket.BundleItemViewModel;
+	type RecipeViewModel = SCommerce.Website.Code.WebAPI.Models.Basket.RecipeViewModel;
+	type RecipeProductSelectionViewModel = SCommerce.Website.Code.WebAPI.Models.Recipe.RecipeProductSelectionViewModel;
+
+	interface IBasketGroupModel {
+		Id: string;
+		Title: string;
+		Lines: BasketLineViewModel[];
+	}
+
+	export class BasketService {
+
+		public basket: BasketViewModel = {} as BasketViewModel;
+		public basketGroups: IBasketGroupModel[];
+		public basketRecipes: IBasketGroupModel[];
+		public basketObservable: any;
+		private observer;
+		private basketUpdateSubscribers: Function[] = [];
+		private updateProductSubjects = {};
+
+		constructor(private $q: ng.IQService,
+			private $http: ng.IHttpService,
+			private $rootScope: ng.IRootScopeService,
+			private $timeout: ng.ITimeoutService,
+			private userService: UserModule.UserService,
+			private $Ohttp: any) {
+
+			this.basketObservable = Rx.Observable.create((observer) => {
+				this.observer = observer;
+			}).publish();
+			this.basketObservable.connect();
+
+			// this.get();
+			this.updateBasketGroups();
+
+			$rootScope.$watch(() => {
+				return this.userService.states.isLoggedIn;
+			}, (status) => {
+				this.get();
+			});
+		}
+
+		// Basket update publisher
+		// ---------------------
+		// Publish changes in address object
+		public publishBasketUpdate() {
+
+			const subscriberArray = this.basketUpdateSubscribers;
+			for (let i = 0, iMax = subscriberArray.length; i < iMax; i++) {
+				subscriberArray[i]();
+			}
+		}
+
+		// Subscribe to address changes
+		public subscribeBasketUpdate(handler: Function) {
+			this.basketUpdateSubscribers.push(handler);
+		}
+
+		public updateBasketGroups() {
+			this.basketGroups = [];
+			if (!Array.isArray(this.basket.Lines)) {
+				return;
+			}
+			this.basket.Lines.forEach((line) => {
+				let found = false;
+				this.basketGroups.forEach((group) => {
+					if (group.Title === line.MainGroupName) {
+						found = true;
+						group.Lines.push(line);
+					}
+				});
+				if (!found) {
+					let group = {} as IBasketGroupModel;
+					group.Title = line.MainGroupName;
+					group.Lines = [];
+					group.Lines.push(line);
+					this.basketGroups.push(group);
+				}
+			});
+			//~~ Recipes ~~//
+			this.basketRecipes = [];
+			if (!Array.isArray(this.basket.Recipes)) {
+				return;
+			}
+			this.basket.Recipes.forEach((recipe) => {
+				let group = {} as IBasketGroupModel;
+				group.Id = recipe.Id;
+				group.Title = recipe.Title;
+				group.Lines = [];
+				recipe.ProductIds.forEach((productId) => {
+					this.basket.Lines.forEach((line) => {
+						if (line.Id === productId) {
+							group.Lines.push(line);
+						}
+					});
+				});
+				this.basketRecipes.push(group);
+			});
+		}
+
+		public productQuantityInBasket(productId: string) {
+			var quantity = 0;
+			if (this.basket.Lines !== undefined) {
+				this.basket.Lines.forEach((line) => {
+					if (line.Id === productId) {
+						quantity = line.Quantity;
+						return;
+					}
+				});
+			}
+			return quantity;
+		}
+
+		private update(basket: BasketViewModel, changes: Array<string> = null) {
+			this.basket = basket;
+
+			// Publish basket data
+			this.publishBasketUpdate();
+			this.updateBasketGroups();
+			this.observer.next(changes);
+		}
+
+		public get(): ng.IPromise<BasketViewModel> {
+			let defer = this.$q.defer();
+			this.$http({ method: 'GET', url: '/webapi/basket/' + 'GetBasket' }).then((response) => {
+				this.update(response.data as BasketViewModel, null);
+				defer.resolve(this.basket);
+			}, (response) => {
+				console.log("ERROR: ", response);
+				defer.reject(this.basket);
+			});
+			return defer.promise;
+		}
+
+<<<<<<< HEAD
+		public updateProduct(productId: string, quantity: number): ng.IPromise<BasketViewModel> {
+
+			// TODO: implement $Ohttp
+			// var myObs = Rx.Observable.interval(1000);
+			//
+			// myObs.take(10).switchMap(function() {
+			// 		return this.$Ohttp({
+			// 			url:'http://beta.json-generator.com/api/json/get/4kmU80nVW'
+			// 		})
+			// 	}).subscribe(function(response) {
+			// 		console.log(response);
+			// 	});
+
+			let defer = this.$q.defer();
+			// TODO: Add params
+			this.$http({
+				method: 'POST', url: '/webapi/basket/' + 'AddToBasket', data: {
+					productId: productId,
+					quantity: quantity.toString()
+				}
+			}).then((response) => {
+				this.update(response.data as BasketViewModel, [productId]);
+				defer.resolve(this.basket);
+			}, (response) => {
+				console.log("ERROR: ", response);
+				defer.reject(this.basket);
+			});
+=======
+		public updateProduct(productId: string, quantity: number):void {
+			if(!this.updateProductSubjects[productId]) {
+				this.updateProductSubjects[productId] = new Rx.Subject();
+				this.updateProductSubjects[productId]
+					.distinctUntilChanged()
+					.switchMap(quantity=> {
+						return this.$Ohttp({
+							method: 'POST',
+							url: '/webapi/basket/' + 'AddToBasket',
+							data: {
+								productId: productId,
+								quantity: quantity
+							}
+						});
+					})
+					.subscribe(response => {
+						this.update(response.data as BasketViewModel, [productId]);
+					});
+			}
+>>>>>>> c70f44b3e51a96eb573eca239e1d5e9573c8ba3f
+
+			this.updateProductSubjects[productId].next(quantity.toString());
+		}
+
+		public removeProduct(productId: string): ng.IPromise<BasketViewModel> {
+			let defer = this.$q.defer();
+			this.$http({ method: 'GET', url: '/webapi/basket/' + 'RemoveFromBasket?productid=' + productId }).then((response) => {
+				this.update(response.data as BasketViewModel);
+				defer.resolve(this.basket);
+			}, (response) => {
+				console.log("ERROR: ", response);
+				defer.reject(this.basket);
+			});
+			return defer.promise;
+		}
+
+		public addRecipeWithDefaults(recipeId: string, servings: number, sorting: string): ng.IPromise<BasketViewModel> {
+			let defer = this.$q.defer();
+			// TODO: Add params
+			this.$http({ method: 'GET', url: `/webapi/Basket/AddRecipeToBasket?recipeId=${recipeId}&NumberOfPeople=${servings}&sorting=${sorting}` }).then((response) => {
+				this.update(response.data as BasketViewModel);
+				defer.resolve(this.basket);
+			}, (response) => {
+				console.log("ERROR: ", response);
+				defer.reject(this.basket);
+			});
+			return defer.promise;
+		}
+
+		public updateRecipeWithProducts(recipeId: string,
+			products: Array<RecipeProductSelectionViewModel>,
+			servings: number): ng.IPromise<BasketViewModel> {
+
+			let defer = this.$q.defer();
+			// TODO: Add params
+			let selectedProducts = [];
+			products.forEach((productData) => {
+				selectedProducts.push({
+					ProductSelectionId: productData.ProductSelectionId,
+					ProductId: productData.Product.Id,
+					Quantity: 1
+				});
+			});
+			let data = {
+				RecipeId: recipeId,
+				NumberOfPeople: servings,
+				SelectedProducts: selectedProducts
+			};
+			this.$http({ method: 'POST', data: data, url: '/webapi/basket/' + 'AddRecipeToBasket' }).then((response) => {
+				this.update(response.data as BasketViewModel);
+				defer.resolve(this.basket);
+			}, (response) => {
+				console.log("ERROR: ", response);
+				defer.reject(this.basket);
+			});
+			return defer.promise;
+		}
+
+		public removeRecipe(recipeId: string): ng.IPromise<BasketViewModel> {
+			let defer = this.$q.defer();
+			// TODO: Add params
+			this.$http({ method: 'GET', url: '/webapi/basket/' + 'RemoveRecipeFromBasket?recipeId=' + recipeId }).then((response) => {
+				this.update(response.data as BasketViewModel);
+				defer.resolve(this.basket);
+			}, (response) => {
+				console.log("ERROR: ", response);
+				defer.reject(this.basket);
+			});
+			return defer.promise;
+		}
+
+		/*
+		public addCoupon(couponId:string):ng.IPromise<BasketViewModel> {
+			let defer = this.$q.defer();
+			// TODO: Add params
+			this.$http({ method: 'GET', url: '/webapi/basket/' + 'addCoupon' }).then((response) => {
+				this.update(response.data as BasketViewModel);
+				defer.resolve(this.basket);
+			}, (response) => {
+				console.log("ERROR: ", response);
+				defer.reject(this.basket);
+			});
+			return defer.promise;
+		}
+		*/
+
+		public removeCoupon(recipeId: string): ng.IPromise<BasketViewModel> {
+			let defer = this.$q.defer();
+			// TODO: Add params
+			this.$http({ method: 'GET', url: '/webapi/basket/' + 'removeCoupon' }).then((response) => {
+				this.update(response.data as BasketViewModel);
+				defer.resolve(this.basket);
+			}, (response) => {
+				console.log("ERROR: ", response);
+				defer.reject(this.basket);
+			});
+			return defer.promise;
+		}
+
+	}
+
+
+	angular.module(moduleId).service("basketService", BasketService);
+}

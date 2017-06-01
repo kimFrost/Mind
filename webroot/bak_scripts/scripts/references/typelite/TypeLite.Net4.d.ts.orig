@@ -1,0 +1,612 @@
+﻿
+
+
+
+
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+/// <reference path="Enums.ts" />
+
+declare module Nemlig.Models {
+	interface BasicOrderHistoryData {
+		AvailableButtons: Vertica.Intervare.Presentation.ViewObjects.OrderHistoryButton;
+		DeliveryStatus: Vertica.Intervare.DeliveryService.TimeSlotAvailabilities;
+		Email: string;
+		Id: number;
+		OrderDate: Date;
+		OrderNumber: string;
+		Status: Vertica.Intervare.Model.Values.OrderHistoryStatus;
+		Total: number;
+	}
+	interface CouponLineDiffData {
+		CouponNumber: string;
+		EndDate: Date;
+		ProcessTypeCode: string;
+		StartDate: Date;
+	}
+	interface OrderHistoryData extends Nemlig.Models.BasicOrderHistoryData {
+		AddedToAccount: number;
+		Bonus: number;
+		CouponDiscount: number;
+		DebitorId: string;
+		DeliveryDate: Date;
+		DeliveryDeadline: Date;
+		DepositLabel: string;
+		DepositPrice: number;
+		LineGroups: Nemlig.Models.OrderLineHistoryGroupData[];
+		PackagingPrice: number;
+		ReceivedFromWMS: boolean;
+		ShippingPrice: number;
+		SubTotal: number;
+		TimeslotDuration: number;
+		TotalExVat: number;
+		TransactionFee: number;
+	}
+	interface OrderLineHistoryData {
+		Amount: number;
+		AverageItemPrice: number;
+		CampaignName: string;
+		Description: string;
+		DiscountAmount: number;
+		Id: number;
+		IsDepositLine: boolean;
+		IsMixLine: boolean;
+		IsProductLine: boolean;
+		MainGroupName: string;
+		OriginalItemPrice: number;
+		OriginalProductName: string;
+		OriginalProductNumber: string;
+		OriginalQuantity: number;
+		ProductName: string;
+		ProductNumber: string;
+		Quantity: number;
+		SoldOut: number;
+	}
+	interface OrderLineHistoryGroupData {
+		GroupName: string;
+		OrderLines: Nemlig.Models.OrderLineHistoryData[];
+	}
+	interface ProductLineDiffData {
+		AmountDiff: number;
+		ProductName: string;
+		Undeliverable: boolean;
+	}
+}
+declare module SCommerce.Website.Code.Cookie {
+	interface ICookieWarningModel {
+		Body: string;
+		ButtonText: string;
+		Heading: string;
+		Link: SCommerce.Website.Code.FieldTypes.Model.ILink;
+		LinkText: string;
+	}
+}
+declare module SCommerce.Website.Code.FieldTypes.Model {
+	interface IImage {
+		Alt: string;
+		Border: string;
+		Class: string;
+		Height: number;
+		HSpace: number;
+		Src: string;
+		Title: string;
+		VSpace: number;
+		Width: number;
+	}
+	interface ILink {
+		Anchor: string;
+		Class: string;
+		LinkType: SCommerce.Website.Code.FieldTypes.Model.LinkType;
+		Query: string;
+		Target: string;
+		TargetId: System.Guid;
+		Text: string;
+		Title: string;
+		Url: string;
+	}
+	interface ImageViewModel {
+		AltText: string;
+		MediaType: SCommerce.Website.Code.Video.Model.MediaType;
+		Url: string;
+	}
+	interface NullImage {
+		Alt: string;
+		Border: string;
+		Class: string;
+		Height: number;
+		HSpace: number;
+		Id: System.Guid;
+		Language: string;
+		Src: string;
+		Title: string;
+		VSpace: number;
+		Width: number;
+	}
+	interface NullLink {
+		Anchor: string;
+		Class: string;
+		LinkType: SCommerce.Website.Code.FieldTypes.Model.LinkType;
+		Query: string;
+		Target: string;
+		TargetId: System.Guid;
+		Text: string;
+		Title: string;
+		Url: string;
+	}
+}
+declare module SCommerce.Website.Code.Information {
+	interface ISocialModel {
+		Facebook: string;
+		GooglePlus: string;
+		Instagram: string;
+		LinkedIn: string;
+		Twitter: string;
+	}
+}
+declare module SCommerce.Website.Code.Settings.Model {
+	interface ITextAnchorModel {
+		Position: string;
+	}
+	interface ITextSizeModel {
+		Size: string;
+	}
+	interface IThemeModel {
+		ColorCode: string;
+		CssClass: string;
+		NegativeText: boolean;
+	}
+}
+declare module SCommerce.Website.Code.Spot.Model {
+	interface CombiSpotProductViewModel extends SCommerce.Website.Code.WebAPI.Models.Product.ProductListItemViewModel {
+		TemplateName: string;
+	}
+}
+declare module SCommerce.Website.Code.Spot.Model.Interface {
+	interface ICombiSpotRenderingModel {
+		FeatureImageSpot: SCommerce.Website.Code.Spot.Model.Interface.IFeatureImageSpotRenderingModel;
+		Placeholder: string;
+		Product: SCommerce.Website.Code.Spot.Model.CombiSpotProductViewModel;
+		ProductId: string;
+		ProductImage: SCommerce.Website.Code.FieldTypes.Model.IImage;
+		ProductImageForJson: SCommerce.Website.Code.FieldTypes.Model.ImageViewModel;
+		ReverseSpotOrder: boolean;
+	}
+	interface IFeatureImageSpotRenderingModel {
+		BackgroundImage: SCommerce.Website.Code.FieldTypes.Model.IImage;
+		BackgroundImageForJson: SCommerce.Website.Code.FieldTypes.Model.ImageViewModel;
+		ButtonText: string;
+		CornerRibbonText: string;
+		Header: string;
+		Link: SCommerce.Website.Code.FieldTypes.Model.ILink;
+		Placeholder: string;
+		Subheader: string;
+		TextAnchor: SCommerce.Website.Code.Settings.Model.ITextAnchorModel;
+		TextBackground: boolean;
+		TextSize: SCommerce.Website.Code.Settings.Model.ITextSizeModel;
+		Theme: SCommerce.Website.Code.Settings.Model.IThemeModel;
+	}
+	interface IImageSpotRenderingModel {
+		BackgroundImage: SCommerce.Website.Code.FieldTypes.Model.IImage;
+		BackgroundImageForJson: SCommerce.Website.Code.FieldTypes.Model.ImageViewModel;
+		Header: string;
+		Placeholder: string;
+		Subheader: string;
+		TextAnchor: SCommerce.Website.Code.Settings.Model.ITextAnchorModel;
+		TextSize: SCommerce.Website.Code.Settings.Model.ITextSizeModel;
+		Theme: SCommerce.Website.Code.Settings.Model.IThemeModel;
+	}
+	interface IRecipeSpotRenderingModel {
+		Header: string;
+		Image: SCommerce.Website.Code.FieldTypes.Model.IImage;
+		ImageForJson: SCommerce.Website.Code.FieldTypes.Model.ImageViewModel;
+		Link: SCommerce.Website.Code.FieldTypes.Model.ILink;
+		Placeholder: string;
+		Recipe: SCommerce.Website.Code.WebAPI.Models.Recipe.RecipeListItemViewModel;
+		RecipeGuid: System.Guid;
+		Subheader: string;
+		TextAnchor: SCommerce.Website.Code.Settings.Model.ITextAnchorModel;
+		TextSize: SCommerce.Website.Code.Settings.Model.ITextSizeModel;
+		Theme: SCommerce.Website.Code.Settings.Model.IThemeModel;
+		Video: SCommerce.Website.Code.Video.Model.IVideoMediaType;
+	}
+	interface ITextSpotRenderingModel {
+		BackgroundImage: SCommerce.Website.Code.FieldTypes.Model.IImage;
+		BackgroundImageForJson: SCommerce.Website.Code.FieldTypes.Model.ImageViewModel;
+		ButtonText: string;
+		Header: string;
+		Link: SCommerce.Website.Code.FieldTypes.Model.ILink;
+		ListLine1: string;
+		ListLine2: string;
+		ListLine3: string;
+		ListLine4: string;
+		ListLine5: string;
+		Placeholder: string;
+		TextAnchor: SCommerce.Website.Code.Settings.Model.ITextAnchorModel;
+		TextSize: SCommerce.Website.Code.Settings.Model.ITextSizeModel;
+		Theme: SCommerce.Website.Code.Settings.Model.IThemeModel;
+	}
+	interface IVideoSpotRenderingModel {
+		Header: string;
+		Placeholder: string;
+		Subheader: string;
+		TextAnchor: SCommerce.Website.Code.Settings.Model.ITextAnchorModel;
+		TextSize: SCommerce.Website.Code.Settings.Model.ITextSizeModel;
+		Theme: SCommerce.Website.Code.Settings.Model.IThemeModel;
+		Video: SCommerce.Website.Code.Video.Model.IVideoMediaType;
+	}
+}
+declare module SCommerce.Website.Code.Video.Model {
+	interface IMedia {
+		MediaType: SCommerce.Website.Code.Video.Model.MediaType;
+	}
+	interface IVideoMediaType {
+		ThumbnailImage: SCommerce.Website.Code.FieldTypes.Model.IImage;
+		ThumbnailImageForJson: SCommerce.Website.Code.FieldTypes.Model.ImageViewModel;
+		VideoName: string;
+		YouTubeId: string;
+		YouTubeUrl: string;
+	}
+}
+declare module SCommerce.Website.Code.WebAPI.Models.Basket {
+	interface AddressViewModel {
+		CompanyName: string;
+		Door: string;
+		FirstName: string;
+		Floor: string;
+		HouseNumber: number;
+		HouseNumberLetter: string;
+		IsEmptyAddress: boolean;
+		LastName: string;
+		MiddleName: string;
+		MobileNumber: string;
+		Name: string;
+		PhoneNumber: string;
+		PostalCode: number;
+		PostalDistrict: string;
+		Side: string;
+		StreetName: string;
+	}
+	interface BasketLineViewModel extends SCommerce.Website.Code.WebAPI.Models.Product.ProductSimpleBaseViewModel {
+		BundleItems: SCommerce.Website.Code.WebAPI.Models.Basket.BundleItemViewModel[];
+		IsEcological: boolean;
+		ItemPrice: string;
+		MainGroupName: string;
+		PrimaryImage: string;
+		Quantity: number;
+		TotalDiscount: string;
+		TotalPrice: string;
+	}
+	interface BasketViewModel {
+		CouponDiscount: number;
+		Coupons: SCommerce.Website.Code.WebAPI.Models.Basket.CouponLineViewModel[];
+		DeliveryAddress: SCommerce.Website.Code.WebAPI.Models.Basket.AddressViewModel;
+		DeliveryPrice: number;
+		DeliveryTimeSlot: SCommerce.Website.Code.WebAPI.Models.Basket.DeliveryViewModel;
+		FormattedDeliveryTime: string;
+		Id: string;
+		InvoiceAddress: SCommerce.Website.Code.WebAPI.Models.Basket.AddressViewModel;
+		IsMaxTotalValid: boolean;
+		IsMinTotalValid: boolean;
+		Lines: SCommerce.Website.Code.WebAPI.Models.Basket.BasketLineViewModel[];
+		MinimumOrderTotal: number;
+		NumberOfBags: number;
+		NumberOfDeposits: number;
+		NumberOfProducts: number;
+		Recipes: SCommerce.Website.Code.WebAPI.Models.Basket.RecipeViewModel[];
+		TotalBagsPrice: number;
+		TotalDepositsPrice: number;
+		TotalPrice: number;
+		TotalProductDiscountPrice: number;
+		TotalProductsPrice: number;
+	}
+	interface BundleItemViewModel {
+		Description: string;
+		DiscountItem: boolean;
+		Id: string;
+		ImageUrl: string;
+		Quantity: number;
+		Title: string;
+		Url: string;
+	}
+	interface CouponLineViewModel {
+		Name: string;
+		Type: string;
+	}
+	interface DeliveryViewModel {
+		Date: Date;
+		Duration: number;
+		EndTime: number;
+		Id: string;
+		Reserved: boolean;
+		StartTime: number;
+	}
+	interface RecipeViewModel {
+		Id: string;
+		PrimaryImage: string;
+		ProductIds: string[];
+		Title: string;
+	}
+}
+declare module SCommerce.Website.Code.WebAPI.Models.Delivery {
+	interface DeliveryAddressregistrationViewModel {
+		City: string;
+		Days: number;
+		Door: string;
+		Floor: string;
+		HouseNumber: number;
+		HouseNumberLetter: string;
+		PostalCode: number;
+		Side: string;
+		StreetName: string;
+	}
+	interface DeliveryTimeValidationViewModel {
+		CouponLineDiffs: Nemlig.Models.CouponLineDiffData[];
+		IsReserved: boolean;
+		MinutesReserved: number;
+		PriceChangeDiff: number;
+		ProductLineDiffs: Nemlig.Models.ProductLineDiffData[];
+	}
+}
+declare module SCommerce.Website.Code.WebAPI.Models.Filter {
+	interface FacetsViewModel {
+		FacetGroups: SCommerce.Website.Code.WebAPI.Models.Filter.IFacetGroupViewModel[];
+		FacetPivots: SCommerce.Website.Code.WebAPI.Models.Filter.IFacetViewModel[];
+		NumFound: number;
+		SortingList: SCommerce.Website.Code.WebAPI.Models.Filter.SortViewModel[];
+	}
+	interface IFacetGroupViewModel {
+		Items: SCommerce.Website.Code.WebAPI.Models.Filter.IFacetViewModel[];
+		Text: string;
+		Type: string;
+	}
+	interface IFacetViewModel {
+		IsSelected: boolean;
+		Text: string;
+		Type: string;
+		UrlName: string;
+	}
+	interface SortViewModel {
+		IsSelected: boolean;
+		Title: string;
+		UrlName: string;
+	}
+}
+declare module SCommerce.Website.Code.WebAPI.Models.Login {
+	interface MemberViewModel {
+		DeliveryAddress: SCommerce.Website.Code.WebAPI.Models.Basket.AddressViewModel;
+		Email: string;
+		MessageToDriver: string;
+	}
+}
+declare module SCommerce.Website.Code.WebAPI.Models.Order {
+<<<<<<< HEAD
+	interface BasicOrderHistoryViewModel {
+		Id: number;
+		OrderDate: Date;
+		OrderNumber: string;
+		Status: Vertica.Intervare.Model.Values.OrderHistoryStatus;
+		Total: number;
+	}
+	interface OrderHistoryViewModel extends Nemlig.Models.OrderHistoryData {
+		Lines: SCommerce.Website.Code.WebAPI.Models.Order.OrderLineHistoryViewModel[];
+	}
+	interface OrderLineHistoryViewModel extends Nemlig.Models.OrderLineHistoryData {
+		GroupName: string;
+=======
+	interface CreditCardPaymentInfo {
+		CardNumber: string;
+		CardtType: string;
+	}
+	interface OrderConfirmationViewModel {
+		CardDiscountPrice: number;
+		DeliveryAddress: SCommerce.Website.Code.WebAPI.Models.Basket.AddressViewModel;
+		DeliveryPrice: number;
+		DeliveryTimeSlot: SCommerce.Website.Code.WebAPI.Models.Basket.DeliveryViewModel;
+		EditOrderLink: string;
+		FormattedDeliveryTime: string;
+		InvoiceAddress: SCommerce.Website.Code.WebAPI.Models.Basket.AddressViewModel;
+		LastOrderOrderEditDate: Date;
+		Lines: SCommerce.Website.Code.WebAPI.Models.Order.OrderLineConfirmationViewModel[];
+		MoneyLeftInNemligAccount: number;
+		NumberOfBags: number;
+		NumberOfProducts: number;
+		NumberOfRecycleUnits: number;
+		OrderDate: Date;
+		OrderNumber: string;
+		SavePaymentInfoLink: string;
+		SavingPrice: number;
+		SelectedPaymenInfo: SCommerce.Website.Code.WebAPI.Models.Order.CreditCardPaymentInfo;
+		ShouldReturnRecycle: boolean;
+		TotalBagsPrice: number;
+		TotalPrice: number;
+		TotalProductDiscountPrice: number;
+		TotalProductsPrice: number;
+		TotalRecycleUnitsPrice: number;
+		TotalVatPrice: number;
+	}
+	interface OrderLineConfirmationViewModel {
+		ItemPrice: string;
+		MainGroupName: string;
+		ProductName: string;
+		ProductNumber: string;
+		ProductUnit: string;
+		Quantity: number;
+		TotalDiscount: string;
+		TotalPrice: string;
+>>>>>>> 935a5158a52c38585d5481c20d8e6aee5ae96b8c
+	}
+	interface PlaceOrderIsLoggedInArgs {
+		Comment: string;
+		Password: string;
+		ReturnBottles: boolean;
+		TermsAccepted: boolean;
+		TicketSubscriptionRequested: boolean;
+	}
+}
+declare module SCommerce.Website.Code.WebAPI.Models.Product {
+	interface ProductGroupViewModel {
+		NumFound: number;
+		Products: SCommerce.Website.Code.WebAPI.Models.Product.ProductListItemViewModel[];
+		Start: number;
+	}
+	interface ProductListItemViewModel extends SCommerce.Website.Code.WebAPI.Models.Product.ProductSimpleBaseViewModel {
+		PrimaryImage: string;
+		TemplateName: string;
+	}
+	interface ProductSimpleBaseViewModel {
+		Campaign: SCommerce.Website.Code.WebAPI.Models.Product.Campaign.CampaignBaseViewModel;
+		Description: string;
+		DiscountItem: boolean;
+		Id: string;
+		Labels: string[];
+		Name: string;
+		Price: number;
+		UnitPrice: string;
+		Url: string;
+	}
+}
+declare module SCommerce.Website.Code.WebAPI.Models.Product.Campaign {
+	interface BuyXForYCampaignViewModel extends SCommerce.Website.Code.WebAPI.Models.Product.Campaign.CampaignBaseViewModel {
+		MinQuantity: number;
+		TotalPrice: number;
+	}
+	interface CampaignBaseViewModel {
+		CampaignPrice: number;
+		Type: string;
+	}
+	interface DiscountCampaignViewModel extends SCommerce.Website.Code.WebAPI.Models.Product.Campaign.CampaignBaseViewModel {
+		DiscountSavings: number;
+	}
+	interface DiscountPercentViewModel extends SCommerce.Website.Code.WebAPI.Models.Product.Campaign.CampaignBaseViewModel {
+		DiscountPercent: number;
+	}
+	interface MaxBuyCampaignViewModel extends SCommerce.Website.Code.WebAPI.Models.Product.Campaign.CampaignBaseViewModel {
+		MaxQuantity: number;
+	}
+	interface MixOfferCampaignViewModel extends SCommerce.Website.Code.WebAPI.Models.Product.Campaign.CampaignBaseViewModel {
+		MinQuantity: number;
+		TotalPrice: number;
+	}
+}
+declare module SCommerce.Website.Code.WebAPI.Models.Recipe {
+	interface ProductRecommendationViewModel {
+		ProductGroupId: string;
+		Products: SCommerce.Website.Code.WebAPI.Models.Product.ProductListItemViewModel[];
+		RaptorId: string;
+		RecommendationId: System.Guid;
+		Title: string;
+	}
+	interface RecipeAuthor {
+		Link: SCommerce.Website.Code.FieldTypes.Model.ILink;
+		Logo: SCommerce.Website.Code.FieldTypes.Model.IImage;
+		LogoForJson: SCommerce.Website.Code.FieldTypes.Model.ImageViewModel;
+		Name: string;
+		ShowLogo: boolean;
+	}
+	interface RecipeDetailViewModel {
+		AllowedForNumberOfPersons: number[];
+		Author: SCommerce.Website.Code.WebAPI.Models.Recipe.RecipeAuthor;
+		Header: string;
+		IngredientGroups: any;
+		Instructions: string;
+		IsLockedForNumberOfPersons: boolean;
+		IsPurchaseAvailable: boolean;
+		Media: SCommerce.Website.Code.Video.Model.IMedia[];
+		MetaDescription: string;
+		MetaTitle: string;
+		NumberOfPersons: number;
+		PrimaryImageUrl: string;
+		RecipeId: string;
+		RecipeProducts: SCommerce.Website.Code.WebAPI.Models.Recipe.RecipeProductsViewModel;
+		RecipeTags: SCommerce.Website.Code.WebAPI.Models.Recipe.RecipeTag[];
+		RecipeUrl: string;
+		Recommendations: SCommerce.Website.Code.WebAPI.Models.Recipe.RecommendationsViewModel;
+		SortingList: SCommerce.Website.Code.WebAPI.Models.Filter.SortViewModel[];
+		TemplateName: string;
+		TotalTime: string;
+		WorkTime: string;
+	}
+	interface RecipeGroupViewModel {
+		NumFound: number;
+		Recipes: SCommerce.Website.Code.WebAPI.Models.Recipe.RecipeListItemViewModel[];
+		Start: number;
+	}
+	interface RecipeListItemViewModel {
+		AllowedForNumberOfPersons: number[];
+		Author: string;
+		Id: string;
+		Name: string;
+		NumberOfPersons: number;
+		PrimaryImage: string;
+		SoldOutProducts: string[];
+		SortingList: SCommerce.Website.Code.WebAPI.Models.Filter.SortViewModel[];
+		SupplementProducts: SCommerce.Website.Code.WebAPI.Models.Recipe.SupplementProductViewModel[];
+		Tags: string[];
+		TemplateName: string;
+		TotalTime: string;
+		Url: string;
+	}
+	interface RecipeProductSelectionViewModel {
+		IsNecessary: boolean;
+		IsSupplementProduct: boolean;
+		Product: SCommerce.Website.Code.WebAPI.Models.Product.ProductListItemViewModel;
+		ProductGroupId: System.Guid;
+		ProductSelectionId: System.Guid;
+		Title: string;
+	}
+	interface RecipeProductsViewModel {
+		Products: SCommerce.Website.Code.WebAPI.Models.Recipe.RecipeProductSelectionViewModel[];
+	}
+	interface RecipeRecommendationViewModel {
+		RecipeGroupId: string;
+		Recipes: SCommerce.Website.Code.WebAPI.Models.Recipe.RecipeDetailViewModel[];
+		RecommendationId: System.Guid;
+		Title: string;
+	}
+	interface RecipeTag {
+		IconClass: string;
+		Name: string;
+	}
+	interface RecommendationsViewModel {
+		ProductsRecommendations: SCommerce.Website.Code.WebAPI.Models.Recipe.ProductRecommendationViewModel[];
+		RecipeRecommendations: SCommerce.Website.Code.WebAPI.Models.Recipe.RecipeRecommendationViewModel[];
+	}
+	interface SupplementProductViewModel {
+		Name: string;
+		ProductSelectionId: System.Guid;
+	}
+}
+declare module SCommerce.Website.Code.WebAPI.Models.Search {
+	interface SearchResultViewModel<T> {
+		RecipesNumFound: number;
+		Results: T[];
+		SearchQuery: string;
+		Start: number;
+	}
+	interface SearchViewModel {
+		Facets: SCommerce.Website.Code.WebAPI.Models.Filter.FacetsViewModel;
+		Products: SCommerce.Website.Code.WebAPI.Models.Product.ProductGroupViewModel;
+		ProductsNumFound: number;
+		Recipes: SCommerce.Website.Code.WebAPI.Models.Recipe.RecipeListItemViewModel[];
+		RecipesNumFound: number;
+		SearchQuery: string;
+		Suggestions: string[];
+	}
+}
+declare module System {
+	interface Guid {
+	}
+}
+
+
+

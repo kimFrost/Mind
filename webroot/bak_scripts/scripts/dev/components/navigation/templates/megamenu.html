@@ -1,0 +1,26 @@
+﻿<div class="mega-menu__inline-block_relative" ng-mouseleave="$ctrl.mouseResetActive()">
+	<div class="mega-menu__inline-block"
+		 ng-class="{ active : $ctrl.megaMenuService.activeId === $ctrl.menuData.Id && $ctrl.megaMenuService.activeLevel >= $ctrl.level}"
+	     ng-mouseenter="$ctrl.mouseSetActive()"
+	     ng-click="$ctrl.touchToggleActive()"
+	     level="{{$ctrl.level}}"
+		 ng-transclude>
+	</div>
+
+	<div class="mega-menu" ng-show="$ctrl.megaMenuService.activeId === $ctrl.menuData.Id && $ctrl.megaMenuService.activeLevel >= $ctrl.level">
+		<div class="mega-menu__container" ng-if="$ctrl.items.length > 0">
+			<mega-menu-level class="mega-menu__block"
+			                 ng-class="{ active : $ctrl.megaMenuService.activeId == $ctrl.menuData.Id && $ctrl.megaMenuService.activeLevel >= $ctrl.level }"
+			                 item="$ctrl.items"
+			                 active-level="$ctrl.megaMenuService.activeLevel"
+			                 level="$ctrl.level + 1"
+			                 level-depth="$ctrl.levelDepth"
+							 show-all-text="$ctrl.showAllText"
+							 show-all="$ctrl.menuData.DisplayShowallInMegamenu"
+							 show-all-link="$ctrl.menuData.Url">
+			</mega-menu-level>
+			
+			<ad class="mega-menu__ad" ad-data="$ctrl.megaMenuService.activeAd" as-background="true" disable-link="true"></ad>
+		</div>
+	</div>
+</div> 

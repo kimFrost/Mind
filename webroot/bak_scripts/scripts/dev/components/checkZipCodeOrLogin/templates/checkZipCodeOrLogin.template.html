@@ -1,0 +1,130 @@
+<div class="check-zip-code-or-login-modal__content">
+	<nemlig-loader
+		ng-show="$ctrl.states.Pending"
+		inverted="true"
+		class="nemlig-loader nemlig-loader_overlay">
+	</nemlig-loader>
+
+	<section class="content__check-zip-code">
+		<p>{{::$ctrl.translations.Checkout.CheckZipCodeOrLogin.CheckZipCodeText}}</p>
+		<form
+			class="form"
+			name="checkZipCodeForm"
+			id="checkZipCodeForm"
+			ng-submit="$ctrl.submitLookupZipCode(checkZipCodeForm, $ctrl.formData.zipCode)"
+			novalidate
+		>
+			<div class="form__combine form__combine_inverse">
+				<input type="tel"
+					ng-model="$ctrl.formData.zipCode"
+					ng-minlength="3"
+					ng-maxlength="4"
+					maxlength="4"
+					min-value="100"
+					max-value="9990"
+					required
+					pattern="[0-9]*"
+					name="zipCode"
+					id="zipCode"
+					placeholder="{{ :: $ctrl.translations.Checkout.ChangeAddress.CheckZipCodeButtonPlaceholderText }}"
+					class="form__input postal-code"
+					ng-disabled="$ctrl.states.IsPending"
+				/>
+				<button
+					ng-disabled="$ctrl.states.IsPending || $ctrl.formData.zipCode.length < 3 || $ctrl.formData.zipCode.length > 4 || $ctrl.formData.zipCode == null || $ctrl.formData.zipCode == 0000"
+					type="submit"
+					class="btn">{{ :: $ctrl.translations.Checkout.ChangeAddress.CheckZipCodeButtonText }}
+				</button>
+			</div>
+		</form>
+	</section>
+
+	<section class="content__already-customer-headline">
+		<div class="text-border-wrap h4">{{::$ctrl.translations.Authentication.Login.AlreadyCustomer}}</div>
+	</section>
+
+	<section class="content__login">
+		<form
+			class="loginForm"
+			name="loginForm"
+			id="loginForm"
+			ng-submit="$ctrl.submitLogin(loginForm, $ctrl.formData.login)"
+			novalidate>
+			<label>{{::$ctrl.translations.Authentication.Login.UsernameLabel}}</label>
+			<input
+				name="userEmail"
+				id="userEmail"
+				type="email"
+				ng-pattern="$ctrl.emailRegExPattern"
+				class="form__input"
+				ng-model="$ctrl.formData.login.username"
+				ng-minlength="2"
+				ng-maxlength="64"
+				required
+				tabindex="1"
+				placeholder="{{::$ctrl.translations.Authentication.Login.UsernamePlaceholder}}"
+			/>
+
+			<div class="form__error-msg">
+				<div
+					ng-show="loginForm.userEmail.$touched"
+					ng-messages="loginForm.userEmail.$error"
+					role="alert">
+					<div ng-messages-include="email-validation-messages"></div>
+				</div>
+			</div>
+
+
+			<label>{{::$ctrl.translations.Authentication.Login.PasswordLabel}}</label>
+			<input
+				name="userPassword"
+				id="userPassword"
+				type="password"
+				class="form__input"
+				ng-model="$ctrl.formData.login.password"
+				required
+				placeholder="{{::$ctrl.translations.Authentication.Login.PasswordPlaceholder}}"
+				tabindex="2"
+			/>
+
+			<div>
+				<ng-messages
+					class="login__error-msg form__error-msg" for="loginForm.userPassword.$error" ng-show="loginForm.userEmail.$touched" role="alert">
+					<ng-message when="required">{{::$ctrl.translations.Authentication.Login.PasswordRequired}}</ng-message>
+				</ng-messages>
+			</div>
+
+
+			<div class="login__settings">
+
+				<div class="form__checkbox">
+					<input
+						name="rememberMe"
+						ng-true-value="true"
+						ng-false-value="false"
+						id="rememberMe"
+						type="checkbox"
+						ng-model="$ctrl.formData.login.autoLogin"
+						tabindex="3"
+					/>
+					<label class="remember-me-label" for="rememberMe"> {{::$ctrl.translations.Authentication.Login.RememberMe}}</label>
+					<div class="form__ui">
+						<span class="icon_check"></span>
+					</div>
+				</div>
+				<a class="login__forgot-password" ng-click="$ctrl.forgotPassword()">{{::$ctrl.translations.Authentication.Login.ForgotPassword}}</a>
+
+			</div>
+
+			<button type="submit" class="login__btn btn btn_fit">
+				<span ng-class="{'login__button_hidden':$ctrl.fetching}">{{::$ctrl.translations.Authentication.Login.SubmitButton}}</span>
+			</button>
+
+			<div class="login__feedback">
+				<div ng-show="$ctrl.hasLoginFailed()">
+					{{ $ctrl.states.Errors.Message }}
+				</div>
+			</div>
+		</form>
+	</section>
+</div>

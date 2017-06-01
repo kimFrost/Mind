@@ -1,0 +1,34 @@
+<div ng-switch="$ctrl.spot.TemplateName" class="spot-wrapper">
+	<!-- Layouts -->
+	<mosaiclayout1 mosaicdata="$ctrl.spot" ng-switch-when="mosaiclayout1"></mosaiclayout1>
+	<ribbons-layout spotdata="$ctrl.spot" ng-switch-when="ribbon"></ribbons-layout>
+	<brandspotslayout spotdata="$ctrl.spot" ng-switch-when="brandspotsribbon"></brandspotslayout>
+	<productlist-tabs spotdata="$ctrl.spot" ng-switch-when="productlisttabsspot"></productlist-tabs>
+	<productlist-onerow spotdata="$ctrl.spot" ng-switch-when="productlistonerowspot"></productlist-onerow>
+	<productlist-show-all class="partial-wrapper" spotdata="$ctrl.spot" ng-switch-when="productlistshowallspot"></productlist-show-all>
+	<recipelist-onerow spotdata="$ctrl.spot" ng-switch-when="recipelistonerowspot"></recipelist-onerow>
+	<recipelist-showall spotdata="$ctrl.spot" ng-switch-when="recipelistshowallspot"></recipelist-showall>
+	<edit-user user="$ctrl.spot" ng-switch-when="edituser"></edit-user>
+	<create-user-locked user="$ctrl.spot" ng-switch-when="createuserlocked"></create-user-locked>
+	<activate-user user="$ctrl.spot" ng-switch-when="activateuser"></activate-user>
+	<notifications spotdata="$ctrl.spot" ng-switch-when="notifications"></notifications>
+	<subscription ng-switch-when="subscriptionspot"></subscription>
+	<activate-subscription ng-switch-when="activatesubscriptionspot"></activate-subscription>
+
+	<!-- Items -->
+	<featureimagespot spotdata="$ctrl.spot" ng-switch-when="featureimagespot"></featureimagespot>
+	<textspot spotdata="$ctrl.spot" ng-switch-when="textspot"></textspot>
+	<imagespot spotdata="$ctrl.spot" ng-switch-when="imagespot"></imagespot>
+	<combispot spotdata="$ctrl.spot" ng-switch-when="combispot"></combispot>
+	<videospot spotdata="$ctrl.spot" ng-switch-when="videospot"></videospot>
+	<recipespot spotdata="$ctrl.spot" ng-switch-when="recipespot"></recipespot>
+	<richtextspot spotdata="$ctrl.spot" ng-switch-when="richtextspot"></richtextspot>
+	<welcomespot spotdata="$ctrl.spot" ng-switch-when="welcomespot"></welcomespot>
+	<product-detail product-data="$ctrl.spot" ng-switch-when="productdetailspot"></product-detail>
+	<recipe spotdata="$ctrl.spot" ng-switch-when="recipedetailspot"></recipe>
+	<orders data="$ctrl.spot" ng-switch-when="orderhistory"></orders>
+	<account-history data="$ctrl.spot" ng-switch-when="accounthistory"></account-history>
+	<card-admin data="$ctrl.spot" ng-switch-when="payment"></card-admin>
+	<jobofferings ng-switch-when="jobofferings" class="jobofferings"></jobofferings>
+
+</div>

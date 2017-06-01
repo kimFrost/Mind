@@ -1,0 +1,32 @@
+<a class="media-spot"
+	ng-if="$ctrl.spotdata.Link.Url"
+	ng-href="{{$ctrl.spotdata.Link.Url}}" 
+	target="{{$ctrl.spotdata.Link.LinkType === 'external' ? '_blank' : ''}}"
+	ng-class="{'hide-on-mobile': !$ctrl.VisibleOnMobile}">
+	
+	<div class="spot__content">
+		<div class="spot__media-container">
+			<div class="spot__media-image" ng-style="$ctrl.spotdata.BackgroundImageForJson.Url && {'background-image': 'url(&quot;' + $ctrl.spotdata.BackgroundImageForJson.Url + '&width=800&height=550&mode=max&quality=70&quot;)'}"></div>
+		</div>
+		<div class="spot__text-box">
+			<h1 class="spot__headline" ng-if="$ctrl.spotdata.Header != ''">{{::$ctrl.spotdata.Header}}</h1>
+			<h2 class="spot__subline" ng-if="$ctrl.spotdata.Subheader != ''">{{::$ctrl.spotdata.Subheader}}</h2>
+		</div>
+	</div>
+</a>
+
+
+<div class="media-spot"
+	ng-if="!$ctrl.spotdata.Link.Url"
+	ng-class="{'hide-on-mobile': !$ctrl.VisibleOnMobile}">
+	
+	<div class="spot__content">
+		<div class="spot__media-container">
+			<div class="spot__media-image" ng-style="$ctrl.spotdata.BackgroundImageForJson.Url && {'background-image': 'url(&quot;' + $ctrl.spotdata.BackgroundImageForJson.Url + '&width=800&height=550&mode=max&quality=70&quot;)'}"></div>
+		</div>
+		<div class="spot__text-box">
+			<h1 class="spot__headline" ng-if="$ctrl.spotdata.Header != ''">{{::$ctrl.spotdata.Header}}</h1>
+			<h2 class="spot__subline" ng-if="$ctrl.spotdata.Subheader != ''">{{::$ctrl.spotdata.Subheader}}</h2>
+		</div>
+	</div>
+</div>

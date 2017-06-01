@@ -1,0 +1,50 @@
+<section class="pay-with-giro">
+	<form
+		name="payWithGiroForm"
+		ng-submit="$ctrl.yesPayWithGiro(payWithGiroForm.$valid)"
+		novalidate>
+
+		<!-- Information -->
+		<div class="row pay-with-giro__content">
+			<div class="row__col-12">
+				<span ng-bind-html="$ctrl.payWithGiroInformation"></span>
+			</div>
+		</div>
+
+		<!-- Password element-->
+		<div class="row pay-with-giro__password-field">
+			<div class="row__col-4">
+			</div>
+
+			<div class="row__col-3">
+			</div>
+
+			<div class="row__col-5 row__col-12_below-small">
+				<ng-include
+					ng-if="$ctrl.user.isLoggedIn"
+					src="'password-input'">
+				</ng-include>
+			</div>
+		</div>
+
+		<!-- Navigation buttons-->
+		<nav class="row pay-with-giro__navigation">
+			<div class="row__col-4 row__col-12_below-small">
+				<button
+					class="btn btn_fit btn_cancel"
+					ng-click="$ctrl.closeDialog()">{{ ::$ctrl.translations.Checkout.PayWithGiro.NoDontPayWithGiro }}
+				</button>
+			</div>
+
+			<div class="row__col-3"></div>
+
+			<div class="row__col-5 row__col-12_below-small">
+				<button
+					class="btn btn_fit"
+					type="submit">{{ $ctrl.yesPayWithGiroButtonText }}
+				</button>
+			</div>
+		</nav>
+
+	</form>
+</section>

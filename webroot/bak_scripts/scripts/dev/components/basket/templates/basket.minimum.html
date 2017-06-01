@@ -1,0 +1,8 @@
+﻿<div class="basket-minimum__min-price" ng-class="{'basket-minimum__min-price_not-reached': !$ctrl.basketService.basket.IsMinTotalValid}">
+	<div ng-if="$ctrl.basketService.basket.NumberOfProducts !== 0">
+		{{::$ctrl.translationsService.translations.Basket.Minimum.Minimum1}} {{$ctrl.basketService.basket.MinimumOrderTotal | price : false : 0}} <span ng-if="!$ctrl.basketService.basket.IsMinTotalValid">{{::$ctrl.translationsService.translations.Basket.Minimum.Minimum2}}</span> {{::$ctrl.translationsService.translations.Basket.Minimum.Minimum3}} <span class="basket-minimum__min-price-check icon_check" ng-if="$ctrl.basketService.basket.IsMinTotalValid"></span>
+	</div>
+	<div ng-if="$ctrl.basketService.basket.NumberOfProducts === 0">
+		{{::$ctrl.translationsService.translations.Basket.Minimum.MinimumNotMet}}: {{$ctrl.basketService.basket.MinimumOrderTotal | price : false : 0}}
+	</div>
+</div>

@@ -1,0 +1,4 @@
+/* tslint:disable:max-line-length */
+module HtmlTemplates.emailValidationMessages.partial {
+  export var html = '<label ng-message="minlength">{{::$ctrl.translations.CreateUser.CreateUserEmail.ErrorShort}}</label><label ng-message="maxlength">{{::$ctrl.translations.CreateUser.CreateUserEmail.ErrorLong}}</label><label ng-message="required">{{::$ctrl.translations.CreateUser.CreateUserEmail.ErrorRequired}}</label><label ng-message="pattern">{{::$ctrl.translations.CreateUser.CreateUserEmail.ErrorPattern}}</label>';
+}

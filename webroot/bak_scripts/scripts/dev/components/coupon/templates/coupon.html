@@ -1,0 +1,31 @@
+<form name="couponForm" ng-submit="couponForm.$valid && $ctrl.addCoupon($ctrl.formData.coupon)" novalidate>
+	<h3>{{::$ctrl.translations.Coupon.Headline}}</h3>
+	<div class="form__combine">
+		<div class="form__insert">
+			<span class="icon_gift"></span>
+			<input type="text"
+				   name="coupon"
+				   ng-model="$ctrl.formData.coupon"
+				   placeholder="{{::$ctrl.translations.Coupon.InputPlaceholder}}"
+			       class="form__input"
+				   required="required"
+				   autocomplete="false"/>
+		</div>
+		<button type="submit" class="btn">
+			{{::$ctrl.translations.Coupon.ButtonText}}
+			<nemlig-loader ng-show="$ctrl.states.fetching" inverted="true" class="nemlig-loader nemlig-loader_small nemlig-loader_overlay"></nemlig-loader>
+		</button>
+	</div>
+
+	<div ng-show="$ctrl.states.showMsg" ng-bind="$ctrl.msg" class="form__push"></div>
+
+	<div ng-if="$ctrl.basket.Coupons.length">
+		<b>{{::$ctrl.translations.Coupon.ListHeader}}</b>
+	</div>
+
+	<div ng-repeat="coupon in $ctrl.basket.Coupons">
+		<span class="color_light-grey">{{coupon.Name}}</span>
+		<span class="icon_check color_green"></span>
+	</div>
+
+</form>

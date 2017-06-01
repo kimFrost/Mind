@@ -1,0 +1,26 @@
+<div ng-switch="$ctrl.spot.TemplateName" class="spot-wrapper">
+	<mosaiclayout1 mosaicdata="$ctrl.spot" ng-switch-when="mosaiclayout1"></mosaiclayout1>
+	<featureimagespot spotdata="$ctrl.spot" ng-switch-when="featureimagespot"></featureimagespot>
+	<textspot spotdata="$ctrl.spot" ng-switch-when="textspot"></textspot>
+	<imagespot spotdata="$ctrl.spot" ng-switch-when="imagespot"></imagespot>
+	<combispot spotdata="$ctrl.spot" ng-switch-when="combispot"></combispot>
+	<videospot spotdata="$ctrl.spot" ng-switch-when="videospot"></videospot>
+	<recipespot spotdata="$ctrl.spot" ng-switch-when="recipespot"></recipespot>
+	<richtextspot spotdata="$ctrl.spot" ng-switch-when="richtextspot"></richtextspot>
+	<welcomespot spotdata="$ctrl.spot" ng-switch-when="WelcomeSpot"></welcomespot>
+	<productlist-tabs spotdata="$ctrl.spot" ng-switch-when="productlisttabsspot"></productlist-tabs>
+	<productlist-onerow spotdata="$ctrl.spot" ng-switch-when="productlistonerowspot"></productlist-onerow>
+	<productlist-show-all spotdata="$ctrl.spot" ng-switch-when="productlistshowallspot"></productlist-show-all>
+	<product-detail product-data="$ctrl.spot" ng-switch-when="productdetailspot"></product-detail>
+	<recipe spotdata="$ctrl.spot" ng-switch-when="recipedetailspot"></recipe>
+	<recipelist-onerow spotdata="$ctrl.spot" ng-switch-when="recipelistonerowspot"></recipelist-onerow>
+	<recipelist-showall spotdata="$ctrl.spot" ng-switch-when="recipelistshowallspot"></recipelist-showall>
+	<orders data="$ctrl.spot" ng-switch-when="orderhistory"></orders>
+	<account-history data="$ctrl.spot" ng-switch-when="accounthistory"></account-history>
+	<card-admin ng-switch-when="payment"></card-admin>
+<<<<<<< HEAD
+</div>
+=======
+	<jobofferings ng-switch-when="jobofferings" class="jobofferings"></jobofferings>
+</div>
+>>>>>>> 5f09870eb7faa75a2e9968dbdea010dd510b9cfc

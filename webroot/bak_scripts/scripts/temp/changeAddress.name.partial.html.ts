@@ -1,0 +1,4 @@
+/* tslint:disable:max-line-length */
+module HtmlTemplates.changeAddress.name.partial {
+  export var html = '<label>{{ ::$ctrl.translations.ChangeAddress.DeliveryInformation.Name }}*</label><input	id="Name"	name="Name"	type="text"	ng-model="$ctrl.formData.CompanyName"	minlength="2"	required	class="form__input change-address__name-input"	placeholder="{{ ::$ctrl.translations.ChangeAddress.DeliveryInformation.NamePlaceHolder }}"/><div	class="validation-message"	ng-show="changeAddressDeliveryInformationForm.$submitted"	ng-messages="changeAddressDeliveryInformationForm.Name.$error" role="alert">		<div ng-messages-include="validation-messages"></div></div>';
+}

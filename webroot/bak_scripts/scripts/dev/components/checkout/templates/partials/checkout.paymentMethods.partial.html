@@ -1,0 +1,15 @@
+<div class="payment-methods">
+
+	<div ng-if="$ctrl.states.PaymentMethod === 'PaymentCard'">
+		<ng-include src="'payment-cards'"></ng-include>
+	</div>
+
+	<div ng-if="$ctrl.states.PaymentMethod === 'Pending'" class="pending">
+		<span class="payment-method__key">{{::$ctrl.translationsService.translations.Checkout.PaymentMethods.GettingPayments}}</span>
+	</div>
+
+	<div ng-if="$ctrl.states.PaymentMethod !== 'PaymentCard' && $ctrl.states.PaymentMethod !== 'Pending'">
+		<span class="payment-method__key">{{::$ctrl.translationsService.translations.Checkout.OrderConfirmation.PaymentMethod}}</span>:
+		<span class="payment-method__value">{{::$ctrl.translationsService.translations.Payment.PaymentMethods[$ctrl.states.PaymentMethod]}}</span>
+	</div>
+</div>

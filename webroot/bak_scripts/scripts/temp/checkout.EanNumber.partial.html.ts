@@ -1,0 +1,4 @@
+/* tslint:disable:max-line-length */
+module HtmlTemplates.checkout.EanNumber.partial {
+  export var html = '<label>{{ ::$ctrl.translations.Checkout.CustomerAddressInformation.EAN }}</label>	<input		ng-model="$ctrl.formData.EAN"		type="text"		name="EAN"		id="EAN"		required		ng-minlength="12"		ng-maxlength="17"		placeholder="{{ ::$ctrl.translations.Checkout.CustomerAddressInformationPlaceholder.EANPlaceholder }}"		class="form__input" /><div class="form__error-msg">	<div ng-show="checkoutForm.$submitted" ng-messages="checkoutForm.EAN.$error" role="alert">		<div ng-messages-include="validation-messages"></div>	</div></div>';
+}

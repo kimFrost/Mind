@@ -1,0 +1,33 @@
+<section class="order-history">
+
+	<h1>{{::$ctrl.translations.MyNemlig.OrderHistory.Headline}}</h1>
+	<p>{{::$ctrl.translations.MyNemlig.OrderHistory.Subline}}</p>
+
+	<div class="order-history__list-wrapper">
+
+		<div ng-if="!$ctrl.states.noOrders">
+
+			<div class="order-history__table-head">
+				<div>{{::$ctrl.translations.MyNemlig.OrderHistory.OrdersDate}}</div>
+				<div>{{::$ctrl.translations.MyNemlig.OrderHistory.OrdersId}}</div>
+				<div>{{::$ctrl.translations.MyNemlig.OrderHistory.OrdersPrice}}</div>
+				<div>{{::$ctrl.translations.MyNemlig.OrderHistory.OrdersStatus}}</div>
+			</div>
+
+			<div class="order-history__table">
+				<order data="order" ng-repeat="order in $ctrl.ordersData track by $index" on-loaded="window.print()"></order>
+			</div>
+
+			<div ng-show="!$ctrl.states.noOrders && $ctrl.pagination.activePage < $ctrl.pagination.pages.length" ng-click="$ctrl.fetchMoreData()" class="order-history__load-more">
+				{{::$ctrl.translations.MyNemlig.OrderHistory.LoadMore}}
+			</div>
+		</div>
+
+		<div class="no-data__message" ng-if="$ctrl.states.noOrders && !$ctrl.states.fetching">{{::$ctrl.translations.MyNemlig.OrderHistory.NoOrders}}</div>
+
+		<div class="component-loader" ng-show="$ctrl.states.fetching">
+			<nemlig-loader class="nemlig-loader"></nemlig-loader>
+		</div>
+	</div>
+
+</section>

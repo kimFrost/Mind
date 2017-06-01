@@ -1,0 +1,85 @@
+<form
+	ng-if="$ctrl.zipCode"
+	class="form change-address-form"
+	name="changeAddressDeliveryInformationForm"
+	id="changeAddressDeliveryInformationForm"
+	ng-submit="$ctrl.submitChangeAddress(changeAddressDeliveryInformationForm, $ctrl.formData)"
+	novalidate
+>
+
+<!-- Name/ Institution / Company Name-->
+<div class="row change-address-form__name">
+	<div class="row__col-12">
+		<ng-include src="'change-address-name'"></ng-include>
+	</div>
+</div>
+
+<!-- House location-->
+<div class="row change-address-form__house-location">
+	<div class="row__col-9">
+		<ng-include src="'change-address-street-name'"></ng-include>
+	</div>
+
+	<div class="row__col-3">
+		<ng-include src="'change-address-house-number'"></ng-include>
+	</div>
+</div>
+
+<!-- House location attributes-->
+<div class="row change-address-form__house-location-attributes">	
+	<div class="row__col-3">
+		<address-location model="$ctrl.formData.HouseNumberLetter" data="Letters"></address-location>
+	</div>
+
+	<div class="row__col-3">
+		<address-location model="$ctrl.formData.Floor" data="Floors"></address-location>
+	</div>
+
+	<div class="row__col-3">
+		<address-location model="$ctrl.formData.Side" data="Sides"></address-location>
+	</div>
+
+	<div class="row__col-3">
+		<ng-include src="'change-address-location-door'"></ng-include>
+	</div>
+</div>
+
+<!-- Postal code and district-->
+<div class="row change-address-form__postal-information">
+	<div class="row__col-3">
+		<ng-include src="'change-address-postal-code'"></ng-include>
+	</div>
+
+	<div class="row__col-9">
+		<ng-include src="'change-address-postal-district'"></ng-include>
+	</div>
+</div>
+
+
+<!-- Notifications-->
+<div class="row change-address-form__notification-text">
+	<div class="row__col-12">
+		{{ :: $ctrl.translations.ChangeAddress.ChangeAddressGeneral.ChangeAddressNotificationText }}
+	</div>
+</div>
+
+<!-- Buttons-->
+<div class="row change-address-form__navigation-buttons">
+
+	<div class="row__col-6">
+		<button type="button" class="btn btn_cancel" ng-click="$ctrl.closeDialog()">{{ $ctrl.translations.Checkout.ChangeAddress.CloseChangeAddressDialogButtonText }}</button>
+	</div>
+
+	<div class="row__col-6">
+		<button ng-disabled="$ctrl.changeAddressDeliveryInformationForm.$invalid" type="submit" class="btn changeAddress__changeAddressButton">{{ $ctrl.translations.Checkout.ChangeAddress.ChangeAddressButtonText }}</button>
+	</div>
+</div>
+
+<!-- Error message-->
+<div ng-if="$ctrl.states.ShowErrorMessageForUpdate" class="row change-address-form__error-messages">
+	<div class="row__col-12">
+		{{ $ctrl.states.ErrorMessage }}
+	</div>
+</div>
+
+</form>

@@ -1,0 +1,98 @@
+﻿<div class="recipelist-item">
+	<div class="aspect-ratio">
+		<div class="recipelist-item__image-container">
+			<div class="recipelist-item__image-overlay">
+				<div class="recipelist-item__inbasket" ng-class="{'recipelist-item__inbasket_active' : $ctrl.recipeData.inBasket && ($ctrl.hasSupplementProducts || $ctrl.hasSoldOutProducts)}">
+					<div class="recipelist-item__supplement-container" ng-if="$ctrl.hasSupplementProducts">
+						<div class="recipelist-item__supplement-header">
+							{{::$ctrl.translationsService.translations.Recipe.List.ExpectedText}}:
+						</div>
+
+						<div class="recipelist-item__supplement-items">
+							<div class="recipelist-item__supplement-item" ng-repeat="supplement in $ctrl.recipeData.supplementProducts">
+								{{supplement.Name}}
+							</div>
+						</div>
+					</div>
+
+					<div class="recipelist-item__soldout-container" ng-if="$ctrl.hasSoldOutProducts">
+						<div class="recipelist-item__soldout-header">
+							{{::$ctrl.translationsService.translations.Recipe.List.SoldoutText}}:
+						</div>
+
+						<div class="recipelist-item__soldout-items">
+							<div class="recipelist-item__soldout-item" ng-repeat="soldOutProduct in $ctrl.recipeData.soldOutProducts">
+								{{soldOutProduct.Name}}
+							</div>
+						</div>
+					</div>
+
+					<div class="recipelist-item__buylink-container">
+						<a ng-href="{{$ctrl.recipeData.Url}}" class="recipelist-item__buylink">
+							{{::$ctrl.translationsService.translations.Recipe.List.SoldoutLinkText}}
+						</a>
+					</div>
+				</div>
+
+				<div class="recipelist-item__tag" ng-show="!$ctrl.recipeData.inBasket && $ctrl.recipeData.TotalTime">
+					{{$ctrl.recipeData.TotalTime}}
+				</div>
+			</div>
+
+			<a class="recipelist-item__link" ng-href="{{$ctrl.recipeData.Url}}" ng-style="$ctrl.recipeData.PrimaryImage && {'background-image': 'url(&quot;' + $ctrl.recipeData.PrimaryImage + '&w=800&h=550&mode=max&quality=70&quot;)'}"></a>
+			<div ng-show="$ctrl.uiStates.showLoader" class="component-loader">
+				<nemlig-loader class="nemlig-loader nemlig-loader_large" inverted="false"></nemlig-loader>
+			</div>
+		</div>
+
+		<div class="recipelist-item__bottom-container">
+			<div class="recipelist-item__bottom-content">
+				<a ng-href="{{$ctrl.recipeData.Url}}" class="recipelist-item__header">
+					{{$ctrl.recipeData.Name}}
+				</a>
+
+				<div class="recipelist-item__inputs">
+					<div class="recipelist-item__msg">
+						<div class="recipelist-item__msg-icon">
+							<span class="icon_check"></span>
+						</div>
+						<div ng-if="$ctrl.msgObj.type === 1">
+							<div>
+								<strong>{{$ctrl.msgObj.productsCount}} {{::$ctrl.translationsService.translations.Recipe.Messages.AddedToBasket}}</strong>
+							</div>
+							<div>{{$ctrl.servings}} {{::$ctrl.translationsService.translations.Recipe.Common.Servings}} / {{$ctrl.sorting.Title}}</div>
+						</div>
+						<div ng-if="$ctrl.msgObj.type === 2">
+							<div>
+								<strong>{{::$ctrl.translationsService.translations.Recipe.Messages.UpdatedInBasket}}</strong>
+							</div>
+							<div>{{$ctrl.servings}} {{::$ctrl.translationsService.translations.Recipe.Common.Servings}} / {{$ctrl.sorting.Title}}</div>
+						</div>
+					</div>
+
+					<div class="recipelist-item__inputs-column">
+						<div class="form__modern-select form__modern-select_fill form__no-margin">
+							<select ng-change="$ctrl.changeServings()" ng-model="$ctrl.servingsPending" ng-options="option + ' ' + $ctrl.translationsService.translations.Recipe.Common.Servings for option in $ctrl.recipeData.AllowedForNumberOfPersons"></select>
+						</div>
+					</div>
+
+					<div class="recipelist-item__inputs-column">
+						<div class="form__modern-select form__modern-select_fill form__no-margin">
+							<select ng-change="$ctrl.changeSorting()" ng-model="$ctrl.sortingPending" ng-options="item.Title for item in $ctrl.recipeData.SortingList"></select>
+						</div>
+					</div>
+
+					<div class="recipelist-item__addtobasket">
+						<button class="recipelist-item__btn btn" ng-click="$ctrl.addToBasket(1)" ng-if="!$ctrl.recipeData.inBasket">
+							<span class="btn__icon icon_basket"></span>
+						</button>
+						<button class="recipelist-item__btn btn btn_cancel" ng-click="$ctrl.removeFromBasket()" ng-if="$ctrl.recipeData.inBasket">
+							<span class="btn__icon icon_trash"></span>
+						</button>
+					</div>
+				</div>
+			</div>
+			<div ng-show="$ctrl.uiStates.showLoader" class="component-loader"></div>
+		</div>
+	</div>
+</div>

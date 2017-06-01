@@ -1,0 +1,100 @@
+<div class="checkout__content-header" ng-if="$ctrl.states.ShowDeliverySection">
+	<h1 class="checkout__content-heading">
+		{{::$ctrl.translations.Checkout.General.DeliveryHeadline }}
+		<span class="icon_delivery-time"></span>
+	</h1>
+</div>
+
+<section class="checkout__content" ng-if="$ctrl.states.ShowDeliverySection">
+	<nemlig-loader
+		ng-show="$ctrl.states.IsPending"
+		inverted="false"
+		class="nemlig-loader nemlig-loader_overlay">
+	</nemlig-loader>
+
+	<div class="checkout__fasttrack">
+		<form name="checkoutFastTrackForm"
+			id="checkoutFastTrackForm"
+			ng-submit="$ctrl.submitFastTrackForm(checkoutFastTrackForm, $ctrl.formData)" 
+			class="form" novalidate>
+
+			<div class="checkout__segment-block checkout-fasttrack__column delivery-info-column">
+				<ng-include src="'delivery-time-and-information'"></ng-include>
+
+
+				<!-- Payment form-->
+				<ng-include src="'payment-methods'"></ng-include>
+
+				<div class="checkout__return-of-bottles">
+					<return-of-bottles model="$ctrl.formData.ReturnOfBottlesRequested"></return-of-bottles>
+				</div>
+
+				<div class="checkout__driver-message">
+					<span class="checkout__driver-message-toggle" ng-click="$ctrl.toggleMessageArea()">{{ ::$ctrl.translations.Checkout.MessageToDriver.MessageToTheDriverButtonText }}</span>
+					<textarea
+						class="checkout__driver-message-textarea"
+						ng-model="$ctrl.formData.Notes"
+						ng-show="$ctrl.showDriverMessage"
+						cols="35"
+						rows="4"
+						ng-maxlength="150"
+						maxlength="150"></textarea>
+				</div>
+			</div>
+
+			<div class="checkout__segment-block checkout-fasttrack__column payment-column">
+
+				<!-- Agreements-->
+				<div class="checkout__agreements">
+					<div class="checkout__agreements__box">
+						<terms-and-agreements
+							show-check-box="true"
+							accept-terms-and-agreement="$ctrl.formData.TermsAndConditionsAccepted">
+						</terms-and-agreements>
+						<minimum-age-agreements
+							ng-if="$ctrl.states.Agreements.ShowMinimumAgeRequired"
+							accept-minimum-age="$ctrl.formData.AcceptMinimumAge"
+							minimum-age-is="$ctrl.states.MinimumAgeForBasket">
+						</minimum-age-agreements>
+					</div>
+				</div>
+
+
+
+				<div class="segment-wrapper payment-column__bottom">
+					<div class="checkout__password" ng-if="$ctrl.states.ShowPasswordForPayment">
+						<label>{{ ::$ctrl.translations.Checkout.CustomerAddressInformation.Password }}*</label>
+						<input
+							id="Password"
+							name="Password"
+							type="password"
+							ng-model="$ctrl.formData.Password"
+							placeholder="{{ ::$ctrl.translations.Checkout.CustomerAddressInformationPlaceholder.Password }}"
+							class="form__input"
+							autocomplete="new-password"
+						/>
+
+						<div class="form__error-msg">
+							<div ng-show="checkoutForm.$submitted" ng-messages="checkoutForm.Password.$error" role="alert">
+								<div ng-messages-include="validation-messages"></div>
+							</div>
+						</div>
+					</div>
+				
+					<div ng-switch="$ctrl.states.ShowPasswordForPayment">
+						<button type="submit" 
+							class="btn btn_fit btn_size-large submit" 
+							ng-switch-when="true"
+							ng-disabled="!$ctrl.formData.Password && $ctrl.states.ShowPasswordForPayment">{{ ::$ctrl.translations.Checkout.General.PaymentButtonText }}</button>
+
+						<button type="submit" 
+							class="btn btn_fit btn_size-large submit" 
+							ng-switch-when="false">{{ ::$ctrl.translations.Checkout.General.PaymentButtonText }}</button>
+							
+					</div>
+				</div>
+			</div>
+			
+		</form>
+	</div>
+</div>

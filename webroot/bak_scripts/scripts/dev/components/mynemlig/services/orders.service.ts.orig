@@ -1,0 +1,192 @@
+///<reference path="../../../../references/references.ts"/>
+
+/**
+ * Created by Kim Frost on 01/09/16.
+ */
+
+
+namespace MyNemligModule {
+
+	import ErrorCodes = SCommerce.Website.Code.WebAPI.Models.Error.ErrorCodes;
+
+	type BasicOrderHistoryViewModel = SCommerce.Website.Code.WebAPI.Models.Order.BasicOrderHistoryViewModel;
+	type OrderHistoryViewModel = SCommerce.Website.Code.WebAPI.Models.Order.OrderHistoryViewModel;
+
+	type TranslationsService = TranslationsModule.TranslationsService;
+	type DialogService = DialogModule.DialogService;
+	type BasketService = BasketModule.BasketService;
+
+	export class OrdersService {
+
+		constructor(private $q:ng.IQService,
+					private $http:ng.IHttpService,
+					private dialogService:DialogService,
+					private basketService:BasketService,
+					private translationsService:TranslationsService,
+					private trackingService: TrackingModule.TrackingService
+				) {
+
+		}
+
+		public getOrders = ():ng.IPromise<Array<BasicOrderHistoryViewModel>> => {
+			let defer = this.$q.defer();
+			this.$http({method: 'GET', url: '/webapi/order/' + 'GetBasicOrderHistiory?skip=10'}).then((response)=> {
+				defer.resolve(response.data);
+			}, (response) => {
+				defer.reject(response.data);
+			});
+			return defer.promise;
+		};
+
+		public getOrderDetails = (orderNumber:string):ng.IPromise<OrderHistoryViewModel> => {
+			let defer = this.$q.defer();
+			this.$http({
+				method: 'GET',
+				url: '/webapi/order/' + 'GetOrderHistory?orderNumber=' + orderNumber
+			}).then((response)=> {
+				defer.resolve(response.data);
+			}, (response) => {
+				defer.reject(response.data);
+			});
+			return defer.promise;
+		};
+
+		public editOrderModal = (orderId:string) => {
+			this.showModal(this.translationsService.translations.MyNemlig.OrderModalEdit.Headline,
+				'<div>' + this.translationsService.translations.MyNemlig.OrderModalEdit.Body + '</div>',
+				this.translationsService.translations.MyNemlig.OrderModalEdit.Confirm,
+				this.translationsService.translations.MyNemlig.OrderModalEdit.Cancel).then((response) => {
+
+					if (response === 2) {
+						this.editOrder(orderId);
+					}
+				});
+		};
+
+		public copyOrderModal = (orderId:string) => {
+			this.showModal(this.translationsService.translations.MyNemlig.OrderModalCopy.Headline,
+				'<div>' + this.translationsService.translations.MyNemlig.OrderModalCopy.Body + '</div>',
+				this.translationsService.translations.MyNemlig.OrderModalCopy.Confirm,
+				this.translationsService.translations.MyNemlig.OrderModalCopy.Cancel).then((response) => {
+
+					if (response === 2) {
+						this.copyOrder(orderId);
+					}
+				});
+		};
+
+		public cancelOrderModal = (orderId:string) => {
+			this.showModal(this.translationsService.translations.MyNemlig.OrderModalCancel.Headline,
+				'<div>' + this.translationsService.translations.MyNemlig.OrderModalCancel.Body + '</div>',
+				this.translationsService.translations.MyNemlig.OrderModalCancel.Confirm,
+				this.translationsService.translations.MyNemlig.OrderModalCancel.Cancel).then((response) => {
+
+					if (response === 2) {
+						this.cancelOrder(orderId);
+					}
+				});
+		};
+
+		public editOrder = (orderId:string):ng.IPromise<any> => {
+			let defer = this.$q.defer();
+			this.$http({method: 'GET', url: '/webapi/order/' + 'EditOrder?orderNumber=' + orderId}).then((response)=> {
+
+				this.trackingService.trackRefund(orderId);
+
+				this.basketService.get();
+
+				defer.resolve();
+			}, (response) => {
+				console.log("ERROR: ", response);
+				this.parseError(response.data);
+				defer.reject();
+			});
+			return defer.promise;
+		};
+
+		public copyOrder = (orderId:string):ng.IPromise<any> => {
+			let defer = this.$q.defer();
+			this.$http({method: 'GET', url: '/webapi/order/' + 'CopyOrder?orderNumber=' + orderId}).then((response) => {
+				this.basketService.get();
+				defer.resolve();
+			}, (response) => {
+				console.log("ERROR: ", response);
+				this.parseError(response.data);
+				defer.reject();
+			});
+			return defer.promise;
+		};
+
+		public cancelOrder = (orderId:string):ng.IPromise<any> => {
+			let defer = this.$q.defer();
+			this.$http({
+				method: 'GET',
+				url: '/webapi/order/' + 'CancelOrder?orderNumber=' + orderId
+<<<<<<< HEAD
+			}).then(()=> {
+=======
+			}).then((response)=> {
+				this.trackingService.trackRefund(orderId);
+>>>>>>> 5e3364afe061e6bb517a3355ce48a61794056764
+				this.basketService.get();
+				defer.resolve();
+			}, (response) => {
+				console.log("ERROR: ", response);
+				this.parseError(response.data);
+				defer.reject();
+			});
+			return defer.promise;
+		};
+
+		private parseError = (error) => {
+			switch (error.ErrorCode) {
+				case ErrorCodes.OrderNotFound:
+
+					break;
+			}
+			let dialogObj = {
+				content: `<div>${error.ErrorMessage}</div>`,
+				close: true,
+				size: 'small'
+			} as DialogModule.IDialogSettings;
+			this.dialogService.openDialog(dialogObj);
+		};
+
+		private showModal(header:string,
+						  body:string,
+						  confirmText:string = this.translationsService.translations.General.Responses.Yes,
+						  cancelText:string = this.translationsService.translations.General.Responses.No):ng.IPromise<any> {
+
+			var defer = this.$q.defer();
+
+			let dialogObj = {
+				header: header,
+				content: body,
+				close: false,
+				size: 'medium',
+				buttons: {
+					button1: {
+						text: cancelText,
+						confirm: true,
+						callback: true
+					},
+					button2: {
+						text: confirmText,
+						confirm: false,
+						callback: true
+					}
+				}
+			} as DialogModule.IDialogSettings;
+
+			this.dialogService.openDialog(dialogObj).then((index) => {
+				defer.resolve(index);
+				this.dialogService.closeDialog();
+			});
+
+			return defer.promise;
+		}
+	}
+
+
+	angular.module(moduleId).service("ordersService", OrdersService);
+}

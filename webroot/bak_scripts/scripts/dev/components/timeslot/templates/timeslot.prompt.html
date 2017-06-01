@@ -1,0 +1,46 @@
+ <div class="timeslot-prompt"
+	 ng-class="{'disabled-hidden': $ctrl.promptHidden}"
+	 ng-show="$ctrl.timeslotIsReadyToInit">
+
+	 <div class="timeslot-prompt__content"
+	      ng-switch="$ctrl.deliveryZoneAccepted">
+
+		 <div class="timeslot-prompt__logged-in"
+		      ng-switch-when="true"
+		      ng-click="$ctrl.promptClick()">
+
+			 <div class="timeslot-prompt__text">
+				 {{::$ctrl.translations.Timeslot.Prompt.NextDeliveryText}}
+			 </div>
+		 </div>
+
+		 <div class="timeslot-prompt__not-logged-in"
+		      ng-switch-when="false">
+
+			 <div class="timeslot-prompt__text">{{::$ctrl.translations.Timeslot.Prompt.PostCodeCheckText}}</div>
+			 <div class="prompt__form-wrapper">
+				 <div class="prompt__input-wrap">
+					 <input type="number" class="prompt__input" placeholder="{{::$ctrl.translations.Timeslot.Prompt.PostCodeCheckPlaceholderText}}"
+					        ng-model="$ctrl.promptInputValue"
+					        ng-disabled="$ctrl.promptDisabled"
+					        ng-class="{'invalid': $ctrl.invalidInput}"
+					        ng-keyup="$ctrl.validatePromptInput($event)" />
+				 </div>
+				 <div class="prompt__button-wrap">
+					 <button class="btn prompt__button"
+					         ng-disabled="$ctrl.promptDisabled || !$ctrl.inputValidLength"
+					         ng-click="$ctrl.submitButtonClick()">
+						 {{::$ctrl.translations.Timeslot.Prompt.PostCodeCheckButtonText}}
+					 </button>
+				 </div>
+			 </div>
+		 </div>
+
+		 <div ng-click="$ctrl.hidePrompt()" class="timeslot-prompt__close"></div>
+
+	 </div>
+
+	 <div class="timeslot-prompt__spinner" ng-show="$ctrl.promptLoading">
+		<nemlig-loader class="nemlig-loader nemlig-loader_small" inverted="true"></nemlig-loader>
+	 </div>
+ </div>

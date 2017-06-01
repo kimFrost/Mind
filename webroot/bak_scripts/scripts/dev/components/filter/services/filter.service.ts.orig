@@ -1,0 +1,114 @@
+///<reference path="../../../../references/references.ts"/>
+
+/**
+ * Created by mikkel on 11/05/16.
+ */
+
+namespace FilterModule {
+	import SettingsService = PageModule.SettingsService;
+	import ContentService = PageModule.ContentService;
+
+	export class FilterService {
+
+		public fetchingFilters:boolean = false;
+		private filterSubscribers: Function[] = [];
+		private filterUrl: string = "/webapi/" + this.settingsService.settings.CombinedProductsAndSitecoreTimestamp + "/Filter/GetFilter";
+
+		public sorting:string = "price";
+		public sortingOptions:Array<any> = [];
+
+		public facets:Array<any> = [];
+		public selectedFacets:Array<any> = [];
+
+		public getFilters(filterParams:string):ng.IPromise<any> {
+			let defer = this.$q.defer();
+
+			this.fetchingFilters = true;
+			const url = this.filterUrl + (filterParams !== "" ? "?" + filterParams : "");
+
+			this.$http({
+				method: 'GET',
+				url: url
+			}).then( (response) => {
+
+				let data:any = response.data;
+
+				this.selectedFacets.splice(0, this.selectedFacets.length);
+
+
+				this.sortingOptions.splice(0, this.sortingOptions.length);
+				data.SortingList.forEach( (sort) => {
+					this.sortingOptions.push(sort);
+				});
+
+				this.facets.splice(0, this.facets.length);
+				data.FacetGroups.forEach( (facet) => {
+					this.facets.push(facet);
+
+					facet.Items.forEach( (item) => {
+						if(item.IsSelected) {
+							this.selectedFacets.push(item);
+						}
+					});
+
+				});
+
+				this.fetchingFilters = false;
+				defer.resolve();
+
+			}).finally( () => {
+				defer.reject();
+				this.fetchingFilters = false;
+			});
+
+			return defer.promise;
+		}
+
+		public publishFilterUpdate(filterParams:string) {
+			const subscriberArray = this.filterSubscribers;
+			for (let i = 0, iMax = subscriberArray.length; i < iMax; i++) {
+				subscriberArray[i](filterParams);
+			}
+		}
+
+		public getFilterParamsFromUrl() {
+			return this.$httpParamSerializer(this.$location.search());
+		}
+
+		public subscribeFilterUpdate(handler: Function) {
+			this.filterSubscribers.push(handler);
+		}
+
+		public clearSubscribers() {
+			this.filterSubscribers.splice(0, this.filterSubscribers.length);
+		}
+		
+		constructor(
+			private $rootScope: ng.IRootScopeService,
+			private $q: ng.IQService,
+			private $location: ng.ILocationService,
+			private $httpParamSerializer,
+			private settingsService: SettingsService,
+			private $http:ng.IHttpService,
+<<<<<<< HEAD
+			private contentService:ContentService) {
+=======
+					private contentService:ContentService) {
+>>>>>>> 3f04e9e5d65bdd7bc9880a07457bce2811f0cd3c
+
+			this.$rootScope.$on('PAGE_CHANGED', ()=> {
+				this.clearSubscribers();
+
+				if(this.contentService.showFilter !== false) {
+					this.getFilters(this.$httpParamSerializer(this.$location.search()));
+				}
+			});
+
+
+		}
+
+	}
+
+
+	angular.module(moduleId).service("filterService", FilterService);
+}

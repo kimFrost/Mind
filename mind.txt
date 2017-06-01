@@ -46,8 +46,16 @@ Fail:
 
 
 
-
-
-
 Reaction with action as callback?
+
+
+
+
+Need:
+- Food 			(to eat ##target with tag #food)
+- Water 		(to drink ##target)
+- Oil (Mech) 	(to drink ##target)
+- Energy (Mech) 
+- Socialize 	(to interact with ##target)
+- Safety
 

@@ -1,0 +1,52 @@
+<div ng-show="$ctrl.products.length !== 0" 
+	class="productlist-onerow partial-content" 
+	ng-class="{ 'has-theme-background-color' : $ctrl.hasThemeBackground}"
+	ng-style="{'background-color': $ctrl.themeColors.backgroundColor, 'color': $ctrl.themeColors.textColor }">
+
+	<div class="productlist-onerow__headline">
+		<h2 class="productlist-onerow__head">
+			<a ng-if="$ctrl.spotdata.SeeMoreLink != null" href="{{$ctrl.spotdata.SeeMoreLink.Url}}">{{::$ctrl.spotdata.Heading}}</a>
+			<span ng-if="$ctrl.spotdata.SeeMoreLink == null">{{::$ctrl.spotdata.Heading}}</span>
+		</h2>
+		<a href="{{$ctrl.spotdata.SeeMoreLink.Url}}" ng-if="$ctrl.spotdata.SeeMoreLink" class="productlist-onerow__see-all">{{::$ctrl.translationsService.translations.Productlist.OneRow.SeeAll}}</a>
+	</div>
+
+	<div class="productlist-onerow__item-container">
+		<div class="productlist-onerow__loading-overlay" ng-if="$ctrl.fetching">
+			<nemlig-loader class="nemlig-loader" inverted="false"></nemlig-loader>
+		</div>
+		
+		<div class="productlist-onerow__back" ng-click="$ctrl.prevPage()" ng-show="$ctrl.pageIndex > 0">
+			<div class="productlist-onerow__back-icon icon_back"></div>
+		</div>
+
+		<div class="productlist-onerow__item-wrap">
+			<div class="productlist-onerow__slide-show"
+				 hm-swipe="$ctrl.swipeNavigate($event)"
+				 hm-recognizer-options='{"type":"swipe","directions":"DIRECTION_HORIZONTAL","stopPropagation":true}'
+				 ng-style="{width: $ctrl.containerWidth !== 0 ? $ctrl.containerWidth + 'px' : 'auto'}">
+
+				<productlist-item class="productlist-onerow__slide-show-item"
+								  ng-class="{'productlist-item' : item.TemplateName !== 'advertisement', 'productlist-onerow__slide-show-ad' : item.TemplateName === 'advertisement'}"
+								  ng-repeat="item in $ctrl.products"
+								  non-swipeable
+								  ng-click="$ctrl.trackClick(item, $index);"
+								  product="item">
+				</productlist-item>
+
+				<div class="productlist-onerow__fast-track-load-more" ng-click="$ctrl.fastTrackLoadMore()" ng-show="$ctrl.products.length < $ctrl.totalProducts">
+					{{::$ctrl.translationsService.translations.Productlist.OneRow.LoadMore}}
+					<div class="icon icon_down"></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="productlist-onerow__forward" ng-click="$ctrl.nextPage()" ng-show="$ctrl.pageSize * ($ctrl.pageIndex + 1) < $ctrl.totalProducts">
+			<div class="productlist-onerow__forward-icon icon_forward"></div>
+		</div>
+	</div>
+</div>
+
+<div class="productlist-onerow__no-results" ng-if="!$ctrl.fetching && $ctrl.products.length === 0">
+	{{::$ctrl.translationsService.translations.Productlist.OneRow.NoResult}}
+</div>

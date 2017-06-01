@@ -1,0 +1,40 @@
+<div class="slideshow__media">
+	<div class="slideshow__content">
+		<div class="product-detail__social" ng-class="{'product-detail__social_video-playing': $ctrl.bVideoPlaying}">
+			<a class="product-detail__social-icon product-detail__social-icon_facebook icon_facebook" facebook title="{{$ctrl.shareTitle}}"
+			   desc="{{$ctrl.shareDesc}}" image="{{$ctrl.image || $ctrl.imageBuffer}}"></a>
+		</div>
+		<img class="slideshow__image" imageonload="$ctrl.imageLoaded" ng-src="{{$ctrl.image}}" ng-attr-alt="{{$ctrl.altText}}"/>
+		<img class="slideshow__image_buffer"
+			 ng-class="{'slideshow__image_buffer-active':$ctrl.buffer}"
+			 imageonload="$ctrl.imageLoaded"
+		     ng-src="{{$ctrl.imageBuffer}}"
+			 ng-attr-alt="{{$ctrl.altText}}"/>
+
+		<div class="slideshow__video" ng-if="$ctrl.youtubeId">
+			<youtube width="'100%'" height="'100%'" videoid="$ctrl.youtubeId" thumb-src="$ctrl.imageBuffer"
+					 on-play="$ctrl.onVideoPlay()" on-end="$ctrl.onVideoEnd()" class="youtube_fit"></youtube>
+		</div>
+	</div>
+</div>
+
+<div class="slideshow__thumbnails" ng-class="{'slideshow_thumbnails-alt': $ctrl.altThumbnails}"
+	 ng-show="$ctrl.media.length > 1">
+
+	<div class="slideshow__thumbnail-item"
+		 ng-repeat="mediaObj in $ctrl.media"
+		 ng-click="$ctrl.loadNewImage($index)"
+		 ng-class="{'slideshow__thumbnail-item_active':$ctrl.activeIndex == $index}">
+
+		<div class="aspect-ratio">
+			<img class="slideshow__thumbnail-item-image"
+			     ng-src="{{::mediaObj.Url || mediaObj.ThumbnailImageForJson.Url}}{{mediaObj.ThumbnailImageForJson.IsUrlExternal ? '' : '&w=125&h=125&mode=pad&quality=70'}}"
+				 ng-attr-alt="{{::mediaObj.AltText}}" />
+
+			<div class="slideshow__thumbnail-item-youtube youtube__icon" ng-if="mediaObj.MediaType === 'video'"><span
+				class="icon_play3"></span></div>
+		</div>
+	</div>
+</div>
+
+

@@ -1,0 +1,4 @@
+/* tslint:disable:max-line-length */
+module HtmlTemplates.youtube {
+  export var html = '<nemlig-loader ng-show="$ctrl.states.loadingLibrary" inverted="true" class="nemlig-loader nemlig-loader_overlay"></nemlig-loader><div class="youtube__image" ng-if="$ctrl.thumbSrc != null" ng-style="$ctrl.thumbSrc && {\'background-image\':\'url(&quot;\' + $ctrl.formattedThumbSrc + \'&quot;)\'}"></div><div class="youtube__video"></div><div class="youtube__icon" ng-if="$ctrl.thumbSrc != null"><span class="icon_play3"></span> </div>';
+}

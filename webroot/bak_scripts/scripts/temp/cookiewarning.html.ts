@@ -1,0 +1,4 @@
+/* tslint:disable:max-line-length */
+module HtmlTemplates.cookiewarning {
+  export var html = '<div class="cookie-warning" ng-show="!$ctrl.cookieWarningService.cookieSet">	<div class="cookie-warning__container">		<div class="cookie-warning__col">			<div class="cookie-warning__body" ng-bind-html="$ctrl.modeldata.Body">			</div>		</div>		<div class="cookie-warning__col">			<a class="cookie-warning__link" ng-href="{{::$ctrl.modeldata.Link.Url}}" target="_blank">				{{::$ctrl.modeldata.LinkText}}			</a>			<button class="cookie-warning__button btn btn_white btn_outline" ng-click="$ctrl.cookieWarningService.acceptCookie()">				<span class="cookie-warning__button_desktop">{{::$ctrl.modeldata.ButtonText}}</span>				<span class="cookie-warning__button_mobile">{{::$ctrl.modeldata.ButtonTextShort}}</span>			</button>		</div>	</div></div>';
+}

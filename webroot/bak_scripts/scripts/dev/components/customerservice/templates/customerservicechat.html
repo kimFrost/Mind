@@ -1,0 +1,20 @@
+<div ng-show="$ctrl.status === 'established'" class="chat-container">
+	<div class="messages">
+		<div ng-repeat="message in $ctrl.messages" class="chat-message" ng-class="{you:!message.name}">
+			<span ng-bind="message.name || 'Dig'" class="sender"></span>
+			<span ng-bind="message.text" class="message"></span>
+		</div>
+		<div class="chat-message chat__typing" ng-show="$ctrl.chasitorTyping">
+			<span class="dot-loader"></span>
+		</div>
+	</div>
+	<form>
+		<textarea placeholder="{{::$ctrl.translations.Customerservice.Chat.ChatMessagePlaceholder}}"></textarea>
+	</form>
+</div>
+<div ng-show="$ctrl.status !== 'established'" class="chat-container" ng-class="$ctrl.status">
+	<div class="loader-wrapper" ng-show="$ctrl.status === 'initiating'">
+		<nemlig-loader inverted="false" class="nemlig-loader"></nemlig-loader>
+	</div>
+	<div class="chat__status-message">{{$ctrl.statusMessage}}</div>
+</div>

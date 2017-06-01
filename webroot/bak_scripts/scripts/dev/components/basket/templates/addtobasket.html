@@ -1,0 +1,32 @@
+<div class="addtobasket__container addtobasket__container_overlay fade" 
+	ng-show="$ctrl.states.isOpen" 
+	ng-mouseover="$ctrl.mouseOver()" 
+	ng-mouseleave="$ctrl.mouseLeave()" 
+	ng-click="$ctrl.touchRestartTimer()">
+
+	<div class="addtobasket__btn addtobasket__btn_first" ng-click="$ctrl.decrease($event)">
+		<span class="addtobasket__icon addtobasket__icon_small icon_minus"></span>
+	</div>
+	<input class="addtobasket__input"
+	       ng-focus="$ctrl.onFocus($event)"
+	       ng-blur="$ctrl.onBlur($event)"
+	       type="tel"
+	       min="0"
+	       maxlength="4"
+	       ng-keydown="$ctrl.onKeydown($event)"
+	       ng-keyup="$ctrl.onKeyup($event)"
+	       ng-model="$ctrl.quantityInBasket" />
+	<div class="addtobasket__btn addtobasket__btn_last" ng-click="$ctrl.increase($event)">
+		<span class="addtobasket__icon addtobasket__icon_small icon_plus"></span>
+	</div>
+</div>
+
+<div class="addtobasket__container">
+	<div class="addtobasket__btn" ng-click="$ctrl.clickAdd($event); $ctrl.touchRestartTimer()">
+		<div class="addtobasket__btn-container" ng-show="$ctrl.quantityInBasket === 0">
+			<span class="addtobasket__icon icon_basket"></span>
+			<div class="addtobasket__with-text" ng-if="$ctrl.withText">{{::$ctrl.translationsService.translations.General.CallToAction.AddToBasket}}</div>
+		</div>
+		<span ng-hide="$ctrl.quantityInBasket === 0" class="addtobasket__icon">{{$ctrl.quantityInBasket}}</span>
+	</div>
+</div>

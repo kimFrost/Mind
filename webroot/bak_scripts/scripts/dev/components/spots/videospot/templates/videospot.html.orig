@@ -1,0 +1,13 @@
+<div class="spot video-spot @SpotThemeClass @SpotNegativeClass">
+<<<<<<< HEAD
+    <div class="spot__media spot__media_flow spot__media_video">
+=======
+    <div class="spot__media spot__media_flow spot__media_video video-wrapper">
+>>>>>>> 348ecc5c8e39739c1052c760a6db5c7a577a3c37
+        <youtube width="'100%'" height="'100%'" videoid="$ctrl.spotdata.Video.YouTubeId" thumb-src="$ctrl.spotdata.Video.ThumbnailImageForJson.Url" ></youtube>
+    </div>
+    <div class="spot__footer">
+        <h1 class="spot__headline" ng-if="$ctrl.spotdata.Header != ''">{{::$ctrl.spotdata.Header}}</h1>
+        <h2 class="spot__subline" ng-if="$ctrl.spotdata.Subheader != ''">{{::$ctrl.spotdata.Subheader}}</h2>
+    </div>
+</div>

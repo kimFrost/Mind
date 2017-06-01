@@ -1,0 +1,40 @@
+'use strict';
+
+import { MindModule } 	from './modules/mind/mind.module';
+
+module MindApp {
+	var app = angular.module('mindApp', [
+		// Modules
+		MindModule.moduleId
+	])
+}
+
+
+/*
+
+@type {angular.Module}
+
+module MindApp {
+
+	angular.module("asdsadasdApp", [
+		"ui.router",
+		"ngSanitize",
+		"ngMessages",
+		"LocalStorageModule",
+
+		// Modules
+		MindModule.moduleId
+	])
+		.controller('AppCtrl', (
+				$scope, 
+				$rootScope, 
+				//statesService: UtilsModule.StatesService
+				$location) => {
+
+			$scope.resetPosition = true;
+			$scope.history = [];
+		})
+		//.run(MainApp.appRun)
+		//.config(MainApp.appConfig);
+}
+*/
