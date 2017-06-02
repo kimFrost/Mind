@@ -1,4 +1,12 @@
 ﻿
+// Include a comment about why this seemingly unused module exists
+
+
+namespace TemplateModule {
+    angular.module('templates', []);
+
+}
+
 namespace MindModule {
 
     export interface ILessonsFilterFacet
@@ -19,7 +27,7 @@ namespace MindModule {
 
 	export const moduleId: string = "mindModule";
 
-    angular.module(moduleId, []);
+    angular.module(moduleId, ['templates']);
 
 }
 

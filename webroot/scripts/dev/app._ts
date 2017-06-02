@@ -23,6 +23,7 @@ module MindApp {
 		"LocalStorageModule",
 
 		// Modules
+		"templates",
 		MindModule.moduleId
 	])
 		.controller('AppCtrl', (

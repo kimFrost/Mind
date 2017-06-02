@@ -43,8 +43,8 @@ namespace MindModule {
 
 		public bindings: any;
 		public controller: any;
-		public template: string;
-		//public templateUrl: string;
+		//public template: string;
+		public templateUrl: string;
 
 		constructor() {
 			this.bindings = {
@@ -52,8 +52,8 @@ namespace MindModule {
 				//onFacetChange: '&'
 			};
 			this.controller = MindActorController;
-			//this.templateUrl = 'mind.actor.html';
-			this.template = '<div>fdgfdg</div>';
+			this.templateUrl = 'modules/mind/templates/mind.actor.template.html';
+			//this.template = '<div>fdgfdg</div>';
 		}
 	}
 

@@ -10,7 +10,8 @@ var runSequence = require('run-sequence');
 var wiredep = require('wiredep').stream;
 var jade = require('gulp-jade');
 var ts = require('gulp-typescript');
-
+var templateCache = require('gulp-angular-templatecache');
+var concat = require('gulp-concat');
 
 var tsProject = ts.createProject('tsconfig.json', {});
 
@@ -135,15 +136,32 @@ gulp.task('renderViews', function () {
         .pipe(reload({ stream: true }));
 });
 
+gulp.task('templateCache', function () {
+  return gulp.src('scripts/dev/**/*.html')
+    .pipe(templateCache({
+        //module: 'app.templates',
+        standalone: false,
+        //root: '/'
+        //base: '/base'
+    }))
+    //.pipe(concat('templates.js'))
+    .pipe(gulp.dest('scripts/concat'));
+});
 
 gulp.task('ts', function () {
     gulp.src('scripts/**/*.ts')
         .pipe(ts({
             noImplicitAny: true,
-            outFile: 'main.js',
-            reference: 'tmp/references.ts'
+            outFile: 'main.js'
+            //reference: 'tmp/references.ts'
         }))
-        .pipe(gulp.dest('dist/scripts'));
+        .pipe(gulp.dest('scripts/concat'));
+});
+
+gulp.task('concat', function() {
+  return gulp.src('scripts/concat/*.js')
+    .pipe(concat('main.js'))
+    .pipe(gulp.dest('./dist/'));
 });
 
 gulp.task('ts2', function () {
@@ -164,13 +182,15 @@ gulp.task('ts2', function () {
 
 // Rerun the task when a file changes
 gulp.task('watch', function () {
-    //gulp.watch('scripts/**/*.js', ['jshint']);
-    gulp.watch('scripts/**/*.js', ['ts']);
+    gulp.watch('scripts/dev/**/*.ts', ['ts', 'concat']);
     gulp.watch('images/**/*', ['copyImages']);
     gulp.watch('styles/**/*.scss', ['styles']);
     gulp.watch('templates/**/*', ['templates']);
     gulp.watch('views/**/*', ['renderViews']);
 });
+
+//gulp.watch('scripts/**/*.js', ['jshint']);
+
 
 
 
@@ -183,4 +203,9 @@ gulp.task('default', ['clean'], function (cb) {
 // Build production files, the default task
 gulp.task('deploy', ['clean'], function (cb) {
     runSequence('styles', ['bower', 'optimizeImages', 'templates', 'usemin'], cb);
+});
+
+
+gulp.task('test', function (cb) {
+    runSequence('styles', 'copyImages', 'templates', 'renderViews', 'templateCache', 'ts', 'concat', 'watch', 'browser-sync', cb);
 });

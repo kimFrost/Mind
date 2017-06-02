@@ -1,7 +1,0 @@
-<div class="lesson-lp__filter">
-    <h2 class="h4 lesson-lp__filter-headline">By {{$ctrl.data.Name}}</h2>
-
-    <lessons-filter-facet ng-repeat="facet in $ctrl.data.Values | limitTo:$ctrl.maxFacetsShown track by $index" data="facet" on-facet-change="$ctrl.updateFilterList(facet)"></lessons-filter-facet>
-
-    <div class="lesson-lp__filter-expand-link" ng-if="$ctrl.data.Values.length > $ctrl.maxFacetsShown" ng-click="$ctrl.toggleExpand()">+ More {{$ctrl.data.Name}}</div>
-</div>

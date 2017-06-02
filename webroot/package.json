@@ -8,12 +8,16 @@
     "node": "*"
   },
   "devDependencies": {
+    "@types/angular": "^1.6.17",
     "browser-sync": "*",
     "del": "*",
     "gulp": "*",
+    "gulp-angular-templatecache": "^2.0.0",
     "gulp-autoprefixer": "*",
+    "gulp-concat": "^2.6.1",
     "gulp-csso": "*",
     "gulp-imagemin": "*",
+    "gulp-jade": "*",
     "gulp-jshint": "*",
     "gulp-load-plugins": "*",
     "gulp-ng-annotate": "*",
@@ -21,18 +25,14 @@
     "gulp-scss-lint": "*",
     "gulp-size": "*",
     "gulp-sourcemaps": "*",
+    "gulp-tslint": "*",
+    "gulp-typescript": "*",
     "gulp-uglify": "*",
     "gulp-usemin": "*",
     "jshint-stylish": "*",
     "run-sequence": "*",
-    "wiredep": "*",
-    "gulp-jade": "*",
-
-    "gulp-typescript": "*",
-    "gulp-tslint": "*",
     "tslint": "*",
     "typescript": "*",
-
-    "@types/angular": "^1.6.17"
+    "wiredep": "*"
   }
 }
