@@ -15,13 +15,15 @@ namespace MindModule {
         Title:string;
         Importance?:number;
         Wants?:Array<any>;
+        Value?:number;
     }
     export class Need implements INeed {
         constructor (
             public Id:string = '',
             public Title: string = '',
             public Importance:number = 0, 
-            public Wants:Array<any> = []
+            public Wants:Array<any> = [],
+            public Value:number = 0
         ) {}  
     }
 
@@ -40,6 +42,20 @@ namespace MindModule {
             public ValueAddition:number = 0, 
             public Affections:Array<any> = [],
             public Convertions:Array<any> = []
+        ) {}  
+    }
+
+    export interface IWant
+    {
+        Id:string;
+        Title:string;
+        Target:string;
+    }
+    export class Want implements IWant {
+        constructor (
+            public Id:string = '',
+            public Title: string = '',
+            public Target: string = ''
         ) {}  
     }
 

@@ -6,15 +6,17 @@ var TemplateModule;
 var MindModule;
 (function (MindModule) {
     var Need = (function () {
-        function Need(Id, Title, Importance, Wants) {
+        function Need(Id, Title, Importance, Wants, Value) {
             if (Id === void 0) { Id = ''; }
             if (Title === void 0) { Title = ''; }
             if (Importance === void 0) { Importance = 0; }
             if (Wants === void 0) { Wants = []; }
+            if (Value === void 0) { Value = 0; }
             this.Id = Id;
             this.Title = Title;
             this.Importance = Importance;
             this.Wants = Wants;
+            this.Value = Value;
         }
         return Need;
     }());
@@ -35,6 +37,18 @@ var MindModule;
         return Feeling;
     }());
     MindModule.Feeling = Feeling;
+    var Want = (function () {
+        function Want(Id, Title, Target) {
+            if (Id === void 0) { Id = ''; }
+            if (Title === void 0) { Title = ''; }
+            if (Target === void 0) { Target = ''; }
+            this.Id = Id;
+            this.Title = Title;
+            this.Target = Target;
+        }
+        return Want;
+    }());
+    MindModule.Want = Want;
     var Action = (function () {
         function Action(Id, Title) {
             if (Id === void 0) { Id = ''; }
@@ -51,11 +65,66 @@ var MindModule;
 ///<reference path="../mind.module.ts"/>
 var MindModule;
 (function (MindModule) {
+    var MindService = (function () {
+        function MindService($rootScope, $q, $interval, $window) {
+            var _this = this;
+            this.$rootScope = $rootScope;
+            this.$q = $q;
+            this.$interval = $interval;
+            this.$window = $window;
+            this.bFetchingFilters = false;
+            this.currentTime = 0;
+            this.playRate = 1;
+            //private timeListeners: Array<ng.IDeferred<any>> = [];
+            this.timeListeners = [];
+            $interval(function () {
+                _this.tick(1000 / 60);
+            }, 1000 / 60);
+            // Tick should be on requestAnimationFrame
+        }
+        MindService.prototype.progressTime = function (timeProgressed) {
+            this.currentTime += timeProgressed;
+            //OnTimeUpdated.Broadcast(Time, Amount);
+            for (var _i = 0, _a = this.timeListeners; _i < _a.length; _i++) {
+                var listener = _a[_i];
+                listener(this.currentTime, timeProgressed);
+            }
+            this.$rootScope.$broadcast('timeUpdate', {
+                currentTime: this.currentTime,
+                timeProgressed: timeProgressed
+            });
+        };
+        MindService.prototype.tick = function (deltaTime) {
+            this.progressTime(deltaTime * this.playRate);
+        };
+        MindService.prototype.bindToTimeUpdate = function (caller, method) {
+            this.timeListeners.push(method);
+        };
+        return MindService;
+    }());
+    MindModule.MindService = MindService;
+    angular.module(MindModule.moduleId).service("mindService", MindService);
+})(MindModule || (MindModule = {}));
+///<reference path="../mind.module.ts"/>
+///<reference path="../services/mind.service.ts"/>
+var MindModule;
+(function (MindModule) {
     var MindActorController = (function () {
         function MindActorController($rootScope, $scope, mindService) {
             var _this = this;
             this.mindService = mindService;
+            this.needPreferences = [
+                {
+                    Id: "NEED_Food",
+                    MinValue: 10
+                },
+                {
+                    Id: "NEED_Sleep",
+                    MinValue: 20
+                }
+            ];
             this.needs = [];
+            this.wants = [];
             $scope.$on('timeUpdate', function (e, arg) {
                 //this.onTimeUpdate(arg...);
                 _this.onTimeUpdate(arg.currentTime, arg.timeProgressed);
@@ -88,6 +157,7 @@ var MindModule;
             for (var _i = 0, _a = this.needs; _i < _a.length; _i++) {
                 var need = _a[_i];
                 //need.Wants
+                need.Value += timeProgressed;
             }
         };
         return MindActorController;
@@ -105,46 +175,4 @@ var MindModule;
         return MindActorComponent;
     }());
     angular.module(MindModule.moduleId).component("mindActor", new MindActorComponent());
-})(MindModule || (MindModule = {}));
-///<reference path="../mind.module.ts"/>
-var MindModule;
-(function (MindModule) {
-    var MindService = (function () {
-        function MindService($rootScope, $q, $interval, $window) {
-            var _this = this;
-            this.$rootScope = $rootScope;
-            this.$q = $q;
-            this.$interval = $interval;
-            this.$window = $window;
-            this.bFetchingFilters = false;
-            this.currentTime = 0;
-            this.playRate = 1;
-            //private timeListeners: Array<ng.IDeferred<any>> = [];
-            this.timeListeners = [];
-            $interval(function () {
-                _this.tick(1000 / 60);
-            }, 1000 / 60);
-        }
-        MindService.prototype.progressTime = function (timeProgressed) {
-            this.currentTime += timeProgressed;
-            //OnTimeUpdated.Broadcast(Time, Amount);
-            for (var _i = 0, _a = this.timeListeners; _i < _a.length; _i++) {
-                var listener = _a[_i];
-                listener(this.currentTime, timeProgressed);
-            }
-            this.$rootScope.$broadcast('timeUpdate', {
-                currentTime: this.currentTime,
-                timeProgressed: timeProgressed
-            });
-        };
-        MindService.prototype.tick = function (deltaTime) {
-            this.progressTime(deltaTime * this.playRate);
-        };
-        MindService.prototype.bindToTimeUpdate = function (caller, method) {
-            this.timeListeners.push(method);
-        };
-        return MindService;
-    }());
-    MindModule.MindService = MindService;
-    angular.module(MindModule.moduleId).service("mindService", MindService);
 })(MindModule || (MindModule = {}));

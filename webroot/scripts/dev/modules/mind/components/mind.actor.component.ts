@@ -1,24 +1,39 @@
 ///<reference path="../mind.module.ts"/>
+///<reference path="../services/mind.service.ts"/>
 
 
 namespace MindModule {
 
 	type MindService = MindModule.MindService;
 
-    class MindActorController {
+	class MindActorController {
 
-		public data:any;
+		public data: any;
 		//public onFacetChange:Function;
-		public time:number;
-		public needs:Array<INeed>;
+		public time: number;
+		public needs: Array<INeed>;
+		public wants: Array<IWant>;
+
+		public needPreferences = [
+			{
+				Id: "NEED_Food",
+				MinValue: 10
+			},
+			{
+				Id: "NEED_Sleep",
+				MinValue: 20
+			}
+		];
 
 		constructor(
-			$rootScope:ng.IRootScopeService, 
-			$scope:ng.IScope,
-			private mindService:MindService
-			) {
+			$rootScope: ng.IRootScopeService,
+			$scope: ng.IScope,
+			private mindService: MindService
+		) {
 			this.needs = [];
-			$scope.$on('timeUpdate', (e:any, arg:any) => {
+			this.wants = [];
+
+			$scope.$on('timeUpdate', (e: any, arg: any) => {
 				//this.onTimeUpdate(arg...);
 				this.onTimeUpdate(arg.currentTime, arg.timeProgressed);
 			});
@@ -39,30 +54,28 @@ namespace MindModule {
 			*/
 			let need = new Need('NEED_Food');
 			this.needs.push(need);
-			
+
 			//this.mindService.bindToTimeUpdate(this, this.onTimeUpdate);
 
 			// Strive for emotional balance.
 
 		}
 
-		public onTimeUpdate(time:number, timeProgressed:number):void {
+		public onTimeUpdate(time: number, timeProgressed: number): void {
 			//console.log('onTimeUpdate', time, timeProgressed);
 			this.time = time;
 			this.progressNeeds(timeProgressed);
 		}
 
-		public progressNeeds(timeProgressed:number):void {
-			 for (let need of this.needs) {
-				 //need.Wants
-			 }
+		public progressNeeds(timeProgressed: number): void {
+			for (let need of this.needs) {
+				//need.Wants
+				need.Value += timeProgressed;
+			}
+
+
 		}
-		/*
-		public updateFilter(resetUrl: boolean = false) {
-			this.onFacetChange();
-		}
-		*/
- 
+
 	}
 
 	class MindActorComponent implements ng.IComponentOptions {

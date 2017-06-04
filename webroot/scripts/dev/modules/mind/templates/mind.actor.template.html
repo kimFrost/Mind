@@ -1,4 +1,13 @@
 <div>
     Mind actor
     time: {{$ctrl.time}}
+
+    <div>
+        Needs:
+        <div ng-repeat="need in $ctrl.needs">{{need.Id}} : {{need.Value}}</div>
+    </div>
+    <div>
+        Wants:
+        <div ng-repeat="want in $ctrl.wants">{{.want.Title}}</div>
+    </div>
 </div>
