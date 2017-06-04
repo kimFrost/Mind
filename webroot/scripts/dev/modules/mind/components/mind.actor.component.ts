@@ -1,23 +1,32 @@
+///<reference path="../mind.module.ts"/>
 
 
 namespace MindModule {
 
-	//type MindActorService = MindModule.MindActorService;
+	type MindService = MindModule.MindService;
 
     class MindActorController {
 
 		public data:any;
 		//public onFacetChange:Function;
+		public time:number;
+		public needs:Array<INeed>;
 
-		public needs:Array<any>;
-
-		constructor($rootScope:ng.IRootScopeService) {
+		constructor(
+			$rootScope:ng.IRootScopeService, 
+			$scope:ng.IScope,
+			private mindService:MindService
+			) {
 			this.needs = [];
+			$scope.$on('timeUpdate', (e:any, arg:any) => {
+				//this.onTimeUpdate(arg...);
+				this.onTimeUpdate(arg.currentTime, arg.timeProgressed);
+			});
 		}
 
 		$onInit() {
 			console.log('mind actor init');
-
+			/*
 			let need = {
 				type: 'eat',
 				level: 1,
@@ -27,10 +36,27 @@ namespace MindModule {
 					}
 				]
 			}
-			//let need = new Need();
-			//this.needs.push(need);
+			*/
+			let need = new Need('NEED_Food');
+			this.needs.push(need);
+			
+			//this.mindService.bindToTimeUpdate(this, this.onTimeUpdate);
+
+			// Strive for emotional balance.
+
 		}
 
+		public onTimeUpdate(time:number, timeProgressed:number):void {
+			//console.log('onTimeUpdate', time, timeProgressed);
+			this.time = time;
+			this.progressNeeds(timeProgressed);
+		}
+
+		public progressNeeds(timeProgressed:number):void {
+			 for (let need of this.needs) {
+				 //need.Wants
+			 }
+		}
 		/*
 		public updateFilter(resetUrl: boolean = false) {
 			this.onFacetChange();

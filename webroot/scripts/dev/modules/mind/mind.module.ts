@@ -9,19 +9,49 @@ namespace TemplateModule {
 
 namespace MindModule {
 
-    export interface ILessonsFilterFacet
+    export interface INeed
     {
-        Count?:Number;
-        Key:string;
-        Selected?:boolean;
-        TotalCount?:Number;
+        Id:string;
+        Title:string;
+        Importance?:number;
+        Wants?:Array<any>;
     }
-    export class FilterFacet implements ILessonsFilterFacet {
+    export class Need implements INeed {
         constructor (
-            public Key:string = '',
-            public Selected: boolean = false,
-            public Count:Number = 0, 
-            public TotalCount:Number = 0, 
+            public Id:string = '',
+            public Title: string = '',
+            public Importance:number = 0, 
+            public Wants:Array<any> = []
+        ) {}  
+    }
+
+    export interface IFeeling
+    {
+        Id:string;
+        Title:string;
+        ValueAddition?:number;
+        Affections?:Array<any>;
+        Convertions?:Array<any>;
+    }
+    export class Feeling implements IFeeling {
+        constructor (
+            public Id:string = '',
+            public Title: string = '',
+            public ValueAddition:number = 0, 
+            public Affections:Array<any> = [],
+            public Convertions:Array<any> = []
+        ) {}  
+    }
+
+    export interface IAction
+    {
+        Id:string;
+        Title:string;
+    }
+    export class Action implements IAction {
+        constructor (
+            public Id:string = '',
+            public Title: string = ''
         ) {}  
     }
 

@@ -1,4 +1,4 @@
-﻿///<reference path="../../../../references/references.ts"/>
+﻿///<reference path="../mind.module.ts.ts"/>
 
 
 namespace LessonsFilterModule {

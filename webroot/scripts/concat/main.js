@@ -5,33 +5,66 @@ var TemplateModule;
 })(TemplateModule || (TemplateModule = {}));
 var MindModule;
 (function (MindModule) {
-    var FilterFacet = (function () {
-        function FilterFacet(Key, Selected, Count, TotalCount) {
-            if (Key === void 0) { Key = ''; }
-            if (Selected === void 0) { Selected = false; }
-            if (Count === void 0) { Count = 0; }
-            if (TotalCount === void 0) { TotalCount = 0; }
-            this.Key = Key;
-            this.Selected = Selected;
-            this.Count = Count;
-            this.TotalCount = TotalCount;
+    var Need = (function () {
+        function Need(Id, Title, Importance, Wants) {
+            if (Id === void 0) { Id = ''; }
+            if (Title === void 0) { Title = ''; }
+            if (Importance === void 0) { Importance = 0; }
+            if (Wants === void 0) { Wants = []; }
+            this.Id = Id;
+            this.Title = Title;
+            this.Importance = Importance;
+            this.Wants = Wants;
         }
-        return FilterFacet;
+        return Need;
     }());
-    MindModule.FilterFacet = FilterFacet;
+    MindModule.Need = Need;
+    var Feeling = (function () {
+        function Feeling(Id, Title, ValueAddition, Affections, Convertions) {
+            if (Id === void 0) { Id = ''; }
+            if (Title === void 0) { Title = ''; }
+            if (ValueAddition === void 0) { ValueAddition = 0; }
+            if (Affections === void 0) { Affections = []; }
+            if (Convertions === void 0) { Convertions = []; }
+            this.Id = Id;
+            this.Title = Title;
+            this.ValueAddition = ValueAddition;
+            this.Affections = Affections;
+            this.Convertions = Convertions;
+        }
+        return Feeling;
+    }());
+    MindModule.Feeling = Feeling;
+    var Action = (function () {
+        function Action(Id, Title) {
+            if (Id === void 0) { Id = ''; }
+            if (Title === void 0) { Title = ''; }
+            this.Id = Id;
+            this.Title = Title;
+        }
+        return Action;
+    }());
+    MindModule.Action = Action;
     MindModule.moduleId = "mindModule";
     angular.module(MindModule.moduleId, ['templates']);
 })(MindModule || (MindModule = {}));
+///<reference path="../mind.module.ts"/>
 var MindModule;
 (function (MindModule) {
-    //type MindActorService = MindModule.MindActorService;
     var MindActorController = (function () {
-        function MindActorController($rootScope) {
+        function MindActorController($rootScope, $scope, mindService) {
+            var _this = this;
+            this.mindService = mindService;
             this.needs = [];
+            $scope.$on('timeUpdate', function (e, arg) {
+                //this.onTimeUpdate(arg...);
+                _this.onTimeUpdate(arg.currentTime, arg.timeProgressed);
+            });
         }
         MindActorController.prototype.$onInit = function () {
             console.log('mind actor init');
-            var need = {
+            /*
+            let need = {
                 type: 'eat',
                 level: 1,
                 wants: [
@@ -39,9 +72,23 @@ var MindModule;
                         targetTags: ['food']
                     }
                 ]
-            };
-            //let need = new Need();
-            //this.needs.push(need);
+            }
+            */
+            var need = new MindModule.Need('NEED_Food');
+            this.needs.push(need);
+            //this.mindService.bindToTimeUpdate(this, this.onTimeUpdate);
+            // Strive for emotional balance.
+        };
+        MindActorController.prototype.onTimeUpdate = function (time, timeProgressed) {
+            //console.log('onTimeUpdate', time, timeProgressed);
+            this.time = time;
+            this.progressNeeds(timeProgressed);
+        };
+        MindActorController.prototype.progressNeeds = function (timeProgressed) {
+            for (var _i = 0, _a = this.needs; _i < _a.length; _i++) {
+                var need = _a[_i];
+                //need.Wants
+            }
         };
         return MindActorController;
     }());
@@ -58,4 +105,46 @@ var MindModule;
         return MindActorComponent;
     }());
     angular.module(MindModule.moduleId).component("mindActor", new MindActorComponent());
+})(MindModule || (MindModule = {}));
+///<reference path="../mind.module.ts"/>
+var MindModule;
+(function (MindModule) {
+    var MindService = (function () {
+        function MindService($rootScope, $q, $interval, $window) {
+            var _this = this;
+            this.$rootScope = $rootScope;
+            this.$q = $q;
+            this.$interval = $interval;
+            this.$window = $window;
+            this.bFetchingFilters = false;
+            this.currentTime = 0;
+            this.playRate = 1;
+            //private timeListeners: Array<ng.IDeferred<any>> = [];
+            this.timeListeners = [];
+            $interval(function () {
+                _this.tick(1000 / 60);
+            }, 1000 / 60);
+        }
+        MindService.prototype.progressTime = function (timeProgressed) {
+            this.currentTime += timeProgressed;
+            //OnTimeUpdated.Broadcast(Time, Amount);
+            for (var _i = 0, _a = this.timeListeners; _i < _a.length; _i++) {
+                var listener = _a[_i];
+                listener(this.currentTime, timeProgressed);
+            }
+            this.$rootScope.$broadcast('timeUpdate', {
+                currentTime: this.currentTime,
+                timeProgressed: timeProgressed
+            });
+        };
+        MindService.prototype.tick = function (deltaTime) {
+            this.progressTime(deltaTime * this.playRate);
+        };
+        MindService.prototype.bindToTimeUpdate = function (caller, method) {
+            this.timeListeners.push(method);
+        };
+        return MindService;
+    }());
+    MindModule.MindService = MindService;
+    angular.module(MindModule.moduleId).service("mindService", MindService);
 })(MindModule || (MindModule = {}));
