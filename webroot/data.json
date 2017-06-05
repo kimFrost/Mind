@@ -4,6 +4,22 @@
 			"Id": "NEED_Food",
 			"Title": "Food",
 			"Importance": 5,
+			"Segments": [
+				{
+					"Min": 10,
+					"Max": 30,
+					"Multiplier": 1
+				},
+				{
+					"Min": 30,
+					"Max": 60,
+					"Multiplier": 2
+				}
+			],
+			"0": {
+				"Min": 10,
+				"Max": 30
+			},
 			"Wants": [
 				{
 					"Id": "WANT_Consume",

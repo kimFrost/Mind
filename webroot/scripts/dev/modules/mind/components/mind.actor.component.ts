@@ -22,8 +22,19 @@ namespace MindModule {
 			{
 				Id: "NEED_Sleep",
 				MinValue: 20
-			}
+			},
 		];
+		public Segments = {
+			0: {
+				Min: 0,
+				Max: 10,
+			},
+			1: {
+				Min: 10,
+				Max: 30,
+			}
+		};
+
 
 		constructor(
 			$rootScope: ng.IRootScopeService,
